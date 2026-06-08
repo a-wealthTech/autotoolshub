@@ -1,7 +1,7 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
-import { CATEGORIES } from "@/lib/categories";
+import { CATEGORIES, TOOL_DETAILS } from "@/lib/categories";
 
 export const Route = createFileRoute("/categories/$categoryId")({
   loader: ({ params }) => {
@@ -36,6 +36,8 @@ export const Route = createFileRoute("/categories/$categoryId")({
 
 function CategoryPage() {
   const { category } = Route.useLoaderData();
+  const navigate = useNavigate();
+  const tools = TOOL_DETAILS.filter((t) => t.categoryId === category.id);
   const Icon = category.icon;
   return (
     <PageShell>
@@ -61,24 +63,48 @@ function CategoryPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {category.tools.map((t: { code: string; name: string }) => (
-            <div
+          {tools.map((t) => (
+            <Link
               key={t.code}
-              className="rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
+              to="/tools/$toolSlug"
+              params={{ toolSlug: t.slug }}
+              className="group flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
             >
-              <span className="rounded-full bg-brand-soft px-2 py-1 text-xs font-bold text-brand">
-                {t.code}
-              </span>
+              <div className="flex items-center justify-between">
+                <span className="rounded-full bg-brand-soft px-2 py-1 text-xs font-bold text-brand">{t.code}</span>
+                {t.platform && (
+                  <span className="rounded-full border border-border bg-background px-2 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
+                    {t.platform}
+                  </span>
+                )}
+              </div>
               <h3 className="mt-4 text-lg font-bold text-ink">{t.name}</h3>
-              <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+              <ul className="mt-3 flex-1 space-y-1.5 text-sm text-muted-foreground">
                 <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Trigger & action endpoints</li>
                 <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Webhook delivery + retries</li>
                 <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> AI-enhanced workflows</li>
               </ul>
-              <Link to="/contact" className="mt-5 inline-block text-sm font-semibold text-brand hover:underline">
-                Request access →
-              </Link>
-            </div>
+              <div className="mt-5 flex items-center justify-between">
+                <span className="text-sm font-extrabold text-ink">
+                  ${t.price.monthly}<span className="text-xs font-medium text-muted-foreground">/mo</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate({
+                      to: "/checkout/$toolSlug",
+                      params: { toolSlug: t.slug },
+                      search: { plan: "monthly" },
+                    });
+                  }}
+                  className="rounded-lg bg-gradient-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-brand"
+                >
+                  Buy Now
+                </button>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
