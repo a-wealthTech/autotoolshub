@@ -80,11 +80,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "AutoToolsHub — The Ultimate Automation Tools & API Marketplace" },
       { name: "description", content: "Access powerful trigger APIs, AI automation systems, creator growth tools, and social media integrations from one centralized hub." },
       { name: "author", content: "AutoToolsHub" },
-      { property: "og:title", content: "AutoToolsHub — Automation Tools & API Marketplace" },
-      { property: "og:description", content: "Trigger APIs, AI workflows, creator growth, and platform integrations in one premium hub." },
+      { property: "og:title", content: "AutoToolsHub — The Ultimate Automation Tools & API Marketplace" },
+      { property: "og:description", content: "Access powerful trigger APIs, AI automation systems, creator growth tools, and social media integrations from one centralized hub." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "AutoToolsHub — The Ultimate Automation Tools & API Marketplace" },
+      { name: "twitter:description", content: "Access powerful trigger APIs, AI automation systems, creator growth tools, and social media integrations from one centralized hub." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6081bdfd-9ff4-49cc-9453-c2d5f52f54d0/id-preview-83cb554c--6dc66966-8b41-40ca-95d2-1b88791130a2.lovable.app-1780901878581.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6081bdfd-9ff4-49cc-9453-c2d5f52f54d0/id-preview-83cb554c--6dc66966-8b41-40ca-95d2-1b88791130a2.lovable.app-1780901878581.png" },
     ],
     links: [
       {
