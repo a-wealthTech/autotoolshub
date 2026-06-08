@@ -129,3 +129,47 @@ export const ALL_TOOLS = CATEGORIES.flatMap((c) =>
     icon: c.icon,
   })),
 );
+
+// Deterministic price tiers based on category for demo marketplace pricing.
+const PRICE_BY_CATEGORY: Record<string, { monthly: number; yearly: number; trial: boolean }> = {
+  "core-automation": { monthly: 79, yearly: 790, trial: true },
+  "social-triggers": { monthly: 49, yearly: 490, trial: true },
+  "audience-growth": { monthly: 59, yearly: 590, trial: true },
+  marketing: { monthly: 69, yearly: 690, trial: true },
+  streaming: { monthly: 39, yearly: 390, trial: true },
+  ai: { monthly: 99, yearly: 990, trial: true },
+};
+
+// Detect platform from tool name for badges/filters.
+const PLATFORM_KEYWORDS = [
+  "YouTube", "Twitch", "Facebook", "Instagram", "TikTok",
+  "LinkedIn", "Pinterest", "Threads", "X", "Twitter",
+] as const;
+
+function detectPlatform(name: string): string | null {
+  for (const p of PLATFORM_KEYWORDS) {
+    if (name.toLowerCase().includes(p.toLowerCase())) return p === "Twitter" ? "X" : p;
+  }
+  return null;
+}
+
+export type ToolDetail = (typeof ALL_TOOLS)[number] & {
+  slug: string;
+  platform: string | null;
+  price: { monthly: number; yearly: number; trial: boolean };
+};
+
+export const TOOL_DETAILS: ToolDetail[] = ALL_TOOLS.map((t) => ({
+  ...t,
+  slug: t.code.replace(/\./g, "-"),
+  platform: detectPlatform(t.name),
+  price: PRICE_BY_CATEGORY[t.categoryId] ?? { monthly: 49, yearly: 490, trial: true },
+}));
+
+export const PLATFORMS_LIST = Array.from(
+  new Set(TOOL_DETAILS.map((t) => t.platform).filter(Boolean) as string[]),
+);
+
+export function getToolBySlug(slug: string): ToolDetail | undefined {
+  return TOOL_DETAILS.find((t) => t.slug === slug);
+}

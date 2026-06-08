@@ -1,7 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Code2, Boxes, Plug } from "lucide-react";
 import { PageShell, PageHero } from "@/components/site/PageShell";
-import { ALL_TOOLS } from "@/lib/categories";
+import { TOOL_DETAILS } from "@/lib/categories";
 
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
@@ -14,6 +14,7 @@ export const Route = createFileRoute("/marketplace")({
 });
 
 function MarketplacePage() {
+  const navigate = useNavigate();
   return (
     <PageShell>
       <PageHero
@@ -43,18 +44,38 @@ function MarketplacePage() {
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <h2 className="mb-6 text-2xl font-bold text-ink">Popular APIs</h2>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {ALL_TOOLS.slice(0, 12).map((t) => (
-            <div key={t.code} className="rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:shadow-brand">
+          {TOOL_DETAILS.slice(0, 12).map((t) => (
+            <Link
+              key={t.code}
+              to="/tools/$toolSlug"
+              params={{ toolSlug: t.slug }}
+              className="group rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
+            >
               <div className="flex items-center justify-between">
                 <span className="rounded-full bg-brand-soft px-2 py-1 text-xs font-bold text-brand">{t.code}</span>
                 <span className="text-xs font-semibold text-muted-foreground">REST · Webhooks</span>
               </div>
               <h3 className="mt-4 text-base font-bold text-ink">{t.name}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{t.categoryTitle}</p>
-              <Link to="/pricing" className="mt-4 inline-block text-sm font-semibold text-brand hover:underline">
-                View pricing →
-              </Link>
-            </div>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="text-sm font-extrabold text-ink">${t.price.monthly}/mo</span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate({
+                      to: "/checkout/$toolSlug",
+                      params: { toolSlug: t.slug },
+                      search: { plan: "monthly" },
+                    });
+                  }}
+                  className="rounded-lg bg-gradient-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-brand"
+                >
+                  Buy Now
+                </button>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
