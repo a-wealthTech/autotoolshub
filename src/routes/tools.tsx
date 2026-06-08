@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Search, ArrowRight, Flame } from "lucide-react";
 import { PageShell, PageHero } from "@/components/site/PageShell";
@@ -15,6 +15,7 @@ export const Route = createFileRoute("/tools")({
 });
 
 function ToolsPage() {
+  const navigate = useNavigate();
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("all");
   const [platform, setPlatform] = useState<string>("all");
@@ -137,25 +138,33 @@ function ToolsPage() {
                   View details <ArrowRight className="h-3.5 w-3.5" />
                 </span>
               </div>
-              <div
-                className="mt-3 grid grid-cols-2 gap-2"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <Link
-                  to="/tools/$toolSlug"
-                  params={{ toolSlug: t.slug }}
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate({ to: "/tools/$toolSlug", params: { toolSlug: t.slug } });
+                  }}
                   className="rounded-lg border border-border bg-background px-3 py-2 text-center text-xs font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
                 >
                   View Details
-                </Link>
-                <Link
-                  to="/checkout/$toolSlug"
-                  params={{ toolSlug: t.slug }}
-                  search={{ plan: "monthly" }}
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate({
+                      to: "/checkout/$toolSlug",
+                      params: { toolSlug: t.slug },
+                      search: { plan: "monthly" },
+                    });
+                  }}
                   className="rounded-lg bg-gradient-brand px-3 py-2 text-center text-xs font-bold text-brand-foreground shadow-brand"
                 >
                   Buy Now
-                </Link>
+                </button>
               </div>
             </Link>
           ))}
