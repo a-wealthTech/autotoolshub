@@ -12,7 +12,8 @@ export const Route = createFileRoute("/pricing")({
   component: PricingPage,
 });
 
-const PLANS = [
+type Plan = { name: string; price: string; desc: string; features: string[]; cta: string; highlighted?: boolean };
+const PLANS: Plan[] = [
   {
     name: "Starter",
     price: "$49",
@@ -42,7 +43,7 @@ const PLANS = [
     features: ["Unlimited everything", "Dedicated infra", "SSO + SAML", "Audit logs", "Dedicated CSM"],
     cta: "Contact sales",
   },
-] as const;
+];
 
 const COMPARE = [
   ["Active automations", "10", "100", "Unlimited", "Unlimited"],

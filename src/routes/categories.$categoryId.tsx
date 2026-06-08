@@ -61,7 +61,7 @@ function CategoryPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {category.tools.map((t) => (
+          {category.tools.map((t: { code: string; name: string }) => (
             <div
               key={t.code}
               className="rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
