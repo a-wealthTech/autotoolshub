@@ -18,6 +18,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ToolsToolSlugRouteImport } from './routes/tools.$toolSlug'
 import { Route as CategoriesCategoryIdRouteImport } from './routes/categories.$categoryId'
 
 const ToolsRoute = ToolsRouteImport.update({
@@ -65,6 +66,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ToolsToolSlugRoute = ToolsToolSlugRouteImport.update({
+  id: '/$toolSlug',
+  path: '/$toolSlug',
+  getParentRoute: () => ToolsRoute,
+} as any)
 const CategoriesCategoryIdRoute = CategoriesCategoryIdRouteImport.update({
   id: '/$categoryId',
   path: '/$categoryId',
@@ -80,8 +86,9 @@ export interface FileRoutesByFullPath {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
-  '/tools': typeof ToolsRoute
+  '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
+  '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,8 +99,9 @@ export interface FileRoutesByTo {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
-  '/tools': typeof ToolsRoute
+  '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
+  '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -105,8 +113,9 @@ export interface FileRoutesById {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
-  '/tools': typeof ToolsRoute
+  '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
+  '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/tools'
     | '/categories/$categoryId'
+    | '/tools/$toolSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/tools'
     | '/categories/$categoryId'
+    | '/tools/$toolSlug'
   id:
     | '__root__'
     | '/'
@@ -145,6 +156,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/tools'
     | '/categories/$categoryId'
+    | '/tools/$toolSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -156,7 +168,7 @@ export interface RootRouteChildren {
   IntegrationsRoute: typeof IntegrationsRoute
   MarketplaceRoute: typeof MarketplaceRoute
   PricingRoute: typeof PricingRoute
-  ToolsRoute: typeof ToolsRoute
+  ToolsRoute: typeof ToolsRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -224,6 +236,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tools/$toolSlug': {
+      id: '/tools/$toolSlug'
+      path: '/$toolSlug'
+      fullPath: '/tools/$toolSlug'
+      preLoaderRoute: typeof ToolsToolSlugRouteImport
+      parentRoute: typeof ToolsRoute
+    }
     '/categories/$categoryId': {
       id: '/categories/$categoryId'
       path: '/$categoryId'
@@ -246,6 +265,16 @@ const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
   CategoriesRouteChildren,
 )
 
+interface ToolsRouteChildren {
+  ToolsToolSlugRoute: typeof ToolsToolSlugRoute
+}
+
+const ToolsRouteChildren: ToolsRouteChildren = {
+  ToolsToolSlugRoute: ToolsToolSlugRoute,
+}
+
+const ToolsRouteWithChildren = ToolsRoute._addFileChildren(ToolsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BlogRoute: BlogRoute,
@@ -255,7 +284,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntegrationsRoute: IntegrationsRoute,
   MarketplaceRoute: MarketplaceRoute,
   PricingRoute: PricingRoute,
-  ToolsRoute: ToolsRoute,
+  ToolsRoute: ToolsRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
