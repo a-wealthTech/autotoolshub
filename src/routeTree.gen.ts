@@ -19,6 +19,7 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsToolSlugRouteImport } from './routes/tools.$toolSlug'
+import { Route as CheckoutToolSlugRouteImport } from './routes/checkout.$toolSlug'
 import { Route as CategoriesCategoryIdRouteImport } from './routes/categories.$categoryId'
 
 const ToolsRoute = ToolsRouteImport.update({
@@ -71,6 +72,11 @@ const ToolsToolSlugRoute = ToolsToolSlugRouteImport.update({
   path: '/$toolSlug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const CheckoutToolSlugRoute = CheckoutToolSlugRouteImport.update({
+  id: '/checkout/$toolSlug',
+  path: '/checkout/$toolSlug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriesCategoryIdRoute = CategoriesCategoryIdRouteImport.update({
   id: '/$categoryId',
   path: '/$categoryId',
@@ -88,6 +94,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
+  '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRoutesByTo {
@@ -101,6 +108,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
+  '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRoutesById {
@@ -115,6 +123,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
+  '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRouteTypes {
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/tools'
     | '/categories/$categoryId'
+    | '/checkout/$toolSlug'
     | '/tools/$toolSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -143,6 +153,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/tools'
     | '/categories/$categoryId'
+    | '/checkout/$toolSlug'
     | '/tools/$toolSlug'
   id:
     | '__root__'
@@ -156,6 +167,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/tools'
     | '/categories/$categoryId'
+    | '/checkout/$toolSlug'
     | '/tools/$toolSlug'
   fileRoutesById: FileRoutesById
 }
@@ -169,6 +181,7 @@ export interface RootRouteChildren {
   MarketplaceRoute: typeof MarketplaceRoute
   PricingRoute: typeof PricingRoute
   ToolsRoute: typeof ToolsRouteWithChildren
+  CheckoutToolSlugRoute: typeof CheckoutToolSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -243,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsToolSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/checkout/$toolSlug': {
+      id: '/checkout/$toolSlug'
+      path: '/checkout/$toolSlug'
+      fullPath: '/checkout/$toolSlug'
+      preLoaderRoute: typeof CheckoutToolSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/categories/$categoryId': {
       id: '/categories/$categoryId'
       path: '/$categoryId'
@@ -285,6 +305,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceRoute: MarketplaceRoute,
   PricingRoute: PricingRoute,
   ToolsRoute: ToolsRouteWithChildren,
+  CheckoutToolSlugRoute: CheckoutToolSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
