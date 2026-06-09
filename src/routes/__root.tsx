@@ -87,8 +87,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "AutoToolsHub — The Ultimate Automation Tools & API Marketplace" },
       { name: "twitter:description", content: "Access powerful trigger APIs, AI automation systems, creator growth tools, and social media integrations from one centralized hub." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6081bdfd-9ff4-49cc-9453-c2d5f52f54d0/id-preview-83cb554c--6dc66966-8b41-40ca-95d2-1b88791130a2.lovable.app-1780901878581.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/6081bdfd-9ff4-49cc-9453-c2d5f52f54d0/id-preview-83cb554c--6dc66966-8b41-40ca-95d2-1b88791130a2.lovable.app-1780901878581.png" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
     ],
     links: [
       {
