@@ -11,6 +11,11 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import faviconIco from "../../public/favicon.ico.asset.json";
+import favicon16 from "../../public/favicon-16x16.png.asset.json";
+import favicon32 from "../../public/favicon-32x32.png.asset.json";
+import appleTouchIcon from "../../public/apple-touch-icon.png.asset.json";
+
 
 function NotFoundComponent() {
   return (
@@ -95,10 +100,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "icon", type: "image/x-icon", href: faviconIco.url },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: favicon16.url },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: favicon32.url },
+      { rel: "apple-touch-icon", sizes: "180x180", href: appleTouchIcon.url },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" },
     ],
+
   }),
   shellComponent: RootShell,
   component: RootComponent,
