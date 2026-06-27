@@ -16,7 +16,6 @@ import favicon16 from "../../public/favicon-16x16.png.asset.json";
 import favicon32 from "../../public/favicon-32x32.png.asset.json";
 import appleTouchIcon from "../../public/apple-touch-icon.png.asset.json";
 
-
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
