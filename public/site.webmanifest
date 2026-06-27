@@ -1,0 +1,22 @@
+{
+  "name": "AutoToolsHub",
+  "short_name": "AutoToolsHub",
+  "description": "The Ultimate Automation Tools & API Marketplace",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1F2937",
+  "theme_color": "#FF6A00",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/__l5e/assets-v1/503588f6-3c50-404f-a7de-bed97cc77e7b/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/__l5e/assets-v1/d306670c-d73e-48e3-8db1-e281ba5e7222/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
