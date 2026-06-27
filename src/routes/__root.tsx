@@ -94,6 +94,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:description", content: "Access powerful trigger APIs, AI automation systems, creator growth tools, and social media integrations from one centralized hub." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
+      { name: "theme-color", content: "#FF6A00" },
+
     ],
     links: [
       {
