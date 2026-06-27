@@ -94,6 +94,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
       { name: "theme-color", content: "#FF6A00" },
+      { name: "og:site_name", content: "AutoToolsHub" },
     ],
     links: [
       {
@@ -108,6 +109,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "AutoToolsHub",
+          url: "https://biztrait.com",
+          logo: "https://biztrait.com/__l5e/assets-v1/d306670c-d73e-48e3-8db1-e281ba5e7222/android-chrome-512x512.png",
+          sameAs: [
+            "https://twitter.com/AutoToolsHub",
+            "https://linkedin.com/company/autotoolshub",
+          ],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
