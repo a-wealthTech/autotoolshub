@@ -6,7 +6,7 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Biztrait Market Play" },
+      { title: "Contact — Biztrait Market" },
       { name: "description", content: "Talk to the Biztrait team — sales, support, partnerships, and Discord bot deployment help." },
       { property: "og:title", content: "Contact Biztrait — Sales, support, partnerships" },
       { property: "og:description", content: "Reach the Biztrait team for sales, demos, partnerships, or support." },

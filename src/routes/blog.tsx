@@ -4,7 +4,7 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Blog — Biztrait Market Play" },
+      { title: "Blog — Biztrait Market" },
       { name: "description", content: "Insights, tutorials, and product updates on automation, AI workflows, Discord bots, and creator growth from the Biztrait team." },
       { property: "og:title", content: "Biztrait Blog — Automation & Discord playbooks" },
       { property: "og:description", content: "Tutorials and product updates on automation, AI, and Discord bots." },
@@ -49,7 +49,7 @@ function BlogPage() {
       <PageHero
         eyebrow="Blog"
         title="Automation insights & playbooks"
-        subtitle="From the team building Biztrait Market Play."
+        subtitle="From the team building Biztrait Market."
       />
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

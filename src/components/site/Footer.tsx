@@ -49,7 +49,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Logo />
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-              Biztrait Tools &amp; Bots Market Play — the unified marketplace for automation APIs, AI workflows, and instant-deploy Discord bots.
+              Biztrait Market — the unified marketplace for automation APIs, AI workflows, and instant-deploy Discord bots.
             </p>
             <div className="mt-6 flex gap-3">
               {[Twitter, Linkedin, Github, Youtube].map((Icon, i) => (
@@ -80,7 +80,7 @@ export function Footer() {
           ))}
         </div>
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Biztrait Market Play. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Biztrait Market. All rights reserved.</p>
           <p>Built for automation. Powered by APIs &amp; Bots.</p>
         </div>
       </div>

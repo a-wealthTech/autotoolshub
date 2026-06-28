@@ -14,12 +14,12 @@ export const Route = createFileRoute("/tools/$toolSlug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market Play` },
+      { title: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market` },
       {
         name: "description",
         content: `Subscribe to ${loaderData?.tool.name ?? "this automation"} on Biztrait. Real-time triggers, AI workflows, and native integrations.`,
       },
-      { property: "og:title", content: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market Play` },
+      { property: "og:title", content: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market` },
       { property: "og:description", content: `Production-ready ${loaderData?.tool.name ?? "automation"} from Biztrait — triggers, webhooks, AI nodes, and SDKs.` },
       { property: "og:type", content: "product" },
       { property: "og:url", content: `https://biztrait.com/tools/${loaderData?.tool.slug ?? ""}` },
@@ -35,7 +35,7 @@ export const Route = createFileRoute("/tools/$toolSlug")({
               "@context": "https://schema.org",
               "@type": "Product",
               name: loaderData.tool.name,
-              description: `Production-ready ${loaderData.tool.name} from Biztrait Market Play — triggers, webhooks, and AI workflow nodes.`,
+              description: `Production-ready ${loaderData.tool.name} from Biztrait Market — triggers, webhooks, and AI workflow nodes.`,
               brand: { "@type": "Brand", name: "Biztrait" },
               category: loaderData.category.title,
               sku: loaderData.tool.code,

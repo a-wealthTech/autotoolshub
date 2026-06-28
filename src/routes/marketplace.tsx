@@ -6,7 +6,7 @@ import { TOOL_DETAILS } from "@/lib/categories";
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
-      { title: "API Marketplace — Biztrait Market Play" },
+      { title: "API Marketplace — Biztrait Market" },
       { name: "description", content: "Browse and subscribe to production-ready Biztrait automation APIs with typed SDKs, OAuth, and webhook delivery." },
       { property: "og:title", content: "Biztrait API Marketplace — Production-ready automation APIs" },
       { property: "og:description", content: "Composable trigger APIs, AI nodes, and plug-and-play connectors." },

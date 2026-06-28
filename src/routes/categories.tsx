@@ -5,7 +5,7 @@ import { CATEGORIES } from "@/lib/categories";
 export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
-      { title: "Categories — Biztrait Market Play" },
+      { title: "Categories — Biztrait Market" },
       { name: "description", content: "Browse seven Biztrait categories: core APIs, social triggers, audience growth, marketing, Discord bots, streaming, and AI workflows." },
       { property: "og:title", content: "Biztrait Categories — Automation & Bot Marketplace" },
       { property: "og:description", content: "Seven purpose-built categories covering every layer of modern automation and Discord bot deployment." },

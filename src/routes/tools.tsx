@@ -7,7 +7,7 @@ import { TOOL_DETAILS, CATEGORIES, PLATFORMS_LIST } from "@/lib/categories";
 export const Route = createFileRoute("/tools")({
   head: () => ({
     meta: [
-      { title: "Tools Marketplace — Biztrait Market Play" },
+      { title: "Tools Marketplace — Biztrait Market" },
       { name: "description", content: "Search the complete Biztrait directory of automation tools, trigger APIs, AI workflows, and Discord bots." },
       { property: "og:title", content: "Biztrait Tools Marketplace — 60+ APIs, AI engines & bots" },
       { property: "og:description", content: "Search and filter every Biztrait trigger API, AI engine, and platform integration." },
