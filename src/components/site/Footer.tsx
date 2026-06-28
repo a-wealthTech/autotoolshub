@@ -10,7 +10,6 @@ const COLS = [
       { to: "/categories", label: "Categories" },
       { to: "/integrations", label: "Integrations" },
       { to: "/marketplace", label: "API Marketplace" },
-      { to: "/pricing", label: "Pricing" },
     ],
   },
   {

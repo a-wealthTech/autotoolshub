@@ -307,10 +307,10 @@ function Index() {
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Link
-                to="/pricing"
+                to="/tools"
                 className="rounded-xl bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
               >
-                Get Started Free
+                Browse Tools
               </Link>
               <Link
                 to="/categories/$categoryId"

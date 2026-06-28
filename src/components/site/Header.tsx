@@ -9,7 +9,6 @@ const NAV = [
   { to: "/categories", label: "Categories" },
   { to: "/integrations", label: "Integrations" },
   { to: "/marketplace", label: "API Marketplace" },
-  { to: "/pricing", label: "Pricing" },
   { to: "/docs", label: "Documentation" },
   { to: "/blog", label: "Blog" },
   { to: "/contact", label: "Contact" },
@@ -42,7 +41,7 @@ export function Header() {
             Sign in
           </Link>
           <Link
-            to="/pricing"
+            to="/tools"
             className="rounded-lg bg-gradient-brand px-4 py-2 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
           >
             Get Started
@@ -70,7 +69,7 @@ export function Header() {
               </Link>
             ))}
             <Link
-              to="/pricing"
+              to="/tools"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-lg bg-gradient-brand px-4 py-2 text-center text-sm font-semibold text-brand-foreground"
             >
