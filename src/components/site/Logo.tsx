@@ -7,7 +7,7 @@ export function Logo({ className = "" }: { className?: string }) {
         <Hexagon className="h-5 w-5 text-brand-foreground" fill="currentColor" />
       </div>
       <span className="font-display text-lg font-extrabold tracking-tight text-ink">
-        Biztrait<span className="text-gradient-brand"> Market Play</span>
+        Biztrait<span className="text-gradient-brand"> Market</span>
       </span>
     </div>
   );

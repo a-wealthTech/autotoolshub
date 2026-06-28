@@ -1,7 +1,7 @@
 {
-  "name": "AutoToolsHub",
-  "short_name": "AutoToolsHub",
-  "description": "The Ultimate Automation Tools & API Marketplace",
+  "name": "Biztrait Market",
+  "short_name": "Biztrait Market",
+  "description": "Automation APIs, AI workflows, and one-click Discord bots — unified on Biztrait Market.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1F2937",
