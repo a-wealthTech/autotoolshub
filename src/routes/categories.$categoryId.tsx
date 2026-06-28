@@ -11,9 +11,9 @@ export const Route = createFileRoute("/categories/$categoryId")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.category.title ?? "Category"} — Biztrait Market Play` },
+      { title: `${loaderData?.category.title ?? "Category"} — Biztrait Market` },
       { name: "description", content: loaderData?.category.description ?? "" },
-      { property: "og:title", content: `${loaderData?.category.title ?? "Category"} — Biztrait Market Play` },
+      { property: "og:title", content: `${loaderData?.category.title ?? "Category"} — Biztrait Market` },
       { property: "og:description", content: loaderData?.category.description ?? "" },
       {
         property: "og:url",
