@@ -30,9 +30,9 @@ function ToolsPage() {
     return TOOL_DETAILS.filter((t) => {
       if (cat !== "all" && t.categoryId !== cat) return false;
       if (platform !== "all" && t.platform !== platform) return false;
-      if (priceTier === "under50" && t.price.monthly >= 50) return false;
-      if (priceTier === "50to75" && (t.price.monthly < 50 || t.price.monthly > 75)) return false;
-      if (priceTier === "75plus" && t.price.monthly < 75) return false;
+      if (priceTier === "under200" && t.price.monthly >= 200) return false;
+      if (priceTier === "200to275" && (t.price.monthly < 200 || t.price.monthly > 275)) return false;
+      if (priceTier === "275plus" && t.price.monthly < 275) return false;
       if (q && !t.name.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     }).filter((_, i) => (trending ? i % 2 === 0 : true));
@@ -89,9 +89,9 @@ function ToolsPage() {
             className="h-11 rounded-xl border border-border bg-background px-3 text-sm font-medium outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
           >
             <option value="all">Any price</option>
-            <option value="under50">Under $50/mo</option>
-            <option value="50to75">$50 – $75/mo</option>
-            <option value="75plus">$75+/mo</option>
+            <option value="under200">Under $200/mo</option>
+            <option value="200to275">$200 – $275/mo</option>
+            <option value="275plus">$275+/mo</option>
           </select>
           <button
             type="button"

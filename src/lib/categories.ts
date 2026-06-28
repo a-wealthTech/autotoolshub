@@ -155,13 +155,13 @@ export const ALL_TOOLS = CATEGORIES.flatMap((c) =>
 
 // Deterministic price tiers based on category for demo marketplace pricing.
 const PRICE_BY_CATEGORY: Record<string, { monthly: number; yearly: number; trial: boolean }> = {
-  "core-automation": { monthly: 79, yearly: 790, trial: true },
-  "social-triggers": { monthly: 49, yearly: 490, trial: true },
-  "audience-growth": { monthly: 59, yearly: 590, trial: true },
-  marketing: { monthly: 69, yearly: 690, trial: true },
-  "discord-bots": { monthly: 19, yearly: 190, trial: true },
-  streaming: { monthly: 39, yearly: 390, trial: true },
-  ai: { monthly: 99, yearly: 990, trial: true },
+  "core-automation": { monthly: 279, yearly: 2790, trial: true },
+  "social-triggers": { monthly: 169, yearly: 1690, trial: true },
+  "audience-growth": { monthly: 189, yearly: 1890, trial: true },
+  marketing: { monthly: 219, yearly: 2190, trial: true },
+  "discord-bots": { monthly: 149, yearly: 1490, trial: true },
+  streaming: { monthly: 179, yearly: 1790, trial: true },
+  ai: { monthly: 349, yearly: 3490, trial: true },
 };
 
 // Detect platform from tool name for badges/filters.
