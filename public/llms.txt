@@ -1,0 +1,17 @@
+# Biztrait Tools & Bots Market Play
+
+> The unified marketplace for automation APIs, AI workflow tools, and one-click Discord bots. Deploy trigger APIs, audience-growth engines, and managed Discord bots from one central hub.
+
+Biztrait helps creators, marketers, streamers, and developers automate work across YouTube, Twitch, Instagram, TikTok, X, Discord, Slack, and more. Tools are organized into seven categories — Core Automation APIs, Social Triggers, Audience Engagement, Marketing & Creator Growth, Custom Discord Bot Marketplace, Streaming, and AI Workflows — each with subscription pricing and full REST/Webhook documentation.
+
+## Pages
+
+- [Home](/): Overview of the Biztrait Market Play and featured categories.
+- [Tools Marketplace](/tools): Searchable directory of every automation tool and API.
+- [API Marketplace](/marketplace): Browse and subscribe to production-ready automation APIs.
+- [Categories](/categories): All seven automation and bot categories.
+- [Integrations](/integrations): 180+ native platform connectors.
+- [Pricing](/pricing): Starter, Professional, Business, and Enterprise plans.
+- [Documentation](/docs): API reference, SDKs, and integration guides.
+- [Blog](/blog): Automation playbooks, product updates, and engineering posts.
+- [Contact](/contact): Sales, support, and partnership inquiries.
