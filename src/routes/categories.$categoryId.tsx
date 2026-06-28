@@ -91,14 +91,10 @@ function CategoryPage() {
                 )}
               </div>
               <h2 className="mt-4 text-lg font-bold text-ink">{t.name}</h2>
-              <ul className="mt-3 flex-1 space-y-1.5 text-sm text-muted-foreground">
-                <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Trigger & action endpoints</li>
-                <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Webhook delivery + retries</li>
-                <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> AI-enhanced workflows</li>
-              </ul>
+              <p className="mt-3 flex-1 text-sm text-muted-foreground line-clamp-4">{t.description}</p>
               <div className="mt-5 flex items-center justify-between">
                 <span className="text-sm font-extrabold text-ink">
-                  ${t.price.monthly}<span className="text-xs font-medium text-muted-foreground">/mo</span>
+                  ${t.price}<span className="text-xs font-medium text-muted-foreground"> one-time</span>
                 </span>
                 <button
                   type="button"
@@ -108,7 +104,6 @@ function CategoryPage() {
                     navigate({
                       to: "/checkout/$toolSlug",
                       params: { toolSlug: t.slug },
-                      search: { plan: "monthly" },
                     });
                   }}
                   className="rounded-lg bg-gradient-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-brand"

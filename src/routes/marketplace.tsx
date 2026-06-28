@@ -62,7 +62,7 @@ function MarketplacePage() {
               <h2 className="mt-4 text-base font-bold text-ink">{t.name}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{t.categoryTitle}</p>
               <div className="mt-4 flex items-center justify-between">
-                <span className="text-sm font-extrabold text-ink">${t.price.monthly}/mo</span>
+                <span className="text-sm font-extrabold text-ink">${t.price} one-time</span>
                 <button
                   type="button"
                   onClick={(e) => {
@@ -71,7 +71,6 @@ function MarketplacePage() {
                     navigate({
                       to: "/checkout/$toolSlug",
                       params: { toolSlug: t.slug },
-                      search: { plan: "monthly" },
                     });
                   }}
                   className="rounded-lg bg-gradient-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-brand"
