@@ -21,6 +21,7 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsToolSlugRouteImport } from './routes/tools.$toolSlug'
+import { Route as ProductsBotSlugRouteImport } from './routes/products.$botSlug'
 import { Route as CheckoutToolSlugRouteImport } from './routes/checkout.$toolSlug'
 import { Route as CategoriesCategoryIdRouteImport } from './routes/categories.$categoryId'
 
@@ -84,6 +85,11 @@ const ToolsToolSlugRoute = ToolsToolSlugRouteImport.update({
   path: '/$toolSlug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const ProductsBotSlugRoute = ProductsBotSlugRouteImport.update({
+  id: '/$botSlug',
+  path: '/$botSlug',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const CheckoutToolSlugRoute = CheckoutToolSlugRouteImport.update({
   id: '/checkout/$toolSlug',
   path: '/checkout/$toolSlug',
@@ -104,11 +110,12 @@ export interface FileRoutesByFullPath {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/products/$botSlug': typeof ProductsBotSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRoutesByTo {
@@ -120,11 +127,12 @@ export interface FileRoutesByTo {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/products/$botSlug': typeof ProductsBotSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRoutesById {
@@ -137,11 +145,12 @@ export interface FileRoutesById {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
-  '/products': typeof ProductsRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/products/$botSlug': typeof ProductsBotSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
 }
 export interface FileRouteTypes {
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/products/$botSlug'
     | '/tools/$toolSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/products/$botSlug'
     | '/tools/$toolSlug'
   id:
     | '__root__'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/products/$botSlug'
     | '/tools/$toolSlug'
   fileRoutesById: FileRoutesById
 }
@@ -204,7 +216,7 @@ export interface RootRouteChildren {
   IntegrationsRoute: typeof IntegrationsRoute
   MarketplaceRoute: typeof MarketplaceRoute
   PricingRoute: typeof PricingRoute
-  ProductsRoute: typeof ProductsRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   CheckoutToolSlugRoute: typeof CheckoutToolSlugRoute
@@ -296,6 +308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsToolSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/products/$botSlug': {
+      id: '/products/$botSlug'
+      path: '/$botSlug'
+      fullPath: '/products/$botSlug'
+      preLoaderRoute: typeof ProductsBotSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/checkout/$toolSlug': {
       id: '/checkout/$toolSlug'
       path: '/checkout/$toolSlug'
@@ -325,6 +344,18 @@ const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
   CategoriesRouteChildren,
 )
 
+interface ProductsRouteChildren {
+  ProductsBotSlugRoute: typeof ProductsBotSlugRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsBotSlugRoute: ProductsBotSlugRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
+)
+
 interface ToolsRouteChildren {
   ToolsToolSlugRoute: typeof ToolsToolSlugRoute
 }
@@ -344,7 +375,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntegrationsRoute: IntegrationsRoute,
   MarketplaceRoute: MarketplaceRoute,
   PricingRoute: PricingRoute,
-  ProductsRoute: ProductsRoute,
+  ProductsRoute: ProductsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ToolsRoute: ToolsRouteWithChildren,
   CheckoutToolSlugRoute: CheckoutToolSlugRoute,
