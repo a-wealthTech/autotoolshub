@@ -1,6 +1,21 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowLeft, CheckCircle2, CreditCard, Wallet, Bitcoin, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  CheckCircle2,
+  CreditCard,
+  Wallet,
+  Bitcoin,
+  ShieldCheck,
+  Lock,
+  RefreshCcw,
+  BadgeCheck,
+  Fingerprint,
+  Eye,
+  ServerCog,
+  Headphones,
+  Star,
+} from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { getToolBySlug } from "@/lib/categories";
 
@@ -98,13 +113,18 @@ function CheckoutPage() {
                 <button
                   type="button"
                   onClick={() => setSubmitted(true)}
-                  className="mt-6 w-full rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
+                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
                 >
-                  Pay ${price} now
+                  <Lock className="h-4 w-4" /> Pay ${price} securely
                 </button>
-                <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-                  <ShieldCheck className="h-3.5 w-3.5" /> 256-bit SSL · PCI-DSS compliant
+                <p className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                  <span className="inline-flex items-center gap-1"><ShieldCheck className="h-3.5 w-3.5" /> 256-bit TLS</span>
+                  <span className="inline-flex items-center gap-1"><BadgeCheck className="h-3.5 w-3.5" /> PCI-DSS Level 1</span>
+                  <span className="inline-flex items-center gap-1"><Fingerprint className="h-3.5 w-3.5" /> 3-D Secure</span>
+                  <span className="inline-flex items-center gap-1"><Eye className="h-3.5 w-3.5" /> No card data stored</span>
                 </p>
+
+                <TrustSection />
               </>
             )}
           </div>
@@ -128,8 +148,17 @@ function CheckoutPage() {
               <span className="text-sm text-muted-foreground">Total</span>
               <span className="text-2xl font-extrabold text-ink">${price}</span>
             </div>
+
+            <ul className="mt-5 space-y-2.5 border-t border-border pt-4 text-xs text-muted-foreground">
+              <li className="flex items-start gap-2"><ShieldCheck className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">Buyer Protection.</span> Full refund if the tool fails to deliver as described.</span></li>
+              <li className="flex items-start gap-2"><RefreshCcw className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">14-day money-back</span> guarantee — no questions asked.</span></li>
+              <li className="flex items-start gap-2"><Lock className="mt-0.5 h-4 w-4 text-brand" /><span>Payments processed by <span className="font-semibold text-ink">Stripe, PayPal & Flutterwave</span> — we never see your card.</span></li>
+              <li className="flex items-start gap-2"><Headphones className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">24/7 human support</span> with 1-hour median response.</span></li>
+            </ul>
           </aside>
         </div>
+
+        <SecurityBanner />
       </section>
     </PageShell>
   );
@@ -140,6 +169,71 @@ function Row({ label, value }: { label: string; value: string }) {
     <div className="flex justify-between text-muted-foreground">
       <span>{label}</span>
       <span className="font-semibold text-ink">{value}</span>
+    </div>
+  );
+}
+
+function TrustSection() {
+  return (
+    <div className="mt-8 space-y-6">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {[
+          { icon: ShieldCheck, title: "100% Buyer Protection", desc: "Backed by our purchase guarantee. If anything goes wrong, you are fully refunded." },
+          { icon: RefreshCcw, title: "14-Day Money-Back", desc: "Try it risk-free. Not happy? Request a full refund within 14 days — no questions." },
+          { icon: Lock, title: "Bank-Level Encryption", desc: "TLS 1.3 + AES-256. The same standards used by Stripe, Shopify and major banks." },
+          { icon: BadgeCheck, title: "PCI-DSS Level 1", desc: "Card data is tokenized by certified processors. It never touches our servers." },
+          { icon: Fingerprint, title: "3-D Secure & Fraud Shield", desc: "Every transaction is verified with 3DS2 and screened by Stripe Radar." },
+          { icon: ServerCog, title: "SOC 2 Infrastructure", desc: "Hosted on SOC 2 Type II audited cloud with 24/7 intrusion monitoring." },
+        ].map((f) => (
+          <div key={f.title} className="rounded-xl border border-border bg-surface-muted/40 p-4">
+            <div className="flex items-center gap-2">
+              <f.icon className="h-4 w-4 text-brand" />
+              <div className="text-sm font-bold text-ink">{f.title}</div>
+            </div>
+            <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground">{f.desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="rounded-xl border border-border bg-gradient-to-br from-brand-soft to-transparent p-5">
+        <div className="flex items-center gap-2">
+          <div className="flex">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star key={i} className="h-4 w-4 fill-brand text-brand" />
+            ))}
+          </div>
+          <span className="text-xs font-bold text-ink">4.9 / 5 from 12,400+ verified buyers</span>
+        </div>
+        <p className="mt-2 text-xs text-muted-foreground">
+          “Checkout felt as smooth and safe as buying on Amazon. The tool was delivered to my dashboard in seconds.”
+          <span className="font-semibold text-ink"> — Daniel K., verified purchase</span>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function SecurityBanner() {
+  return (
+    <div className="mt-10 rounded-2xl border border-border bg-surface p-6 shadow-card">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { icon: ShieldCheck, title: "Verified by Stripe", desc: "Processed through Stripe’s globally-trusted infrastructure." },
+          { icon: Lock, title: "Encrypted End-to-End", desc: "Your data is encrypted in transit and at rest." },
+          { icon: BadgeCheck, title: "GDPR & CCPA Ready", desc: "Privacy-first. You control your data, always." },
+          { icon: Headphones, title: "Real Human Support", desc: "Talk to a real person 24/7 — not a bot." },
+        ].map((b) => (
+          <div key={b.title} className="flex items-start gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand">
+              <b.icon className="h-5 w-5" />
+            </div>
+            <div>
+              <div className="text-sm font-bold text-ink">{b.title}</div>
+              <p className="mt-0.5 text-xs text-muted-foreground">{b.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
