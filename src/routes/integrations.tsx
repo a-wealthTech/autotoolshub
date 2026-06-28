@@ -4,7 +4,7 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/integrations")({
   head: () => ({
     meta: [
-      { title: "Integrations — Biztrait Market Play" },
+      { title: "Integrations — Biztrait Market" },
       { name: "description", content: "180+ Biztrait integrations across social, streaming, CRM, AI, payments, and community platforms." },
       { property: "og:title", content: "Biztrait Integrations — 180+ native connectors" },
       { property: "og:description", content: "Connect every platform you use — social, streaming, CRM, payments, AI, and more." },

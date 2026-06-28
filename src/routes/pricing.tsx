@@ -5,7 +5,7 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — Biztrait Market Play" },
+      { title: "Pricing — Biztrait Market" },
       { name: "description", content: "Simple, transparent Biztrait pricing. Starter, Professional, Business, and Enterprise plans for automation and Discord bots." },
       { property: "og:title", content: "Biztrait Pricing — Plans that scale with your automations" },
       { property: "og:description", content: "Pick a Biztrait plan that scales with your automations and bots. Cancel anytime." },
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/pricing")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Product",
-          name: "Biztrait Market Play subscription",
+          name: "Biztrait Market subscription",
           description: "Automation and Discord bot subscription plans from Biztrait.",
           brand: { "@type": "Brand", name: "Biztrait" },
           offers: [
