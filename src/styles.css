@@ -145,9 +145,7 @@
   box-shadow: var(--shadow-card);
 }
 @utility glass {
-  background-color: color-mix(in oklab, oklch(0.14 0.02 260) 70%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background-color: color-mix(in oklab, oklch(0.14 0.02 260) 92%, transparent);
   border: 1px solid color-mix(in oklab, oklch(0.3 0.02 260) 70%, transparent);
 }
 
