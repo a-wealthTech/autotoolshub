@@ -10,11 +10,13 @@ import heroImg from "@/assets/hero-automation.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Biztrait Tools & Bots Market Play — Automation APIs + Discord Bots" },
+      { title: "Biztrait Market Play — Automation APIs & Discord Bots" },
       { name: "description", content: "Deploy trigger APIs, AI workflows, and instant-install Discord bots built to scale your community, social platforms, and operations." },
-      { property: "og:title", content: "Biztrait Tools & Bots Market Play" },
+      { property: "og:title", content: "Biztrait Market Play — Automation APIs & Discord Bots" },
       { property: "og:description", content: "Powering next-gen automation & Discord ecosystems from one central hub." },
+      { property: "og:url", content: "https://biztrait.com/" },
     ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/" }],
   }),
   component: Index,
 });
