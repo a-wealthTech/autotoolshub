@@ -1,5 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, Sparkles, Zap, Shield, Cpu, BarChart3 } from "lucide-react";
+import {
+  ArrowRight, CheckCircle2, Sparkles, Zap, Shield, BarChart3,
+  Bot, KeyRound, Server, LayoutDashboard,
+} from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { CATEGORIES } from "@/lib/categories";
 import heroImg from "@/assets/hero-automation.jpg";
@@ -7,29 +10,69 @@ import heroImg from "@/assets/hero-automation.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "AutoToolsHub — The Ultimate Automation Tools & API Marketplace" },
-      { name: "description", content: "Trigger APIs, AI workflows, creator growth tools, and platform integrations in one premium automation hub." },
-      { property: "og:title", content: "AutoToolsHub — Automation Tools & API Marketplace" },
-      { property: "og:description", content: "Powering automation across every platform." },
+      { title: "Biztrait Tools & Bots Market Play — Automation APIs + Discord Bots" },
+      { name: "description", content: "Deploy trigger APIs, AI workflows, and instant-install Discord bots built to scale your community, social platforms, and operations." },
+      { property: "og:title", content: "Biztrait Tools & Bots Market Play" },
+      { property: "og:description", content: "Powering next-gen automation & Discord ecosystems from one central hub." },
     ],
   }),
   component: Index,
 });
 
-const PLATFORMS = ["YouTube", "Twitch", "Instagram", "X / Twitter", "TikTok", "LinkedIn", "Facebook", "Pinterest", "Threads", "Discord", "Telegram", "Slack"];
+const PLATFORMS = [
+  "YouTube", "Twitch", "Instagram", "X / Twitter", "TikTok", "LinkedIn",
+  "Facebook", "Pinterest", "Threads", "Discord", "Telegram", "Slack",
+];
 
 const STATS = [
-  { value: "12K+", label: "Automations deployed" },
-  { value: "60+", label: "Trigger APIs" },
-  { value: "99.99%", label: "Uptime SLA" },
-  { value: "180+", label: "Integrations" },
+  { value: "15K+", label: "Automations & Bots Deployed" },
+  { value: "80+", label: "Live Trigger APIs & Pre-built Bots" },
+  { value: "99.99%", label: "Enterprise Uptime SLA" },
+  { value: "220+", label: "Multi-Platform Integrations" },
 ];
 
 const FEATURES = [
-  { icon: Zap, title: "Real-time triggers", desc: "Fire workflows the moment something happens on any platform." },
-  { icon: Cpu, title: "AI workflow engine", desc: "Let AI route, qualify, generate, and optimize every step." },
-  { icon: Shield, title: "Enterprise-grade", desc: "SOC 2 ready infrastructure, audit logs, SSO, and RBAC." },
-  { icon: BarChart3, title: "Unified analytics", desc: "Track API usage, audience growth, and ROI in one dashboard." },
+  {
+    icon: Zap,
+    title: "Real-Time Triggers",
+    desc: "Fire webhooks and bot actions the exact microsecond an event occurs on any external API.",
+  },
+  {
+    icon: KeyRound,
+    title: "Instant Discord OAuth2 Provisioning",
+    desc: "No code required. Authorize bots instantly into your servers with managed 24/7 cloud hosting.",
+  },
+  {
+    icon: Shield,
+    title: "Enterprise-Grade Security",
+    desc: "Fully SOC 2 compliance-ready structure, complete audit logging, Single Sign-On (SSO), and precise Role-Based Access Controls (RBAC).",
+  },
+  {
+    icon: BarChart3,
+    title: "Unified Metric Dashboard",
+    desc: "Monitor API throughput, server ping, user retention, and overall automation ROI in a central interface.",
+  },
+];
+
+const BOT_STEPS = [
+  {
+    icon: KeyRound,
+    step: "Step 01",
+    title: "One-Click OAuth2 Invite URL Generator",
+    desc: "Users select their required bot scopes (e.g. bot, applications.commands) and permissions directly from the marketplace portal.",
+  },
+  {
+    icon: Server,
+    step: "Step 02",
+    title: "Managed Cloud Hosting & Token Handshake",
+    desc: "Once authorized into the server, Biztrait securely binds the client token to an isolated, 24/7 persistent runner instance ensuring 99.99% bot uptime.",
+  },
+  {
+    icon: LayoutDashboard,
+    step: "Step 03",
+    title: "Interactive Visual Builder Dashboard",
+    desc: "Server managers configure commands (e.g. /setup-ticket, /moderation), welcome message embeds, and custom AI responses via a web dashboard rather than editing raw code.",
+  },
 ];
 
 function Index() {
@@ -39,33 +82,33 @@ function Index() {
       <section className="relative overflow-hidden bg-hero-glow">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:py-24">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand">
-              <Sparkles className="h-3.5 w-3.5" /> The Automation Marketplace
+            <span className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-ink">
+              <Sparkles className="h-3.5 w-3.5 text-brand" /> Biztrait Tools &amp; Bots Market Play
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
-              Powering automation across{" "}
-              <span className="text-gradient-brand">every platform</span>
+              Powering Next-Gen Automation &amp;{" "}
+              <span className="text-gradient-brand">Discord Ecosystems</span> From One Central Hub.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Access powerful trigger APIs, AI automation systems, creator growth tools, and social
-              media integrations from one centralized hub.
+              Deploy powerful trigger APIs, intelligent AI web systems, and instant-install Discord bots built to scale your community, social platforms, and operations.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to="/tools"
+              <a
+                href="#categories"
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
               >
-                Explore Tools <ArrowRight className="h-4 w-4" />
-              </Link>
+                Explore Market Play <ArrowRight className="h-4 w-4" />
+              </a>
               <Link
-                to="/pricing"
+                to="/categories/$categoryId"
+                params={{ categoryId: "discord-bots" }}
                 className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
               >
-                Get Started
+                <Bot className="h-4 w-4" /> Deploy a Bot Free
               </Link>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
-              {["No credit card required", "5-min setup", "Cancel anytime"].map((t) => (
+              {["No credit card required", "5-min configuration", "Cancel anytime"].map((t) => (
                 <span key={t} className="inline-flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-brand" /> {t}
                 </span>
@@ -77,7 +120,7 @@ function Index() {
             <div className="relative overflow-hidden rounded-3xl border border-border bg-ink shadow-brand animate-float">
               <img
                 src={heroImg}
-                alt="AutoToolsHub automation workflows"
+                alt="Biztrait automation and Discord bot workflows"
                 width={1536}
                 height={1024}
                 className="w-full"
@@ -86,17 +129,26 @@ function Index() {
           </div>
         </div>
 
-        {/* Logo strip */}
-        <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+        {/* Integration marquee */}
+        <div className="pb-12">
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
             Integrated with the platforms you live on
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {PLATFORMS.map((p) => (
-              <span key={p} className="text-sm font-semibold text-muted-foreground/80">
-                {p}
-              </span>
-            ))}
+          <div className="relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            <div className="flex w-max animate-marquee gap-10 pr-10">
+              {[...PLATFORMS, ...PLATFORMS].map((p, i) => (
+                <span
+                  key={i}
+                  className={
+                    p === "Discord"
+                      ? "inline-flex shrink-0 items-center gap-1.5 rounded-full border border-accent-blue/40 bg-accent-blue/10 px-3 py-1 text-sm font-bold text-accent-blue"
+                      : "inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-muted-foreground/80"
+                  }
+                >
+                  {p === "Discord" && <Bot className="h-4 w-4" />} {p}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -113,14 +165,84 @@ function Index() {
         </div>
       </section>
 
-      {/* Features */}
+      {/* Featured categories (7) */}
+      <section id="categories" className="bg-background py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-widest text-brand">
+                Marketplace categories
+              </span>
+              <h2 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">
+                Explore the Biztrait Market Play
+              </h2>
+            </div>
+            <Link
+              to="/categories"
+              className="hidden text-sm font-semibold text-brand hover:underline sm:inline-flex"
+            >
+              View all categories →
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {CATEGORIES.map((c) => {
+              const isDiscord = c.id === "discord-bots";
+              return (
+                <Link
+                  key={c.id}
+                  to="/categories/$categoryId"
+                  params={{ categoryId: c.id }}
+                  className={
+                    "group relative overflow-hidden rounded-2xl border p-6 shadow-card transition-all hover:-translate-y-1 " +
+                    (isDiscord
+                      ? "border-accent-blue/60 bg-accent-blue/5 ring-1 ring-accent-blue/30 hover:shadow-brand"
+                      : "border-border bg-surface hover:border-brand/40 hover:shadow-brand")
+                  }
+                >
+                  <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-brand opacity-0 blur-3xl transition-opacity group-hover:opacity-30" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={
+                          "flex h-11 w-11 items-center justify-center rounded-xl shadow-brand " +
+                          (isDiscord ? "bg-accent-blue text-brand-foreground" : "bg-gradient-brand text-brand-foreground")
+                        }
+                      >
+                        <c.icon className="h-5 w-5" />
+                      </div>
+                      <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                        {c.number}
+                      </span>
+                    </div>
+                    {isDiscord && (
+                      <span className="rounded-full bg-accent-blue px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-brand-foreground">
+                        New
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-4 text-lg font-bold text-ink">{c.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
+                  <div className={"mt-4 text-xs font-semibold " + (isDiscord ? "text-accent-blue" : "text-brand")}>
+                    {c.tools.length} {isDiscord ? "Bots" : "Tools"} Active {isDiscord ? "— New" : ""} →
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Features — Biztrait Advantage */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-extrabold text-ink sm:text-4xl">
-            One platform. <span className="text-gradient-brand">Every workflow.</span>
+          <span className="text-xs font-semibold uppercase tracking-widest text-brand">
+            The Biztrait Advantage
+          </span>
+          <h2 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">
+            One platform. <span className="text-gradient-brand">Every workflow &amp; bot.</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Combine triggers, AI, and integrations to ship automations your team can actually rely on.
+            Combine triggers, AI logic, and Discord bots to ship automations your team can actually rely on.
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -139,48 +261,34 @@ function Index() {
         </div>
       </section>
 
-      {/* Featured categories */}
+      {/* Discord Bot Architecture Blueprint */}
       <section className="bg-surface-muted py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between gap-4">
+          <div className="grid items-end gap-6 lg:grid-cols-2">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-widest text-brand">
-                Featured categories
+              <span className="inline-flex items-center gap-2 rounded-full bg-accent-blue/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-accent-blue">
+                <Bot className="h-3.5 w-3.5" /> Discord Architecture
               </span>
-              <h2 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">
-                Explore the marketplace
+              <h2 className="mt-3 text-3xl font-extrabold text-ink sm:text-4xl">
+                How Biztrait Discord bots deploy in <span className="text-gradient-brand">three steps</span>
               </h2>
             </div>
-            <Link
-              to="/categories"
-              className="hidden text-sm font-semibold text-brand hover:underline sm:inline-flex"
-            >
-              View all categories →
-            </Link>
+            <p className="text-muted-foreground lg:text-right">
+              From OAuth2 invite to a fully configured 24/7 bot — no servers to manage, no code to write.
+            </p>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {CATEGORIES.map((c) => (
-              <Link
-                key={c.id}
-                to="/categories/$categoryId"
-                params={{ categoryId: c.id }}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
-              >
-                <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-brand opacity-0 blur-3xl transition-opacity group-hover:opacity-20" />
-                <div className="flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-brand text-brand-foreground shadow-brand">
-                    <c.icon className="h-5 w-5" />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                    {c.number}
-                  </span>
+          <ol className="mt-10 grid gap-6 md:grid-cols-3">
+            {BOT_STEPS.map((s) => (
+              <li key={s.step} className="relative rounded-2xl border border-border bg-surface p-6 shadow-card">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-blue/15 text-accent-blue">
+                  <s.icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-4 text-lg font-bold text-ink">{c.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{c.description}</p>
-                <div className="mt-4 text-xs font-semibold text-brand">{c.tools.length} tools →</div>
-              </Link>
+                <p className="mt-4 text-xs font-bold uppercase tracking-widest text-accent-blue">{s.step}</p>
+                <h3 className="mt-1 text-lg font-bold text-ink">{s.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
@@ -190,10 +298,10 @@ function Index() {
           <div className="absolute inset-0 bg-gradient-brand opacity-90" />
           <div className="relative">
             <h2 className="text-3xl font-extrabold text-brand-foreground sm:text-4xl">
-              Start automating in minutes
+              Start automating &amp; bot-deploying in minutes
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-brand-foreground/85">
-              Join thousands of creators, marketers, and developers shipping faster with AutoToolsHub.
+              Join thousands of creators, marketers, and developers shipping faster with Biztrait Market Play.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Link
@@ -203,10 +311,11 @@ function Index() {
                 Get Started Free
               </Link>
               <Link
-                to="/tools"
+                to="/categories/$categoryId"
+                params={{ categoryId: "discord-bots" }}
                 className="rounded-xl border border-white/30 px-6 py-3.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-white/10"
               >
-                Browse Tools
+                Deploy a Discord Bot
               </Link>
             </div>
           </div>
