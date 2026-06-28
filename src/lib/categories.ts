@@ -1,5 +1,5 @@
 import {
-  Zap, Share2, Users, Megaphone, Video, Sparkles,
+  Zap, Share2, Users, Megaphone, Video, Sparkles, Bot,
   type LucideIcon,
 } from "lucide-react";
 
@@ -84,8 +84,31 @@ export const CATEGORIES: Category[] = [
     ],
   },
   {
-    id: "streaming",
+    id: "discord-bots",
     number: "05",
+    title: "Custom Discord Bot Marketplace",
+    description: "One-click hosting and configuration for plug-and-play Discord bots — moderation, leveling, webhooks, music, and AI agents.",
+    icon: Bot,
+    tools: [
+      { code: "5.1", name: "Moderation & Auto-Mod Bot" },
+      { code: "5.2", name: "Leveling & XP Engagement Bot" },
+      { code: "5.3", name: "Welcome & Onboarding Bot" },
+      { code: "5.4", name: "Ticket & Support Desk Bot" },
+      { code: "5.5", name: "Music & Voice Lounge Bot" },
+      { code: "5.6", name: "Webhook Relay Bot" },
+      { code: "5.7", name: "Social Notification Bot" },
+      { code: "5.8", name: "Giveaway & Rewards Bot" },
+      { code: "5.9", name: "Reaction Roles Bot" },
+      { code: "5.10", name: "AI Chat Companion Bot" },
+      { code: "5.11", name: "Twitch / YouTube Live Bot" },
+      { code: "5.12", name: "Anti-Raid Security Bot" },
+      { code: "5.13", name: "Server Analytics Bot" },
+      { code: "5.14", name: "Custom Slash Command Builder Bot" },
+    ],
+  },
+  {
+    id: "streaming",
+    number: "06",
     title: "Streaming & Creator Ecosystem",
     description: "Built for streamers and creators — alerts, multi-stream, analytics, subs.",
     icon: Video,
@@ -102,7 +125,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     id: "ai",
-    number: "06",
+    number: "07",
     title: "AI-Powered Automation",
     description: "AI for content, decisions, qualification, optimization, and growth.",
     icon: Sparkles,
@@ -136,6 +159,7 @@ const PRICE_BY_CATEGORY: Record<string, { monthly: number; yearly: number; trial
   "social-triggers": { monthly: 49, yearly: 490, trial: true },
   "audience-growth": { monthly: 59, yearly: 590, trial: true },
   marketing: { monthly: 69, yearly: 690, trial: true },
+  "discord-bots": { monthly: 19, yearly: 190, trial: true },
   streaming: { monthly: 39, yearly: 390, trial: true },
   ai: { monthly: 99, yearly: 990, trial: true },
 };
