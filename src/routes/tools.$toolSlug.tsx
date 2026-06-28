@@ -14,12 +14,43 @@ export const Route = createFileRoute("/tools/$toolSlug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.tool.name ?? "Tool"} — AutoToolsHub` },
+      { title: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market Play` },
       {
         name: "description",
-        content: `Subscribe to ${loaderData?.tool.name ?? "this automation"} on AutoToolsHub. Triggers, AI workflows, and integrations.`,
+        content: `Subscribe to ${loaderData?.tool.name ?? "this automation"} on Biztrait. Real-time triggers, AI workflows, and native integrations.`,
       },
+      { property: "og:title", content: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market Play` },
+      { property: "og:description", content: `Production-ready ${loaderData?.tool.name ?? "automation"} from Biztrait — triggers, webhooks, AI nodes, and SDKs.` },
+      { property: "og:type", content: "product" },
+      { property: "og:url", content: `https://biztrait.com/tools/${loaderData?.tool.slug ?? ""}` },
     ],
+    links: loaderData
+      ? [{ rel: "canonical", href: `https://biztrait.com/tools/${loaderData.tool.slug}` }]
+      : [],
+    scripts: loaderData
+      ? [
+          {
+            type: "application/ld+json",
+            children: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: loaderData.tool.name,
+              description: `Production-ready ${loaderData.tool.name} from Biztrait Market Play — triggers, webhooks, and AI workflow nodes.`,
+              brand: { "@type": "Brand", name: "Biztrait" },
+              category: loaderData.category.title,
+              sku: loaderData.tool.code,
+              url: `https://biztrait.com/tools/${loaderData.tool.slug}`,
+              offers: {
+                "@type": "Offer",
+                price: String(loaderData.tool.price.monthly),
+                priceCurrency: "USD",
+                availability: "https://schema.org/InStock",
+                url: `https://biztrait.com/checkout/${loaderData.tool.slug}`,
+              },
+            }),
+          },
+        ]
+      : [],
   }),
   component: ToolDetailPage,
   notFoundComponent: () => (
