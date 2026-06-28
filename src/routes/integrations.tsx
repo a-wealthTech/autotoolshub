@@ -4,9 +4,13 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/integrations")({
   head: () => ({
     meta: [
-      { title: "Integrations — AutoToolsHub" },
-      { name: "description", content: "180+ integrations across social, streaming, CRM, AI, and communication platforms." },
+      { title: "Integrations — Biztrait Market Play" },
+      { name: "description", content: "180+ Biztrait integrations across social, streaming, CRM, AI, payments, and community platforms." },
+      { property: "og:title", content: "Biztrait Integrations — 180+ native connectors" },
+      { property: "og:description", content: "Connect every platform you use — social, streaming, CRM, payments, AI, and more." },
+      { property: "og:url", content: "https://biztrait.com/integrations" },
     ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/integrations" }],
   }),
   component: IntegrationsPage,
 });
@@ -50,7 +54,7 @@ function IntegrationsPage() {
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-brand text-xl font-extrabold text-brand-foreground shadow-brand">
                 {p.name[0]}
               </div>
-              <h3 className="mt-4 text-base font-bold text-ink">{p.name}</h3>
+              <h2 className="mt-4 text-base font-bold text-ink">{p.name}</h2>
               <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{p.group}</p>
             </div>
           ))}

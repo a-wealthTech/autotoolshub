@@ -19,8 +19,9 @@ export const Route = createFileRoute("/checkout/$toolSlug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `Checkout — ${loaderData?.tool.name ?? "Tool"} — AutoToolsHub` },
-      { name: "description", content: "Secure checkout for AutoToolsHub automation tools." },
+      { title: `Checkout — ${loaderData?.tool.name ?? "Tool"} — Biztrait Market Play` },
+      { name: "description", content: "Secure checkout for Biztrait Market Play automation tools and Discord bots." },
+      { name: "robots", content: "noindex,follow" },
     ],
   }),
   component: CheckoutPage,

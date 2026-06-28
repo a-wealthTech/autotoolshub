@@ -5,9 +5,13 @@ import { CATEGORIES } from "@/lib/categories";
 export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
-      { title: "Categories — AutoToolsHub" },
-      { name: "description", content: "Browse automation categories: core APIs, social triggers, audience growth, marketing, streaming, and AI." },
+      { title: "Categories — Biztrait Market Play" },
+      { name: "description", content: "Browse seven Biztrait categories: core APIs, social triggers, audience growth, marketing, Discord bots, streaming, and AI workflows." },
+      { property: "og:title", content: "Biztrait Categories — Automation & Bot Marketplace" },
+      { property: "og:description", content: "Seven purpose-built categories covering every layer of modern automation and Discord bot deployment." },
+      { property: "og:url", content: "https://biztrait.com/categories" },
     ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/categories" }],
   }),
   component: CategoriesPage,
 });
@@ -37,7 +41,7 @@ function CategoriesPage() {
                   <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                     Category {c.number}
                   </div>
-                  <h3 className="text-xl font-bold text-ink">{c.title}</h3>
+                  <h2 className="text-xl font-bold text-ink">{c.title}</h2>
                 </div>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">{c.description}</p>

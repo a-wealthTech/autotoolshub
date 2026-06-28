@@ -6,9 +6,13 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — AutoToolsHub" },
-      { name: "description", content: "Talk to the AutoToolsHub team. Sales, support, and partnerships." },
+      { title: "Contact — Biztrait Market Play" },
+      { name: "description", content: "Talk to the Biztrait team — sales, support, partnerships, and Discord bot deployment help." },
+      { property: "og:title", content: "Contact Biztrait — Sales, support, partnerships" },
+      { property: "og:description", content: "Reach the Biztrait team for sales, demos, partnerships, or support." },
+      { property: "og:url", content: "https://biztrait.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/contact" }],
   }),
   component: ContactPage,
 });
@@ -25,7 +29,7 @@ function ContactPage() {
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-24 sm:px-6 lg:grid-cols-5 lg:px-8">
         <div className="lg:col-span-2 space-y-5">
           {[
-            { icon: Mail, title: "Email", value: "hello@autotoolshub.com" },
+            { icon: Mail, title: "Email", value: "hello@biztrait.com" },
             { icon: MessageSquare, title: "Live chat", value: "Available 24/7 in-app" },
             { icon: Phone, title: "Sales", value: "+1 (415) 555-0142" },
           ].map((c) => (

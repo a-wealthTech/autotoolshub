@@ -6,9 +6,13 @@ import { TOOL_DETAILS } from "@/lib/categories";
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
-      { title: "API Marketplace — AutoToolsHub" },
-      { name: "description", content: "Browse and subscribe to production-ready automation APIs." },
+      { title: "API Marketplace — Biztrait Market Play" },
+      { name: "description", content: "Browse and subscribe to production-ready Biztrait automation APIs with typed SDKs, OAuth, and webhook delivery." },
+      { property: "og:title", content: "Biztrait API Marketplace — Production-ready automation APIs" },
+      { property: "og:description", content: "Composable trigger APIs, AI nodes, and plug-and-play connectors." },
+      { property: "og:url", content: "https://biztrait.com/marketplace" },
     ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/marketplace" }],
   }),
   component: MarketplacePage,
 });
@@ -34,7 +38,7 @@ function MarketplacePage() {
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand">
                 <f.icon className="h-5 w-5" />
               </div>
-              <h3 className="mt-4 text-lg font-bold text-ink">{f.title}</h3>
+              <h2 className="mt-4 text-lg font-bold text-ink">{f.title}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{f.desc}</p>
             </div>
           ))}
@@ -55,7 +59,7 @@ function MarketplacePage() {
                 <span className="rounded-full bg-brand-soft px-2 py-1 text-xs font-bold text-brand">{t.code}</span>
                 <span className="text-xs font-semibold text-muted-foreground">REST · Webhooks</span>
               </div>
-              <h3 className="mt-4 text-base font-bold text-ink">{t.name}</h3>
+              <h2 className="mt-4 text-base font-bold text-ink">{t.name}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{t.categoryTitle}</p>
               <div className="mt-4 flex items-center justify-between">
                 <span className="text-sm font-extrabold text-ink">${t.price.monthly}/mo</span>

@@ -5,8 +5,30 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
-      { title: "Pricing — AutoToolsHub" },
-      { name: "description", content: "Simple, transparent pricing. Starter, Professional, Business, and Enterprise plans." },
+      { title: "Pricing — Biztrait Market Play" },
+      { name: "description", content: "Simple, transparent Biztrait pricing. Starter, Professional, Business, and Enterprise plans for automation and Discord bots." },
+      { property: "og:title", content: "Biztrait Pricing — Plans that scale with your automations" },
+      { property: "og:description", content: "Pick a Biztrait plan that scales with your automations and bots. Cancel anytime." },
+      { property: "og:url", content: "https://biztrait.com/pricing" },
+    ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/pricing" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: "Biztrait Market Play subscription",
+          description: "Automation and Discord bot subscription plans from Biztrait.",
+          brand: { "@type": "Brand", name: "Biztrait" },
+          offers: [
+            { "@type": "Offer", name: "Starter", price: "49", priceCurrency: "USD", url: "https://biztrait.com/pricing" },
+            { "@type": "Offer", name: "Professional", price: "149", priceCurrency: "USD", url: "https://biztrait.com/pricing" },
+            { "@type": "Offer", name: "Business", price: "399", priceCurrency: "USD", url: "https://biztrait.com/pricing" },
+            { "@type": "Offer", name: "Enterprise", price: "0", priceCurrency: "USD", url: "https://biztrait.com/contact" },
+          ],
+        }),
+      },
     ],
   }),
   component: PricingPage,
@@ -80,9 +102,9 @@ function PricingPage() {
                   Most popular
                 </span>
               )}
-              <h3 className={`text-lg font-bold ${p.highlighted ? "text-brand-foreground" : "text-ink"}`}>
+              <h2 className={`text-lg font-bold ${p.highlighted ? "text-brand-foreground" : "text-ink"}`}>
                 {p.name}
-              </h3>
+              </h2>
               <p className={`mt-1 text-sm ${p.highlighted ? "text-brand-foreground/85" : "text-muted-foreground"}`}>
                 {p.desc}
               </p>

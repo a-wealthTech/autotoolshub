@@ -5,9 +5,13 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/docs")({
   head: () => ({
     meta: [
-      { title: "Documentation — AutoToolsHub" },
-      { name: "description", content: "API reference, guides, and SDKs for building with AutoToolsHub." },
+      { title: "Documentation — Biztrait Market Play" },
+      { name: "description", content: "API reference, SDKs, and guides for building automation workflows and Discord bots with Biztrait." },
+      { property: "og:title", content: "Biztrait Documentation — APIs, SDKs & guides" },
+      { property: "og:description", content: "Everything you need to design, deploy, and scale Biztrait automation workflows." },
+      { property: "og:url", content: "https://biztrait.com/docs" },
     ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/docs" }],
   }),
   component: DocsPage,
 });
@@ -20,9 +24,9 @@ const SECTIONS = [
 ];
 
 const SAMPLE = `// Trigger a workflow when a YouTube video is published
-import { AutoTools } from "@autotoolshub/sdk";
+import { Biztrait } from "@biztrait/sdk";
 
-const client = new AutoTools({ apiKey: process.env.ATH_API_KEY });
+const client = new Biztrait({ apiKey: process.env.BIZTRAIT_API_KEY });
 
 await client.triggers.create({
   source: "youtube.video.published",
@@ -50,7 +54,7 @@ function DocsPage() {
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand">
                 <s.icon className="h-5 w-5" />
               </div>
-              <h3 className="mt-4 text-base font-bold text-ink">{s.title}</h3>
+              <h2 className="mt-4 text-base font-bold text-ink">{s.title}</h2>
               <p className="mt-1 text-sm text-muted-foreground">{s.desc}</p>
             </div>
           ))}
