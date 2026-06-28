@@ -11,8 +11,20 @@ export const Route = createFileRoute("/categories/$categoryId")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.category.title ?? "Category"} — AutoToolsHub` },
+      { title: `${loaderData?.category.title ?? "Category"} — Biztrait Market Play` },
       { name: "description", content: loaderData?.category.description ?? "" },
+      { property: "og:title", content: `${loaderData?.category.title ?? "Category"} — Biztrait Market Play` },
+      { property: "og:description", content: loaderData?.category.description ?? "" },
+      {
+        property: "og:url",
+        content: `https://biztrait.com/categories/${loaderData?.category.id ?? ""}`,
+      },
+    ],
+    links: [
+      {
+        rel: "canonical",
+        href: `https://biztrait.com/categories/${loaderData?.category.id ?? ""}`,
+      },
     ],
   }),
   component: CategoryPage,
@@ -78,7 +90,7 @@ function CategoryPage() {
                   </span>
                 )}
               </div>
-              <h3 className="mt-4 text-lg font-bold text-ink">{t.name}</h3>
+              <h2 className="mt-4 text-lg font-bold text-ink">{t.name}</h2>
               <ul className="mt-3 flex-1 space-y-1.5 text-sm text-muted-foreground">
                 <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Trigger & action endpoints</li>
                 <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Webhook delivery + retries</li>
