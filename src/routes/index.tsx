@@ -10,9 +10,9 @@ import heroImg from "@/assets/hero-automation.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Biztrait Market Play — Automation APIs & Discord Bots" },
+      { title: "Biztrait Market — Automation APIs & Discord Bots" },
       { name: "description", content: "Deploy trigger APIs, AI workflows, and instant-install Discord bots built to scale your community, social platforms, and operations." },
-      { property: "og:title", content: "Biztrait Market Play — Automation APIs & Discord Bots" },
+      { property: "og:title", content: "Biztrait Market — Automation APIs & Discord Bots" },
       { property: "og:description", content: "Powering next-gen automation & Discord ecosystems from one central hub." },
       { property: "og:url", content: "https://biztrait.com/" },
     ],
@@ -85,7 +85,7 @@ function Index() {
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:py-24">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-ink">
-              <Sparkles className="h-3.5 w-3.5 text-brand" /> Biztrait Tools &amp; Bots Market Play
+              <Sparkles className="h-3.5 w-3.5 text-brand" /> Biztrait Market
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
               Powering Next-Gen Automation &amp;{" "}
@@ -99,7 +99,7 @@ function Index() {
                 href="#categories"
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
               >
-                Explore Market Play <ArrowRight className="h-4 w-4" />
+                Explore Biztrait Market <ArrowRight className="h-4 w-4" />
               </a>
               <Link
                 to="/categories/$categoryId"
@@ -176,7 +176,7 @@ function Index() {
                 Marketplace categories
               </span>
               <h2 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">
-                Explore the Biztrait Market Play
+                Explore the Biztrait Market
               </h2>
             </div>
             <Link
@@ -303,7 +303,7 @@ function Index() {
               Start automating &amp; bot-deploying in minutes
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-brand-foreground/85">
-              Join thousands of creators, marketers, and developers shipping faster with Biztrait Market Play.
+              Join thousands of creators, marketers, and developers shipping faster with Biztrait Market.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Link

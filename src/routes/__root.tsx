@@ -81,20 +81,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Biztrait Tools & Bots Market Play — Automation APIs + Discord Bots" },
+      { title: "Biztrait Market — Automation APIs + Discord Bots" },
       { name: "description", content: "Deploy powerful trigger APIs, AI web systems, and instant-install Discord bots from one central Biztrait hub." },
       { name: "author", content: "Biztrait" },
-      { property: "og:title", content: "Biztrait Tools & Bots Market Play" },
-      { property: "og:description", content: "Automation APIs, AI workflows, and one-click Discord bots — unified on Biztrait." },
+      { property: "og:title", content: "Biztrait Market" },
+      { property: "og:description", content: "Automation APIs, AI workflows, and one-click Discord bots — unified on Biztrait Market." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Biztrait Tools & Bots Market Play" },
-      { name: "twitter:description", content: "Automation APIs, AI workflows, and one-click Discord bots — unified on Biztrait." },
+      { name: "twitter:title", content: "Biztrait Market" },
+      { name: "twitter:description", content: "Automation APIs, AI workflows, and one-click Discord bots — unified on Biztrait Market." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/b9ce1606-34e1-41cc-83b5-c7c0830f1e2a" },
       { name: "theme-color", content: "#0A58CA" },
-      { name: "og:site_name", content: "Biztrait Market Play" },
+      { name: "og:site_name", content: "Biztrait Market" },
     ],
     links: [
       {
@@ -116,7 +116,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Organization",
-          name: "Biztrait Tools & Bots Market Play",
+          name: "Biztrait Market",
           url: "https://biztrait.com",
           logo: "https://biztrait.com/__l5e/assets-v1/d306670c-d73e-48e3-8db1-e281ba5e7222/android-chrome-512x512.png",
           sameAs: [
