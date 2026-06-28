@@ -7,9 +7,13 @@ import { TOOL_DETAILS, CATEGORIES, PLATFORMS_LIST } from "@/lib/categories";
 export const Route = createFileRoute("/tools")({
   head: () => ({
     meta: [
-      { title: "Tools Marketplace — AutoToolsHub" },
-      { name: "description", content: "Search the complete AutoToolsHub directory of automation tools, trigger APIs, and AI workflows." },
+      { title: "Tools Marketplace — Biztrait Market Play" },
+      { name: "description", content: "Search the complete Biztrait directory of automation tools, trigger APIs, AI workflows, and Discord bots." },
+      { property: "og:title", content: "Biztrait Tools Marketplace — 60+ APIs, AI engines & bots" },
+      { property: "og:description", content: "Search and filter every Biztrait trigger API, AI engine, and platform integration." },
+      { property: "og:url", content: "https://biztrait.com/tools" },
     ],
+    links: [{ rel: "canonical", href: "https://biztrait.com/tools" }],
   }),
   component: ToolsPage,
 });
@@ -50,12 +54,14 @@ function ToolsPage() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search tools, APIs, integrations…"
+              aria-label="Search tools, APIs, and integrations"
               className="h-11 w-full rounded-xl border border-border bg-background pl-10 pr-3 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
             />
           </div>
           <select
             value={cat}
             onChange={(e) => setCat(e.target.value)}
+            aria-label="Filter by category"
             className="h-11 rounded-xl border border-border bg-background px-3 text-sm font-medium outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
           >
             <option value="all">All categories</option>
@@ -68,6 +74,7 @@ function ToolsPage() {
           <select
             value={platform}
             onChange={(e) => setPlatform(e.target.value)}
+            aria-label="Filter by platform"
             className="h-11 rounded-xl border border-border bg-background px-3 text-sm font-medium outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
           >
             <option value="all">All platforms</option>
@@ -78,6 +85,7 @@ function ToolsPage() {
           <select
             value={priceTier}
             onChange={(e) => setPriceTier(e.target.value)}
+            aria-label="Filter by monthly price"
             className="h-11 rounded-xl border border-border bg-background px-3 text-sm font-medium outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
           >
             <option value="all">Any price</option>
@@ -123,7 +131,7 @@ function ToolsPage() {
                   </span>
                 </div>
               </div>
-              <h3 className="mt-4 text-base font-bold text-ink">{t.name}</h3>
+              <h2 className="mt-4 text-base font-bold text-ink">{t.name}</h2>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand">
                 {t.categoryTitle}
               </p>
