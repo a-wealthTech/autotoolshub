@@ -30,9 +30,9 @@ function ToolsPage() {
     return TOOL_DETAILS.filter((t) => {
       if (cat !== "all" && t.categoryId !== cat) return false;
       if (platform !== "all" && t.platform !== platform) return false;
-      if (priceTier === "under200" && t.price.monthly >= 200) return false;
-      if (priceTier === "200to275" && (t.price.monthly < 200 || t.price.monthly > 275)) return false;
-      if (priceTier === "275plus" && t.price.monthly < 275) return false;
+      if (priceTier === "under200" && t.price >= 200) return false;
+      if (priceTier === "200to275" && (t.price < 200 || t.price > 275)) return false;
+      if (priceTier === "275plus" && t.price < 275) return false;
       if (q && !t.name.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
     }).filter((_, i) => (trending ? i % 2 === 0 : true));
@@ -89,9 +89,9 @@ function ToolsPage() {
             className="h-11 rounded-xl border border-border bg-background px-3 text-sm font-medium outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
           >
             <option value="all">Any price</option>
-            <option value="under200">Under $200/mo</option>
-            <option value="200to275">$200 – $275/mo</option>
-            <option value="275plus">$275+/mo</option>
+            <option value="under200">Under $200</option>
+            <option value="200to275">$200 – $275</option>
+            <option value="275plus">$275+</option>
           </select>
           <button
             type="button"
@@ -135,12 +135,12 @@ function ToolsPage() {
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand">
                 {t.categoryTitle}
               </p>
-              <p className="mt-3 flex-1 text-sm text-muted-foreground">
-                Production-ready API with triggers, actions, retries, and webhook delivery.
+              <p className="mt-3 flex-1 text-sm text-muted-foreground line-clamp-3">
+                {t.description}
               </p>
               <div className="mt-5 flex items-center justify-between">
                 <span className="text-sm font-extrabold text-ink">
-                  ${t.price.monthly}<span className="text-xs font-medium text-muted-foreground">/mo</span>
+                  ${t.price}<span className="text-xs font-medium text-muted-foreground"> one-time</span>
                 </span>
                 <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand">
                   View details <ArrowRight className="h-3.5 w-3.5" />
@@ -166,7 +166,6 @@ function ToolsPage() {
                     navigate({
                       to: "/checkout/$toolSlug",
                       params: { toolSlug: t.slug },
-                      search: { plan: "monthly" },
                     });
                   }}
                   className="rounded-lg bg-gradient-brand px-3 py-2 text-center text-xs font-bold text-brand-foreground shadow-brand"

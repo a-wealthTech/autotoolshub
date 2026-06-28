@@ -42,7 +42,7 @@ export const Route = createFileRoute("/tools/$toolSlug")({
               url: `https://biztrait.com/tools/${loaderData.tool.slug}`,
               offers: {
                 "@type": "Offer",
-                price: String(loaderData.tool.price.monthly),
+                price: String(loaderData.tool.price),
                 priceCurrency: "USD",
                 availability: "https://schema.org/InStock",
                 url: `https://biztrait.com/checkout/${loaderData.tool.slug}`,
@@ -97,11 +97,7 @@ function ToolDetailPage() {
                     </Link>
                   </div>
                   <h1 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">{tool.name}</h1>
-                  <p className="mt-3 max-w-2xl text-muted-foreground">
-                    Production-ready automation API with real-time triggers, webhook delivery,
-                    retries, and AI-enhanced workflows. Drop it into any stack via REST, SDK, or
-                    no-code builder.
-                  </p>
+                  <p className="mt-3 max-w-2xl text-muted-foreground">{tool.description}</p>
                 </div>
               </div>
             </div>
@@ -110,42 +106,21 @@ function ToolDetailPage() {
             <aside className="rounded-2xl border border-border bg-surface p-6 shadow-card">
               <div className="text-xs font-bold uppercase tracking-widest text-brand">Pricing</div>
               <div className="mt-2 flex items-baseline gap-1">
-                <span className="text-4xl font-extrabold text-ink">${tool.price.monthly}</span>
-                <span className="text-sm text-muted-foreground">/month</span>
+                <span className="text-4xl font-extrabold text-ink">${tool.price}</span>
+                <span className="text-sm text-muted-foreground">one-time</span>
               </div>
-              <div className="text-xs text-muted-foreground">
-                or ${tool.price.yearly}/year (save 17%)
-              </div>
+              <div className="text-xs text-muted-foreground">Lifetime access · no subscription</div>
               <Link
                 to="/checkout/$toolSlug"
                 params={{ toolSlug: tool.slug }}
-                search={{ plan: "monthly" }}
                 className="mt-5 block rounded-xl bg-gradient-brand px-5 py-3 text-center text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
               >
-                Subscribe Now
+                Buy Now
               </Link>
-              <Link
-                to="/checkout/$toolSlug"
-                params={{ toolSlug: tool.slug }}
-                search={{ plan: "yearly" }}
-                className="mt-2 block rounded-xl border border-border bg-surface px-5 py-3 text-center text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
-              >
-                Buy Annual Access
-              </Link>
-              {tool.price.trial && (
-                <Link
-                  to="/checkout/$toolSlug"
-                  params={{ toolSlug: tool.slug }}
-                  search={{ plan: "trial" }}
-                  className="mt-2 block rounded-xl px-5 py-3 text-center text-sm font-semibold text-brand hover:underline"
-                >
-                  Start 14-day Free Trial
-                </Link>
-              )}
               <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
                 <li className="flex gap-2"><ShieldCheck className="h-4 w-4 text-brand" /> Secure checkout</li>
-                <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-brand" /> Cancel anytime</li>
-                <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-brand" /> Unlimited workflow runs</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-brand" /> One-time payment</li>
+                <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-brand" /> Lifetime updates included</li>
               </ul>
             </aside>
           </div>
@@ -155,9 +130,7 @@ function ToolDetailPage() {
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-2">
           <Block icon={Sparkles} title="Overview">
-            {tool.name} ships with everything you need to automate complex workflows across the
-            {" "}{category.title.toLowerCase()} stack. Built on the AutoToolsHub runtime with full
-            observability, retry logic, and AI orchestration.
+            {tool.description} Part of the {category.title} category on Biztrait Market.
           </Block>
           <Block icon={Zap} title="Features">
             <ul className="space-y-2 text-sm">
@@ -211,18 +184,9 @@ await hub.tools["${tool.code}"].trigger({
             <Link
               to="/checkout/$toolSlug"
               params={{ toolSlug: tool.slug }}
-              search={{ plan: "monthly" }}
               className="rounded-xl bg-surface px-6 py-3 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
             >
-              Buy Access — ${tool.price.monthly}/mo
-            </Link>
-            <Link
-              to="/checkout/$toolSlug"
-              params={{ toolSlug: tool.slug }}
-              search={{ plan: "trial" }}
-              className="rounded-xl border border-white/40 px-6 py-3 text-sm font-semibold text-brand-foreground hover:bg-white/10"
-            >
-              Start Free Trial
+              Buy Now — ${tool.price}
             </Link>
           </div>
         </div>

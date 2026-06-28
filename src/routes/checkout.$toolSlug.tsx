@@ -1,17 +1,10 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { ArrowLeft, CheckCircle2, CreditCard, Wallet, Bitcoin, ShieldCheck } from "lucide-react";
-import { zodValidator, fallback } from "@tanstack/zod-adapter";
-import { z } from "zod";
 import { PageShell } from "@/components/site/PageShell";
 import { getToolBySlug } from "@/lib/categories";
 
-const search = z.object({
-  plan: fallback(z.enum(["monthly", "yearly", "trial"]), "monthly").default("monthly"),
-});
-
 export const Route = createFileRoute("/checkout/$toolSlug")({
-  validateSearch: zodValidator(search),
   loader: ({ params }) => {
     const tool = getToolBySlug(params.toolSlug);
     if (!tool) throw notFound();
@@ -36,13 +29,11 @@ const PROVIDERS = [
 
 function CheckoutPage() {
   const { tool } = Route.useLoaderData();
-  const { plan } = Route.useSearch();
   const [provider, setProvider] = useState<string>("stripe");
   const [submitted, setSubmitted] = useState(false);
 
-  const price =
-    plan === "trial" ? 0 : plan === "yearly" ? tool.price.yearly : tool.price.monthly;
-  const planLabel = plan === "trial" ? "14-day Free Trial" : plan === "yearly" ? "Annual" : "Monthly";
+  const price = tool.price;
+  const planLabel = "One-time purchase";
 
   return (
     <PageShell>
@@ -68,7 +59,7 @@ function CheckoutPage() {
                 <h2 className="mt-3 text-lg font-bold text-ink">Almost there!</h2>
                 <p className="mt-1 text-sm text-muted-foreground">
                   Payment gateways will be activated for your account shortly. We saved your selection
-                  ({provider.toUpperCase()}) and will email you to complete the {planLabel.toLowerCase()} for {tool.name}.
+                  ({provider.toUpperCase()}) and will email you to complete your purchase of {tool.name}.
                 </p>
                 <Link to="/tools" className="mt-5 inline-block rounded-xl bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground">
                   Continue browsing
@@ -109,7 +100,7 @@ function CheckoutPage() {
                   onClick={() => setSubmitted(true)}
                   className="mt-6 w-full rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
                 >
-                  {plan === "trial" ? "Start free trial" : `Pay $${price} now`}
+                  Pay ${price} now
                 </button>
                 <p className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
                   <ShieldCheck className="h-3.5 w-3.5" /> 256-bit SSL · PCI-DSS compliant
@@ -129,7 +120,7 @@ function CheckoutPage() {
             </div>
             <div className="mt-5 space-y-2 border-t border-border pt-4 text-sm">
               <Row label="Plan" value={planLabel} />
-              <Row label="Billing" value={plan === "yearly" ? "Once a year" : plan === "trial" ? "After trial" : "Monthly"} />
+              <Row label="Billing" value="One-time" />
               <Row label="Subtotal" value={`$${price}`} />
               <Row label="Tax" value="Calculated at processor" />
             </div>
