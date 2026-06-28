@@ -91,7 +91,7 @@ function CheckoutPage() {
                     Itemized functionalities
                   </div>
                   <ul className="mt-3 space-y-2 text-sm">
-                    {bot.features.map((f) => (
+                    {bot.features.map((f: { title: string; body: string }) => (
                       <li key={f.title} className="flex items-start gap-2 text-white/70">
                         <CheckCircle2
                           className="mt-0.5 h-4 w-4 shrink-0"
