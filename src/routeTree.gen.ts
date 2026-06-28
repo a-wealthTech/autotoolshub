@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
@@ -20,8 +21,10 @@ import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsToolSlugRouteImport } from './routes/tools.$toolSlug'
+import { Route as ProductsBotSlugRouteImport } from './routes/products.$botSlug'
 import { Route as CheckoutToolSlugRouteImport } from './routes/checkout.$toolSlug'
 import { Route as CategoriesCategoryIdRouteImport } from './routes/categories.$categoryId'
+import { Route as ProductsCheckoutBotSlugRouteImport } from './routes/products.checkout.$botSlug'
 
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
@@ -31,6 +34,11 @@ const ToolsRoute = ToolsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -78,6 +86,11 @@ const ToolsToolSlugRoute = ToolsToolSlugRouteImport.update({
   path: '/$toolSlug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const ProductsBotSlugRoute = ProductsBotSlugRouteImport.update({
+  id: '/$botSlug',
+  path: '/$botSlug',
+  getParentRoute: () => ProductsRoute,
+} as any)
 const CheckoutToolSlugRoute = CheckoutToolSlugRouteImport.update({
   id: '/checkout/$toolSlug',
   path: '/checkout/$toolSlug',
@@ -87,6 +100,11 @@ const CategoriesCategoryIdRoute = CategoriesCategoryIdRouteImport.update({
   id: '/$categoryId',
   path: '/$categoryId',
   getParentRoute: () => CategoriesRoute,
+} as any)
+const ProductsCheckoutBotSlugRoute = ProductsCheckoutBotSlugRouteImport.update({
+  id: '/checkout/$botSlug',
+  path: '/checkout/$botSlug',
+  getParentRoute: () => ProductsRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -98,11 +116,14 @@ export interface FileRoutesByFullPath {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/products/$botSlug': typeof ProductsBotSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
+  '/products/checkout/$botSlug': typeof ProductsCheckoutBotSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -113,11 +134,14 @@ export interface FileRoutesByTo {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/products/$botSlug': typeof ProductsBotSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
+  '/products/checkout/$botSlug': typeof ProductsCheckoutBotSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -129,11 +153,14 @@ export interface FileRoutesById {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/products/$botSlug': typeof ProductsBotSlugRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
+  '/products/checkout/$botSlug': typeof ProductsCheckoutBotSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -146,11 +173,14 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/pricing'
+    | '/products'
     | '/sitemap.xml'
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/products/$botSlug'
     | '/tools/$toolSlug'
+    | '/products/checkout/$botSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -161,11 +191,14 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/pricing'
+    | '/products'
     | '/sitemap.xml'
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/products/$botSlug'
     | '/tools/$toolSlug'
+    | '/products/checkout/$botSlug'
   id:
     | '__root__'
     | '/'
@@ -176,11 +209,14 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/pricing'
+    | '/products'
     | '/sitemap.xml'
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/products/$botSlug'
     | '/tools/$toolSlug'
+    | '/products/checkout/$botSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -192,6 +228,7 @@ export interface RootRouteChildren {
   IntegrationsRoute: typeof IntegrationsRoute
   MarketplaceRoute: typeof MarketplaceRoute
   PricingRoute: typeof PricingRoute
+  ProductsRoute: typeof ProductsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   CheckoutToolSlugRoute: typeof CheckoutToolSlugRoute
@@ -211,6 +248,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -276,6 +320,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsToolSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/products/$botSlug': {
+      id: '/products/$botSlug'
+      path: '/$botSlug'
+      fullPath: '/products/$botSlug'
+      preLoaderRoute: typeof ProductsBotSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
     '/checkout/$toolSlug': {
       id: '/checkout/$toolSlug'
       path: '/checkout/$toolSlug'
@@ -290,6 +341,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CategoriesCategoryIdRouteImport
       parentRoute: typeof CategoriesRoute
     }
+    '/products/checkout/$botSlug': {
+      id: '/products/checkout/$botSlug'
+      path: '/checkout/$botSlug'
+      fullPath: '/products/checkout/$botSlug'
+      preLoaderRoute: typeof ProductsCheckoutBotSlugRouteImport
+      parentRoute: typeof ProductsRoute
+    }
   }
 }
 
@@ -303,6 +361,20 @@ const CategoriesRouteChildren: CategoriesRouteChildren = {
 
 const CategoriesRouteWithChildren = CategoriesRoute._addFileChildren(
   CategoriesRouteChildren,
+)
+
+interface ProductsRouteChildren {
+  ProductsBotSlugRoute: typeof ProductsBotSlugRoute
+  ProductsCheckoutBotSlugRoute: typeof ProductsCheckoutBotSlugRoute
+}
+
+const ProductsRouteChildren: ProductsRouteChildren = {
+  ProductsBotSlugRoute: ProductsBotSlugRoute,
+  ProductsCheckoutBotSlugRoute: ProductsCheckoutBotSlugRoute,
+}
+
+const ProductsRouteWithChildren = ProductsRoute._addFileChildren(
+  ProductsRouteChildren,
 )
 
 interface ToolsRouteChildren {
@@ -324,6 +396,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntegrationsRoute: IntegrationsRoute,
   MarketplaceRoute: MarketplaceRoute,
   PricingRoute: PricingRoute,
+  ProductsRoute: ProductsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ToolsRoute: ToolsRouteWithChildren,
   CheckoutToolSlugRoute: CheckoutToolSlugRoute,
@@ -331,13 +404,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
