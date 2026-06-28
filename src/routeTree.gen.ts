@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ProductsRouteImport } from './routes/products'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
@@ -31,6 +32,11 @@ const ToolsRoute = ToolsRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsRoute = ProductsRouteImport.update({
+  id: '/products',
+  path: '/products',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
@@ -113,6 +120,7 @@ export interface FileRoutesByTo {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
@@ -129,6 +137,7 @@ export interface FileRoutesById {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/pricing': typeof PricingRoute
+  '/products': typeof ProductsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
@@ -146,6 +155,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/pricing'
+    | '/products'
     | '/sitemap.xml'
     | '/tools'
     | '/categories/$categoryId'
@@ -161,6 +171,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/pricing'
+    | '/products'
     | '/sitemap.xml'
     | '/tools'
     | '/categories/$categoryId'
@@ -176,6 +187,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/pricing'
+    | '/products'
     | '/sitemap.xml'
     | '/tools'
     | '/categories/$categoryId'
@@ -192,6 +204,7 @@ export interface RootRouteChildren {
   IntegrationsRoute: typeof IntegrationsRoute
   MarketplaceRoute: typeof MarketplaceRoute
   PricingRoute: typeof PricingRoute
+  ProductsRoute: typeof ProductsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   CheckoutToolSlugRoute: typeof CheckoutToolSlugRoute
@@ -211,6 +224,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products': {
+      id: '/products'
+      path: '/products'
+      fullPath: '/products'
+      preLoaderRoute: typeof ProductsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -324,6 +344,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntegrationsRoute: IntegrationsRoute,
   MarketplaceRoute: MarketplaceRoute,
   PricingRoute: PricingRoute,
+  ProductsRoute: ProductsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ToolsRoute: ToolsRouteWithChildren,
   CheckoutToolSlugRoute: CheckoutToolSlugRoute,
