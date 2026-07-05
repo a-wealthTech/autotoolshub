@@ -43,7 +43,7 @@ function DocsPage() {
     <PageShell>
       <PageHero
         eyebrow="Documentation"
-        title="Build with AutoToolsHub"
+        title="Build with BizTrait Market"
         subtitle="Everything you need to design, deploy, and scale automation workflows."
       />
 
