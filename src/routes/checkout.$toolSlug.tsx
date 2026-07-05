@@ -221,7 +221,7 @@ function SecurityBanner() {
           { icon: ShieldCheck, title: "Verified by Stripe", desc: "Processed through Stripe’s globally-trusted infrastructure." },
           { icon: Lock, title: "Encrypted End-to-End", desc: "Your data is encrypted in transit and at rest." },
           { icon: BadgeCheck, title: "GDPR & CCPA Ready", desc: "Privacy-first. You control your data, always." },
-          { icon: Headphones, title: "Real Human Support", desc: "Talk to a real person 24/7 — not a bot." },
+          { icon: Headphones, title: "Real Human Support", desc: "Talk to a real person 24/7." },
         ].map((b) => (
           <div key={b.title} className="flex items-start gap-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-soft text-brand">
