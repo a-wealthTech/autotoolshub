@@ -1,15 +1,21 @@
 # Biztrait Market
 
-> The unified marketplace for automation APIs, AI workflow tools, and one-click Discord bots. Deploy trigger APIs, audience-growth engines, and managed Discord bots from one central hub.
+> The unified digital marketplace for software, APIs, hosting, AI services, automation tools, and creator solutions — everything businesses, developers, and creators need in one trusted place.
 
-Biztrait Market helps creators, marketers, streamers, and developers automate work across YouTube, Twitch, Instagram, TikTok, X, Discord, Slack, and more. Tools are organized into seven categories — Core Automation APIs, Social Triggers, Audience Engagement, Marketing & Creator Growth, Custom Discord Bot Marketplace, Streaming, and AI Workflows — each priced individually with full REST/Webhook documentation.
+Biztrait Market helps businesses, developers, marketers, creators, and agencies discover, compare, and purchase premium digital products. Products span software, APIs, hosting, AI services, automation workflows, marketing tools, creator platforms, integrations, and developer utilities. Every product is verified, versioned, rated by real customers, and includes lifetime updates.
 
 ## Pages
 
-- [Home](/): Overview of the Biztrait Market and featured categories.
-- [Tools Marketplace](/tools): Searchable directory of every automation tool and API.
-- [API Marketplace](/marketplace): Browse and subscribe to production-ready automation APIs.
-- [Categories](/categories): All seven automation and bot categories.
-- [Integrations](/integrations): 180+ native platform connectors.
+- [Home](/): Overview of Biztrait Market, featured products, and top categories.
+- [Marketplace](/marketplace): Featured products, best sellers, trending, top rated, and recently updated tools.
+- [Tools](/tools): Searchable directory of every product on Biztrait Market.
+- [Categories](/categories): Browse products by category — software, APIs, hosting, AI, automation, creator, and more.
+- [Integrations](/integrations): Native connectors to popular platforms and services.
 - [Documentation](/docs): API reference, SDKs, and integration guides.
 - [Contact](/contact): Sales, support, and partnership inquiries.
+- [HTML Sitemap](/sitemap): Complete page index for humans and crawlers.
+
+## Optional
+
+- [Privacy Policy](/privacy): How Biztrait Market handles customer data.
+- [Terms of Service](/terms): Terms governing use of Biztrait Market.
