@@ -9,10 +9,10 @@ import { TrustBadges, TrustStats } from "@/components/site/TrustMeta";
 export const Route = createFileRoute("/tools")({
   head: () => ({
     meta: [
-      { title: "Marketplace — Software, APIs, Hosting & Digital Tools | Biztrait Market" },
-      { name: "description", content: "Search the Biztrait marketplace for software, APIs, hosting, AI, marketing, creator, and automation tools — all in one place." },
-      { property: "og:title", content: "Biztrait Marketplace — 60+ tools, APIs, hosting & AI services" },
-      { property: "og:description", content: "Browse featured marketplace products trusted by creators, developers, businesses, and agencies." },
+      { title: "Business Software Marketplace — SaaS, Hosting & Cloud Tools | BizTrait Market" },
+      { name: "description", content: "Search the BizTrait marketplace for business software, SaaS, CRM, hosting, security, marketing, and productivity tools." },
+      { property: "og:title", content: "BizTrait Marketplace — Business software, SaaS & hosting" },
+      { property: "og:description", content: "Browse verified business software products trusted by professional teams and IT buyers." },
       { property: "og:url", content: "https://biztrait.com/tools" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/tools" }],
@@ -45,9 +45,9 @@ function ToolsPage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="Tools Marketplace"
-        title="Every digital tool in one marketplace"
-        subtitle="Discover our most popular tools, software, hosting solutions, APIs, and automation products trusted by creators, developers, businesses, and agencies."
+        eyebrow="Business Software Marketplace"
+        title="Every business tool in one marketplace"
+        subtitle="Discover business software, SaaS, hosting, CRM, security, and productivity products trusted by professional teams and IT buyers."
       />
 
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
@@ -57,8 +57,8 @@ function ToolsPage() {
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Search tools, software, hosting, APIs, AI solutions, integrations, and digital services…"
-              aria-label="Search tools, software, hosting, APIs, AI solutions, integrations, and digital services"
+              placeholder="Search business software, SaaS, hosting, CRM, security, and productivity tools…"
+              aria-label="Search business software, SaaS, hosting, CRM, security, and productivity tools"
               className="h-11 w-full rounded-xl border border-border bg-background pl-10 pr-3 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
             />
           </div>
