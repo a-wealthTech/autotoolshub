@@ -38,13 +38,25 @@ function HtmlSitemap() {
         </Section>
         {CATEGORIES.map((c) => (
           <Section key={c.id} title={c.title}>
-            <SLink to="/categories/$categoryId" params={{ categoryId: c.id }}>
-              {c.title} — overview
-            </SLink>
+            <li>
+              <Link
+                to="/categories/$categoryId"
+                params={{ categoryId: c.id }}
+                className="text-sm text-muted-foreground hover:text-brand"
+              >
+                {c.title} — overview
+              </Link>
+            </li>
             {c.tools.map((t) => (
-              <SLink key={t.code} to="/tools/$toolSlug" params={{ toolSlug: t.code.replace(/\./g, "-") }}>
-                {t.name}
-              </SLink>
+              <li key={t.code}>
+                <Link
+                  to="/tools/$toolSlug"
+                  params={{ toolSlug: t.code.replace(/\./g, "-") }}
+                  className="text-sm text-muted-foreground hover:text-brand"
+                >
+                  {t.name}
+                </Link>
+              </li>
             ))}
           </Section>
         ))}
@@ -62,10 +74,12 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function SLink(props: React.ComponentProps<typeof Link>) {
+function SLink({ to, children }: { to: string; children: React.ReactNode }) {
   return (
     <li>
-      <Link {...props} className="text-sm text-muted-foreground hover:text-brand" />
+      <Link to={to} className="text-sm text-muted-foreground hover:text-brand">
+        {children}
+      </Link>
     </li>
   );
 }
