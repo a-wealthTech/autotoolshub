@@ -115,13 +115,42 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Biztrait Market",
-          url: "https://biztrait.com",
-          logo: "https://biztrait.com/__l5e/assets-v1/d306670c-d73e-48e3-8db1-e281ba5e7222/android-chrome-512x512.png",
-          sameAs: [
-            "https://twitter.com/biztrait",
-            "https://linkedin.com/company/biztrait",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": "https://biztrait.com/#organization",
+              name: "Biztrait Market",
+              url: "https://biztrait.com",
+              logo: "https://biztrait.com/__l5e/assets-v1/d306670c-d73e-48e3-8db1-e281ba5e7222/android-chrome-512x512.png",
+              description:
+                "Biztrait Market is a unified digital marketplace for software, APIs, hosting, AI, automation, and creator tools.",
+              sameAs: [
+                "https://twitter.com/biztrait",
+                "https://linkedin.com/company/biztrait",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                url: "https://biztrait.com/contact",
+                availableLanguage: ["English"],
+              },
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://biztrait.com/#website",
+              url: "https://biztrait.com",
+              name: "Biztrait Market",
+              publisher: { "@id": "https://biztrait.com/#organization" },
+              inLanguage: "en",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: {
+                  "@type": "EntryPoint",
+                  urlTemplate: "https://biztrait.com/tools?q={search_term_string}",
+                },
+                "query-input": "required name=search_term_string",
+              },
+            },
           ],
         }),
       },
