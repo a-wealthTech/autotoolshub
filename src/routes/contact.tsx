@@ -6,10 +6,10 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Biztrait Market" },
-      { name: "description", content: "Talk to the Biztrait team — sales, support, partnerships, and Discord bot deployment help." },
-      { property: "og:title", content: "Contact Biztrait — Sales, support, partnerships" },
-      { property: "og:description", content: "Reach the Biztrait team for sales, demos, partnerships, or support." },
+      { title: "Contact — BizTrait Market" },
+      { name: "description", content: "Talk to the BizTrait Market team — sales, customer support, billing questions, and partnership inquiries." },
+      { property: "og:title", content: "Contact BizTrait Market — Sales, support, partnerships" },
+      { property: "og:description", content: "Reach the BizTrait Market team for sales, demos, partnerships, or business support." },
       { property: "og:url", content: "https://biztrait.com/contact" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/contact" }],
@@ -23,8 +23,8 @@ function ContactPage() {
     <PageShell>
       <PageHero
         eyebrow="Contact"
-        title="Let's build automation together"
-        subtitle="Talk to sales, request a demo, or get in touch with support."
+        title="Talk to our business team"
+        subtitle="Sales, customer support, billing, or partnerships — we respond within one business day."
       />
       <section className="mx-auto grid max-w-6xl gap-10 px-4 pb-24 sm:px-6 lg:grid-cols-5 lg:px-8">
         <div className="lg:col-span-2 space-y-5">
@@ -62,7 +62,7 @@ function ContactPage() {
               </div>
               <Field label="Company"><input maxLength={120} className={inputCls} placeholder="Acme Inc." /></Field>
               <Field label="What can we help with?">
-                <textarea required rows={5} maxLength={1500} className={inputCls + " resize-none"} placeholder="Tell us about your automation goals…" />
+                <textarea required rows={5} maxLength={1500} className={inputCls + " resize-none"} placeholder="Tell us how we can help your business…" />
               </Field>
               <button
                 type="submit"
