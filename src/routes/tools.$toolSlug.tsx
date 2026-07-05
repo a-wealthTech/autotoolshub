@@ -12,23 +12,23 @@ function buildFaqs(toolName: string, categoryTitle: string, price: number) {
   return [
     {
       q: `What is ${toolName}?`,
-      a: `${toolName} is a production-ready ${categoryTitle.toLowerCase()} product available on Biztrait Market. It ships with real-time triggers, webhooks, AI workflow nodes, and typed SDKs so teams can integrate it into their stack in minutes.`,
+      a: `${toolName} is a professional ${categoryTitle.toLowerCase()} product available on BizTrait Market. It is delivered as a ready-to-use business solution so teams can add it to their operations in minutes.`,
     },
     {
       q: `How much does ${toolName} cost?`,
-      a: `${toolName} is a one-time purchase of $${price} USD on Biztrait Market. There are no recurring subscription fees, and lifetime updates are included.`,
+      a: `${toolName} is a one-time purchase of $${price} USD on BizTrait Market. Pricing is transparent, invoices are provided, and updates are included.`,
     },
     {
       q: `Which platforms does ${toolName} support?`,
-      a: `${toolName} supports the major platforms in the ${categoryTitle} category — including popular creator, developer, and business services — through native OAuth and API key integrations.`,
+      a: `${toolName} works with the common business platforms in the ${categoryTitle} category through secure, standards-based integrations.`,
     },
     {
       q: `Is ${toolName} suitable for production use?`,
-      a: `Yes. Every tool on Biztrait Market is verified, versioned, and monitored for uptime. ${toolName} includes retries, dead-letter queues, audit logs, and analytics out of the box.`,
+      a: `Yes. Every product on BizTrait Market is verified, versioned, and monitored. ${toolName} is production-ready with audit logs, monitoring, and business support included.`,
     },
     {
       q: `How do I get support for ${toolName}?`,
-      a: `You can reach the Biztrait support team via the contact page, or open a ticket from your dashboard after purchase. Documentation, SDKs, and integration guides are available in the docs.`,
+      a: `You can reach the BizTrait support team via the contact page, or open a ticket from your dashboard after purchase. Documentation and integration guides are available in the docs.`,
     },
   ];
 }
@@ -42,18 +42,18 @@ export const Route = createFileRoute("/tools/$toolSlug")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market` },
+      { title: `${loaderData?.tool.name ?? "Product"} — BizTrait Market` },
       {
         name: "description",
-        content: `Subscribe to ${loaderData?.tool.name ?? "this automation"} on Biztrait. Real-time triggers, AI workflows, and native integrations.`,
+        content: `Purchase ${loaderData?.tool.name ?? "this business software"} on BizTrait Market. Verified, professionally supported, and ready for business use.`,
       },
-      { property: "og:title", content: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market` },
-      { property: "og:description", content: `Production-ready ${loaderData?.tool.name ?? "automation"} from Biztrait — triggers, webhooks, AI nodes, and SDKs.` },
+      { property: "og:title", content: `${loaderData?.tool.name ?? "Product"} — BizTrait Market` },
+      { property: "og:description", content: `Professional ${loaderData?.tool.name ?? "business software"} from BizTrait Market — verified, secure, and ready for business use.` },
       { property: "og:type", content: "product" },
       { property: "og:url", content: `https://biztrait.com/tools/${loaderData?.tool.slug ?? ""}` },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market` },
-      { name: "twitter:description", content: `Production-ready ${loaderData?.tool.name ?? "automation"} from Biztrait — triggers, webhooks, AI nodes, and SDKs.` },
+      { name: "twitter:title", content: `${loaderData?.tool.name ?? "Product"} — BizTrait Market` },
+      { name: "twitter:description", content: `Professional ${loaderData?.tool.name ?? "business software"} from BizTrait Market — verified, secure, and ready for business use.` },
     ],
     links: loaderData
       ? [{ rel: "canonical", href: `https://biztrait.com/tools/${loaderData.tool.slug}` }]
@@ -74,8 +74,8 @@ export const Route = createFileRoute("/tools/$toolSlug")({
                   {
                     "@type": ["Product", "SoftwareApplication"],
                     name: tool.name,
-                    description: `Production-ready ${tool.name} from Biztrait Market — triggers, webhooks, AI workflow nodes, and typed SDKs.`,
-                    brand: { "@type": "Brand", name: "Biztrait" },
+                    description: `Professional ${tool.name} available on BizTrait Market — verified, secure, and ready for business use.`,
+                    brand: { "@type": "Brand", name: "BizTrait Market" },
                     category: category.title,
                     applicationCategory: "BusinessApplication",
                     operatingSystem: "Web, Cloud",
@@ -226,42 +226,41 @@ function ToolDetailPage() {
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-2">
           <Block icon={Sparkles} title="Overview">
-            {tool.description} Part of the {category.title} category on Biztrait Market.
+            {tool.description} Part of the {category.title} category on BizTrait Market.
           </Block>
           <Block icon={Zap} title="Features">
             <ul className="space-y-2 text-sm">
-              {["Real-time triggers & webhooks", "AI-enhanced decisioning", "OAuth + API key auth", "Unlimited workflow steps", "Built-in retries & DLQ", "Audit logs & analytics"].map((f) => (
+              {["Verified professional software", "Secure account provisioning", "Role-based access controls", "Business invoices & receipts", "Encrypted checkout", "Audit logs & reporting"].map((f) => (
                 <li key={f} className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> {f}</li>
               ))}
             </ul>
           </Block>
-          <Block icon={Globe2} title="Supported platforms">
+          <Block icon={Globe2} title="Works with">
             <div className="flex flex-wrap gap-2 text-xs font-semibold">
-              {(tool.platform ? [tool.platform] : ["YouTube", "Twitch", "Instagram", "TikTok", "X", "LinkedIn"]).map((p) => (
+              {(tool.platform ? [tool.platform] : ["Google Workspace", "Microsoft 365", "Slack", "Salesforce", "HubSpot", "Shopify"]).map((p) => (
                 <span key={p} className="rounded-full border border-border bg-surface-muted px-3 py-1 text-muted-foreground">{p}</span>
               ))}
             </div>
           </Block>
           <Block icon={BookOpen} title="Use cases">
             <ul className="space-y-2 text-sm">
-              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Auto-distribute content across platforms</li>
-              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Re-engage dormant audiences</li>
-              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Trigger AI workflows from live events</li>
+              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Improve daily business operations</li>
+              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Standardize processes across teams</li>
+              <li className="flex gap-2"><CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-brand" /> Give leadership clearer reporting and control</li>
             </ul>
           </Block>
           <Block icon={Code2} title="Integration guide">
-            <pre className="overflow-x-auto rounded-xl bg-ink p-4 text-xs leading-relaxed text-brand-foreground">{`import { BizTraitMarket } from "@biztrait/sdk";
-
-const market = new BizTraitMarket({ apiKey: process.env.BIZTRAIT_KEY });
-
-await market.tools["${tool.code}"].trigger({
-  payload: { /* ... */ },
-});`}</pre>
-          </Block>
-          <Block icon={BookOpen} title="API documentation">
             <p className="text-sm text-muted-foreground">
-              Full REST + Webhook reference, typed SDKs (TypeScript, Python, Node), and Postman
-              collections.
+              After purchase, log in to your BizTrait Market dashboard to configure {tool.name},
+              invite teammates, and connect it to the business platforms you already use.
+            </p>
+            <Link to="/docs" className="mt-3 inline-block text-sm font-semibold text-brand hover:underline">
+              Read setup guide →
+            </Link>
+          </Block>
+          <Block icon={BookOpen} title="Documentation & help">
+            <p className="text-sm text-muted-foreground">
+              Full product documentation, setup guides, and business support resources.
             </p>
             <Link to="/docs" className="mt-3 inline-block text-sm font-semibold text-brand hover:underline">
               Open documentation →
@@ -271,10 +270,10 @@ await market.tools["${tool.code}"].trigger({
 
         <div className="mt-12 rounded-3xl bg-gradient-brand p-10 text-center shadow-brand">
           <h2 className="text-2xl font-extrabold text-brand-foreground sm:text-3xl">
-            Ready to activate {tool.name}?
+            Ready to purchase {tool.name}?
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-brand-foreground/85">
-            Subscribe in under 60 seconds and start triggering workflows immediately.
+            Secure checkout with clear pricing and instant access after purchase.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
