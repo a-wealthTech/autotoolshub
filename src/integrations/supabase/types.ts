@@ -14,7 +14,95 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      entitlements: {
+        Row: {
+          active: boolean
+          email: string
+          granted_at: string
+          id: string
+          source_order_id: string | null
+          tool_slug: string
+          user_id: string | null
+        }
+        Insert: {
+          active?: boolean
+          email: string
+          granted_at?: string
+          id?: string
+          source_order_id?: string | null
+          tool_slug: string
+          user_id?: string | null
+        }
+        Update: {
+          active?: boolean
+          email?: string
+          granted_at?: string
+          id?: string
+          source_order_id?: string | null
+          tool_slug?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entitlements_source_order_id_fkey"
+            columns: ["source_order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          amount: number | null
+          created_at: string
+          currency: string | null
+          email: string
+          id: string
+          paddle_customer_id: string | null
+          paddle_subscription_id: string | null
+          paddle_transaction_id: string | null
+          raw: Json | null
+          status: string
+          tool_name: string | null
+          tool_slug: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          email: string
+          id?: string
+          paddle_customer_id?: string | null
+          paddle_subscription_id?: string | null
+          paddle_transaction_id?: string | null
+          raw?: Json | null
+          status?: string
+          tool_name?: string | null
+          tool_slug: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          currency?: string | null
+          email?: string
+          id?: string
+          paddle_customer_id?: string | null
+          paddle_subscription_id?: string | null
+          paddle_transaction_id?: string | null
+          raw?: Json | null
+          status?: string
+          tool_name?: string | null
+          tool_slug?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
