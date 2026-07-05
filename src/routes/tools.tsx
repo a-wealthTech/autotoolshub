@@ -7,10 +7,10 @@ import { TOOL_DETAILS, CATEGORIES, PLATFORMS_LIST } from "@/lib/categories";
 export const Route = createFileRoute("/tools")({
   head: () => ({
     meta: [
-      { title: "Tools Marketplace — Biztrait Market" },
-      { name: "description", content: "Search the complete Biztrait directory of automation tools, trigger APIs, AI workflows, and Discord bots." },
-      { property: "og:title", content: "Biztrait Tools Marketplace — 60+ APIs, AI engines & bots" },
-      { property: "og:description", content: "Search and filter every Biztrait trigger API, AI engine, and platform integration." },
+      { title: "Marketplace — Software, APIs, Hosting & Digital Tools | Biztrait Market" },
+      { name: "description", content: "Search the Biztrait marketplace for software, APIs, hosting, AI, marketing, creator, and automation tools — all in one place." },
+      { property: "og:title", content: "Biztrait Marketplace — 60+ tools, APIs, hosting & AI services" },
+      { property: "og:description", content: "Browse featured marketplace products trusted by creators, developers, businesses, and agencies." },
       { property: "og:url", content: "https://biztrait.com/tools" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/tools" }],
@@ -42,8 +42,8 @@ function ToolsPage() {
     <PageShell>
       <PageHero
         eyebrow="Tools Marketplace"
-        title="Every automation tool in one place"
-        subtitle="Search and filter 60+ trigger APIs, AI engines, and platform integrations."
+        title="Every digital tool in one marketplace"
+        subtitle="Discover our most popular tools, software, hosting solutions, APIs, and automation products trusted by creators, developers, businesses, and agencies."
       />
 
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
@@ -53,8 +53,8 @@ function ToolsPage() {
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Search tools, APIs, integrations…"
-              aria-label="Search tools, APIs, and integrations"
+              placeholder="Search tools, software, hosting, APIs, AI solutions, integrations, and digital services…"
+              aria-label="Search tools, software, hosting, APIs, AI solutions, integrations, and digital services"
               className="h-11 w-full rounded-xl border border-border bg-background pl-10 pr-3 text-sm outline-none focus:border-brand focus:ring-2 focus:ring-brand/20"
             />
           </div>
