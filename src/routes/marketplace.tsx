@@ -6,10 +6,10 @@ import { TOOL_DETAILS } from "@/lib/categories";
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
-      { title: "API Marketplace — Biztrait Market" },
-      { name: "description", content: "Browse and subscribe to production-ready Biztrait automation APIs with typed SDKs, OAuth, and webhook delivery." },
-      { property: "og:title", content: "Biztrait API Marketplace — Production-ready automation APIs" },
-      { property: "og:description", content: "Composable trigger APIs, AI nodes, and plug-and-play connectors." },
+      { title: "Digital Marketplace — Software, APIs, Hosting & AI | Biztrait Market" },
+      { name: "description", content: "Browse and purchase software, APIs, hosting, AI, marketing, creator, and developer products — all from one trusted marketplace." },
+      { property: "og:title", content: "Biztrait Marketplace — Software, APIs, Hosting & Digital Products" },
+      { property: "og:description", content: "Discover, compare, and buy the digital tools your business needs, all in one place." },
       { property: "og:url", content: "https://biztrait.com/marketplace" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/marketplace" }],
@@ -22,9 +22,9 @@ function MarketplacePage() {
   return (
     <PageShell>
       <PageHero
-        eyebrow="API Marketplace"
-        title="Production-ready APIs for every workflow"
-        subtitle="Subscribe to individual APIs or bundle them into a custom plan for your team."
+        eyebrow="Marketplace"
+        title="Software, APIs, hosting & digital tools for every workflow"
+        subtitle="Buy individual products or bundle them into a custom plan for your team — all from one marketplace."
       />
 
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
@@ -46,7 +46,7 @@ function MarketplacePage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <h2 className="mb-6 text-2xl font-bold text-ink">Popular APIs</h2>
+        <h2 className="mb-6 text-2xl font-bold text-ink">Featured marketplace products</h2>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {TOOL_DETAILS.slice(0, 12).map((t) => (
             <Link

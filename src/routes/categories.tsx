@@ -21,8 +21,8 @@ function CategoriesPage() {
     <PageShell>
       <PageHero
         eyebrow="Categories"
-        title="Find the right automation, fast"
-        subtitle="Six purpose-built categories covering every layer of modern automation."
+        title="Explore the marketplace by category"
+        subtitle="Quickly find the right tools, software, hosting, APIs, AI, and automation services for your business or personal projects."
       />
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-2">

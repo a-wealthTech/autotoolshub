@@ -10,10 +10,10 @@ import heroImg from "@/assets/hero-automation.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Biztrait Market — Automation APIs & Discord Bots" },
-      { name: "description", content: "Deploy trigger APIs, AI workflows, and instant-install Discord bots built to scale your community, social platforms, and operations." },
-      { property: "og:title", content: "Biztrait Market — Automation APIs & Discord Bots" },
-      { property: "og:description", content: "Powering next-gen automation & Discord ecosystems from one central hub." },
+      { title: "Biztrait Market — Marketplace for Software, APIs, Hosting & AI Tools" },
+      { name: "description", content: "Discover, compare, and purchase automation tools, software, APIs, hosting, AI, marketing, creator, and developer solutions — all in one marketplace." },
+      { property: "og:title", content: "Biztrait Market — Your One-Stop Digital Marketplace" },
+      { property: "og:description", content: "Everything you need to build, automate, and scale — software, APIs, hosting, AI, and creator tools in one marketplace." },
       { property: "og:url", content: "https://biztrait.com/" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/" }],
@@ -27,22 +27,22 @@ const PLATFORMS = [
 ];
 
 const STATS = [
-  { value: "15K+", label: "Automations & Bots Deployed" },
-  { value: "80+", label: "Live Trigger APIs & Pre-built Bots" },
+  { value: "15K+", label: "Digital Products Delivered" },
+  { value: "80+", label: "Tools, APIs, Hosting & AI Services" },
   { value: "99.99%", label: "Enterprise Uptime SLA" },
-  { value: "220+", label: "Multi-Platform Integrations" },
+  { value: "220+", label: "Platform & Service Integrations" },
 ];
 
 const FEATURES = [
   {
     icon: Zap,
-    title: "Real-Time Triggers",
-    desc: "Fire webhooks and bot actions the exact microsecond an event occurs on any external API.",
+    title: "Every Tool in One Place",
+    desc: "Software, APIs, hosting, AI, marketing, creator, and developer tools — discover and buy them from a single marketplace.",
   },
   {
     icon: KeyRound,
-    title: "Instant Discord OAuth2 Provisioning",
-    desc: "No code required. Authorize bots instantly into your servers with managed 24/7 cloud hosting.",
+    title: "Instant Access & Provisioning",
+    desc: "Purchase and activate tools, APIs, and services in minutes — with keys, OAuth, and dashboards ready to use.",
   },
   {
     icon: Shield,
@@ -51,8 +51,8 @@ const FEATURES = [
   },
   {
     icon: BarChart3,
-    title: "Unified Metric Dashboard",
-    desc: "Monitor API throughput, server ping, user retention, and overall automation ROI in a central interface.",
+    title: "Unified Marketplace Dashboard",
+    desc: "Manage every product you purchase — usage, billing, keys, integrations, and analytics — from one central interface.",
   },
 ];
 
@@ -88,25 +88,25 @@ function Index() {
               <Sparkles className="h-3.5 w-3.5 text-brand" /> Biztrait Market
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] text-ink sm:text-5xl lg:text-6xl">
-              Powering Next-Gen Automation &amp;{" "}
-              <span className="text-gradient-brand">Discord Ecosystems</span> From One Central Hub.
+              Your One-Stop{" "}
+              <span className="text-gradient-brand">Marketplace</span> for Software, APIs, Hosting &amp; Digital Solutions.
             </h1>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground mx-auto lg:mx-0">
-              Deploy powerful trigger APIs, intelligent AI web systems, and instant-install Discord bots built to scale your community, social platforms, and operations.
+              Browse and purchase premium automation tools, software, APIs, hosting, AI solutions, creator tools, marketing platforms, integrations, and digital resources — all organized in one place for businesses, developers, creators, and marketers.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
               <a
                 href="#categories"
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
               >
-                Explore Biztrait Market <ArrowRight className="h-4 w-4" />
+                Browse Marketplace <ArrowRight className="h-4 w-4" />
               </a>
               <Link
                 to="/categories/$categoryId"
                 params={{ categoryId: "discord-bots" }}
                 className="inline-flex items-center gap-2 rounded-xl border border-border bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
               >
-                <Bot className="h-4 w-4" /> Deploy a Bot Free
+                <Bot className="h-4 w-4" /> Explore All Tools
               </Link>
             </div>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
@@ -134,7 +134,7 @@ function Index() {
         {/* Integration marquee */}
         <div className="pb-12">
           <p className="text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            Integrated with the platforms you live on
+            Trusted across the platforms your business runs on
           </p>
           <div className="relative mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             <div className="flex w-max animate-marquee gap-10 pr-10">
@@ -176,8 +176,11 @@ function Index() {
                 Marketplace categories
               </span>
               <h2 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">
-                Explore the Biztrait Market
+                Explore the marketplace by category
               </h2>
+              <p className="mt-3 max-w-2xl text-muted-foreground">
+                Quickly find the right tools, software, hosting solutions, APIs, and automation services for your business or personal projects.
+              </p>
             </div>
             <Link
               to="/categories"
@@ -241,10 +244,10 @@ function Index() {
             The Biztrait Advantage
           </span>
           <h2 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">
-            One platform. <span className="text-gradient-brand">Every workflow &amp; bot.</span>
+            One marketplace. <span className="text-gradient-brand">Every digital tool you need.</span>
           </h2>
           <p className="mt-4 text-muted-foreground">
-            Combine triggers, AI logic, and Discord bots to ship automations your team can actually rely on.
+            Discover, compare, and purchase software, APIs, hosting, AI, marketing, and creator tools from a single trusted platform — no more hunting across dozens of vendors.
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -300,24 +303,24 @@ function Index() {
           <div className="absolute inset-0 bg-gradient-brand opacity-90" />
           <div className="relative">
             <h2 className="text-3xl font-extrabold text-brand-foreground sm:text-4xl">
-              Start automating &amp; bot-deploying in minutes
+              Find the right solution in minutes
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-brand-foreground/85">
-              Join thousands of creators, marketers, and developers shipping faster with Biztrait Market.
+              Join thousands of businesses, creators, marketers, and developers who shop software, APIs, hosting, and AI tools on Biztrait Market.
             </p>
             <div className="mt-7 flex flex-wrap justify-center gap-3">
               <Link
                 to="/tools"
                 className="rounded-xl bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
               >
-                Browse Tools
+                Browse Marketplace
               </Link>
               <Link
                 to="/categories/$categoryId"
                 params={{ categoryId: "discord-bots" }}
                 className="rounded-xl border border-white/30 px-6 py-3.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-white/10"
               >
-                Deploy a Discord Bot
+                Shop Digital Products
               </Link>
             </div>
           </div>
