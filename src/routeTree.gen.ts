@@ -13,6 +13,7 @@ import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapRouteImport } from './routes/sitemap'
+import { Route as RefundsRouteImport } from './routes/refunds'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
 import { Route as IntegrationsRouteImport } from './routes/integrations'
@@ -42,6 +43,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
   path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RefundsRoute = RefundsRouteImport.update({
+  id: '/refunds',
+  path: '/refunds',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
+  '/refunds': typeof RefundsRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
+  '/refunds': typeof RefundsRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/integrations': typeof IntegrationsRoute
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
+  '/refunds': typeof RefundsRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/privacy'
+    | '/refunds'
     | '/sitemap'
     | '/sitemap.xml'
     | '/terms'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/privacy'
+    | '/refunds'
     | '/sitemap'
     | '/sitemap.xml'
     | '/terms'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/integrations'
     | '/marketplace'
     | '/privacy'
+    | '/refunds'
     | '/sitemap'
     | '/sitemap.xml'
     | '/terms'
@@ -203,6 +215,7 @@ export interface RootRouteChildren {
   IntegrationsRoute: typeof IntegrationsRoute
   MarketplaceRoute: typeof MarketplaceRoute
   PrivacyRoute: typeof PrivacyRoute
+  RefundsRoute: typeof RefundsRoute
   SitemapRoute: typeof SitemapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -238,6 +251,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap'
       fullPath: '/sitemap'
       preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/refunds': {
+      id: '/refunds'
+      path: '/refunds'
+      fullPath: '/refunds'
+      preLoaderRoute: typeof RefundsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -343,6 +363,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntegrationsRoute: IntegrationsRoute,
   MarketplaceRoute: MarketplaceRoute,
   PrivacyRoute: PrivacyRoute,
+  RefundsRoute: RefundsRoute,
   SitemapRoute: SitemapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
