@@ -81,20 +81,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Biztrait Market  Marketplace for Software, APIs, Hosting & AI Tools" },
-      { name: "description", content: "BizTrait offers automation tools, software, APIs, hosting, AI, marketing, creator, and developer solutions all in one marketplace." },
-      { name: "author", content: "Biztrait" },
-      { property: "og:title", content: "Biztrait Market  Marketplace for Software, APIs, Hosting & AI Tools" },
-      { property: "og:description", content: "BizTrait offers automation tools, software, APIs, hosting, AI, marketing, creator, and developer solutions all in one marketplace." },
+      { title: "BizTrait Market — Business Software, SaaS, Hosting & Cloud Services" },
+      { name: "description", content: "BizTrait Market is a professional marketplace for business software, SaaS, hosting, CRM, marketing, security, and productivity tools." },
+      { name: "author", content: "BizTrait Market" },
+      { property: "og:title", content: "BizTrait Market — Business Software, SaaS, Hosting & Cloud Services" },
+      { property: "og:description", content: "BizTrait Market is a professional marketplace for business software, SaaS, hosting, CRM, marketing, security, and productivity tools." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Biztrait Market  Marketplace for Software, APIs, Hosting & AI Tools" },
-      { name: "twitter:description", content: "BizTrait offers automation tools, software, APIs, hosting, AI, marketing, creator, and developer solutions all in one marketplace." },
+      { name: "twitter:site", content: "@biztrait" },
+      { name: "twitter:title", content: "BizTrait Market — Business Software, SaaS, Hosting & Cloud Services" },
+      { name: "twitter:description", content: "BizTrait Market is a professional marketplace for business software, SaaS, hosting, CRM, marketing, security, and productivity tools." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6735c341-1e1e-4fa3-9183-d588acb1e9b3" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6735c341-1e1e-4fa3-9183-d588acb1e9b3" },
       { name: "theme-color", content: "#0A58CA" },
-      { name: "og:site_name", content: "Biztrait Market" },
+      { name: "og:site_name", content: "BizTrait Market" },
     ],
     links: [
       {
@@ -119,11 +119,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             {
               "@type": "Organization",
               "@id": "https://biztrait.com/#organization",
-              name: "Biztrait Market",
+              name: "BizTrait Market",
               url: "https://biztrait.com",
               logo: "https://biztrait.com/__l5e/assets-v1/d306670c-d73e-48e3-8db1-e281ba5e7222/android-chrome-512x512.png",
               description:
-                "Biztrait Market is a unified digital marketplace for software, APIs, hosting, AI, automation, and creator tools.",
+                "BizTrait Market is a professional marketplace for business software, SaaS, hosting, CRM, security, and productivity tools.",
               sameAs: [
                 "https://twitter.com/biztrait",
                 "https://linkedin.com/company/biztrait",
@@ -139,7 +139,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
               "@type": "WebSite",
               "@id": "https://biztrait.com/#website",
               url: "https://biztrait.com",
-              name: "Biztrait Market",
+              name: "BizTrait Market",
               publisher: { "@id": "https://biztrait.com/#organization" },
               inLanguage: "en",
               potentialAction: {
