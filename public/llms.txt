@@ -12,5 +12,4 @@ Biztrait Market helps creators, marketers, streamers, and developers automate wo
 - [Categories](/categories): All seven automation and bot categories.
 - [Integrations](/integrations): 180+ native platform connectors.
 - [Documentation](/docs): API reference, SDKs, and integration guides.
-- [Blog](/blog): Automation playbooks, product updates, and engineering posts.
 - [Contact](/contact): Sales, support, and partnership inquiries.
