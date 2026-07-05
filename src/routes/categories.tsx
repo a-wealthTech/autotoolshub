@@ -5,10 +5,10 @@ import { CATEGORIES } from "@/lib/categories";
 export const Route = createFileRoute("/categories")({
   head: () => ({
     meta: [
-      { title: "Categories — Biztrait Market" },
-      { name: "description", content: "Browse seven Biztrait categories: core APIs, social triggers, audience growth, marketing, Discord bots, streaming, and AI workflows." },
-      { property: "og:title", content: "Biztrait Categories — Automation & Bot Marketplace" },
-      { property: "og:description", content: "Seven purpose-built categories covering every layer of modern automation and Discord bot deployment." },
+      { title: "Categories — BizTrait Market" },
+      { name: "description", content: "Browse business software categories: productivity, marketing, CRM, hosting, security, e-commerce, developer tools, and analytics." },
+      { property: "og:title", content: "BizTrait Categories — Business Software Marketplace" },
+      { property: "og:description", content: "Business software categories covering productivity, marketing, hosting, security, e-commerce, and IT operations." },
       { property: "og:url", content: "https://biztrait.com/categories" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/categories" }],
@@ -21,8 +21,8 @@ function CategoriesPage() {
     <PageShell>
       <PageHero
         eyebrow="Categories"
-        title="Explore the marketplace by category"
-        subtitle="Quickly find the right tools, software, hosting, APIs, AI, and automation services for your business or personal projects."
+        title="Explore business software by category"
+        subtitle="Find the right software, SaaS, hosting, security, and productivity services for your business."
       />
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-2">

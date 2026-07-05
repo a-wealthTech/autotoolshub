@@ -5,10 +5,10 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/docs")({
   head: () => ({
     meta: [
-      { title: "Documentation — Biztrait Market" },
-      { name: "description", content: "API reference, SDKs, and guides for building automation workflows and Discord bots with Biztrait." },
-      { property: "og:title", content: "Biztrait Documentation — APIs, SDKs & guides" },
-      { property: "og:description", content: "Everything you need to design, deploy, and scale Biztrait automation workflows." },
+      { title: "Documentation — BizTrait Market" },
+      { name: "description", content: "Setup guides, account documentation, and integration references for products purchased on BizTrait Market." },
+      { property: "og:title", content: "BizTrait Documentation — Setup, account & integrations" },
+      { property: "og:description", content: "Guides for setting up and managing the business software you buy on BizTrait Market." },
       { property: "og:url", content: "https://biztrait.com/docs" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/docs" }],
@@ -17,34 +17,19 @@ export const Route = createFileRoute("/docs")({
 });
 
 const SECTIONS = [
-  { icon: BookOpen, title: "Getting Started", desc: "Create your account, install the SDK, and ship your first workflow." },
-  { icon: Key, title: "Authentication", desc: "Generate API keys, manage scopes, and rotate credentials securely." },
-  { icon: Webhook, title: "Webhooks", desc: "Subscribe to events, verify signatures, and handle retries." },
-  { icon: Terminal, title: "CLI & SDKs", desc: "TypeScript, Python, and Node packages with full typings." },
+  { icon: BookOpen, title: "Getting Started", desc: "Create your account, complete verification, and access your first purchase." },
+  { icon: Key, title: "Account & Billing", desc: "Manage your business profile, seats, invoices, and payment methods." },
+  { icon: Webhook, title: "Product Setup", desc: "Step-by-step setup guides for the business software you purchase." },
+  { icon: Terminal, title: "Integrations & Support", desc: "Connect popular business platforms and reach human support when needed." },
 ];
-
-const SAMPLE = `// Trigger a workflow when a YouTube video is published
-import { Biztrait } from "@biztrait/sdk";
-
-const client = new Biztrait({ apiKey: process.env.BIZTRAIT_API_KEY });
-
-await client.triggers.create({
-  source: "youtube.video.published",
-  channelId: "UC_xxx",
-  actions: [
-    { type: "ai.generate", prompt: "Write 3 tweet variants" },
-    { type: "twitter.post", account: "@brand" },
-    { type: "slack.notify", channel: "#growth" },
-  ],
-});`;
 
 function DocsPage() {
   return (
     <PageShell>
       <PageHero
         eyebrow="Documentation"
-        title="Build with BizTrait Market"
-        subtitle="Everything you need to design, deploy, and scale automation workflows."
+        title="Get set up on BizTrait Market"
+        subtitle="Everything you need to purchase, activate, and manage business software from BizTrait Market."
       />
 
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
@@ -62,16 +47,11 @@ function DocsPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-2xl border border-border bg-ink shadow-brand">
-          <div className="flex items-center gap-2 border-b border-white/10 px-5 py-3">
-            <span className="h-3 w-3 rounded-full bg-brand" />
-            <span className="h-3 w-3 rounded-full bg-brand-2" />
-            <span className="h-3 w-3 rounded-full bg-white/30" />
-            <span className="ml-3 text-xs font-semibold text-white/60">example.ts</span>
-          </div>
-          <pre className="overflow-x-auto p-6 text-sm leading-relaxed text-white/90">
-            <code>{SAMPLE}</code>
-          </pre>
+        <div className="rounded-2xl border border-border bg-surface p-8 shadow-card">
+          <h2 className="text-xl font-bold text-ink">Need help with a purchase?</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Our team responds within one business day. Reach out for setup help, billing questions, or business inquiries.
+          </p>
         </div>
       </section>
     </PageShell>

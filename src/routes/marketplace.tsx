@@ -15,10 +15,10 @@ import { TrustBadges, TrustStats } from "@/components/site/TrustMeta";
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
     meta: [
-      { title: "Digital Marketplace — Software, APIs, Hosting & AI | Biztrait Market" },
-      { name: "description", content: "Browse and purchase software, APIs, hosting, AI, marketing, creator, and developer products — all from one trusted marketplace." },
-      { property: "og:title", content: "Biztrait Marketplace — Software, APIs, Hosting & Digital Products" },
-      { property: "og:description", content: "Discover, compare, and buy the digital tools your business needs, all in one place." },
+      { title: "Business Software Marketplace — SaaS, Hosting & Cloud | BizTrait Market" },
+      { name: "description", content: "Browse and purchase business software, SaaS, hosting, CRM, security, and productivity products — all from one trusted marketplace." },
+      { property: "og:title", content: "BizTrait Marketplace — Business Software, SaaS & Cloud Services" },
+      { property: "og:description", content: "Discover, compare, and buy the business software your team needs, all in one place." },
       { property: "og:url", content: "https://biztrait.com/marketplace" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/marketplace" }],
@@ -34,16 +34,16 @@ function MarketplacePage() {
     <PageShell>
       <PageHero
         eyebrow="Marketplace"
-        title="Software, APIs, hosting & digital tools for every workflow"
-        subtitle="Buy individual products or bundle them into a custom plan for your team — all from one marketplace."
+        title="Business software, SaaS & hosting for every team"
+        subtitle="Buy individual products or bundle them into a plan for your team — all from one professional marketplace."
       />
 
       <section className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-3">
           {[
-            { icon: Code2, title: "Typed SDKs", desc: "TypeScript, Python, and Node SDKs with full typings." },
-            { icon: Boxes, title: "Composable", desc: "Mix triggers, actions, and AI nodes into any workflow." },
-            { icon: Plug, title: "Plug-and-play", desc: "Drop-in connectors with OAuth and key management." },
+            { icon: Code2, title: "Verified vendors", desc: "Every product is reviewed for quality, security, and business fit." },
+            { icon: Boxes, title: "Transparent pricing", desc: "Clear one-time pricing with itemized invoices for your records." },
+            { icon: Plug, title: "Secure checkout", desc: "Encrypted payments and business-grade billing you can trust." },
           ].map((f) => (
             <div key={f.title} className="rounded-2xl border border-border bg-surface p-6 shadow-card">
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft text-brand">

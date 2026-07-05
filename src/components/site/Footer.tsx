@@ -6,19 +6,19 @@ const COLS = [
   {
     title: "Product",
     links: [
-      { to: "/tools", label: "Tools" },
+      { to: "/tools", label: "Software" },
       { to: "/categories", label: "Categories" },
       { to: "/integrations", label: "Integrations" },
-      { to: "/marketplace", label: "API Marketplace" },
+      { to: "/marketplace", label: "Marketplace" },
     ],
   },
   {
-    title: "Developers",
+    title: "Resources",
     links: [
       { to: "/docs", label: "Documentation" },
-      { to: "/docs", label: "API Reference" },
-      { to: "/docs", label: "Developer Portal" },
-      { to: "/docs", label: "Changelog" },
+      { to: "/docs", label: "Getting Started" },
+      { to: "/docs", label: "Account & Billing" },
+      { to: "/docs", label: "Product Setup" },
     ],
   },
   {
@@ -49,7 +49,7 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Logo />
             <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-              BizTrait Market — the unified marketplace for software, APIs, hosting, AI, automation, and creator tools. Everything you need to build, automate, and scale in one place.
+              BizTrait Market — the professional marketplace for business software, SaaS, hosting, CRM, security, and productivity tools. Everything your business needs in one trusted place.
             </p>
             <div className="mt-6 flex gap-3">
               {[Twitter, Linkedin, Github, Youtube].map((Icon, i) => (
@@ -81,7 +81,7 @@ export function Footer() {
         </div>
         <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
           <p>© 2026 BizTrait Market. All Rights Reserved.</p>
-          <p>One marketplace. Every digital tool.</p>
+          <p>One marketplace. Every business tool.</p>
         </div>
       </div>
     </footer>

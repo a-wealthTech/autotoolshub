@@ -5,10 +5,10 @@ import { Logo } from "./Logo";
 
 const NAV = [
   { to: "/", label: "Home" },
-  { to: "/tools", label: "Tools" },
+  { to: "/tools", label: "Software" },
   { to: "/categories", label: "Categories" },
   { to: "/integrations", label: "Integrations" },
-  { to: "/marketplace", label: "API Marketplace" },
+  { to: "/marketplace", label: "Marketplace" },
   { to: "/docs", label: "Documentation" },
   { to: "/contact", label: "Contact" },
 ] as const;

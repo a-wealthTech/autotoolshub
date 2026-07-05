@@ -62,7 +62,7 @@
 
   /* Biztrait dark-mode-first premium SaaS palette */
   --brand: oklch(0.58 0.19 260);        /* Biztrait tech blue #0A58CA-ish */
-  --brand-2: oklch(0.66 0.19 275);      /* Discord blurple #5865F2 */
+  --brand-2: oklch(0.66 0.19 275);      /* Secondary brand accent */
   --brand-foreground: oklch(1 0 0);
   --brand-soft: oklch(0.28 0.08 265);
   --accent-blue: oklch(0.66 0.19 275);
