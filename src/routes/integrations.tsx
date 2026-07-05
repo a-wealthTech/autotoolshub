@@ -4,10 +4,10 @@ import { PageShell, PageHero } from "@/components/site/PageShell";
 export const Route = createFileRoute("/integrations")({
   head: () => ({
     meta: [
-      { title: "Integrations — Biztrait Market" },
-      { name: "description", content: "180+ Biztrait integrations across social, streaming, CRM, AI, payments, and community platforms." },
-      { property: "og:title", content: "Biztrait Integrations — 180+ native connectors" },
-      { property: "og:description", content: "Connect every platform you use — social, streaming, CRM, payments, AI, and more." },
+      { title: "Integrations — BizTrait Market" },
+      { name: "description", content: "BizTrait Market integrates with the business platforms your team already uses — CRM, hosting, payments, email, analytics, and collaboration." },
+      { property: "og:title", content: "BizTrait Integrations — Business platforms & services" },
+      { property: "og:description", content: "Connect the business platforms your team uses — CRM, hosting, payments, collaboration, analytics, and more." },
       { property: "og:url", content: "https://biztrait.com/integrations" },
     ],
     links: [{ rel: "canonical", href: "https://biztrait.com/integrations" }],
@@ -16,24 +16,24 @@ export const Route = createFileRoute("/integrations")({
 });
 
 const PLATFORMS = [
-  { name: "YouTube", group: "Video" },
-  { name: "Twitch", group: "Streaming" },
-  { name: "Instagram", group: "Social" },
-  { name: "X (Twitter)", group: "Social" },
-  { name: "TikTok", group: "Social" },
-  { name: "Facebook", group: "Social" },
-  { name: "LinkedIn", group: "Social" },
-  { name: "Pinterest", group: "Social" },
-  { name: "Threads", group: "Social" },
-  { name: "Discord", group: "Community" },
-  { name: "Telegram", group: "Messaging" },
-  { name: "Slack", group: "Messaging" },
+  { name: "Google Workspace", group: "Productivity" },
+  { name: "Microsoft 365", group: "Productivity" },
+  { name: "Slack", group: "Collaboration" },
+  { name: "Zoom", group: "Communications" },
   { name: "HubSpot", group: "CRM" },
   { name: "Salesforce", group: "CRM" },
-  { name: "Mailchimp", group: "Email" },
-  { name: "OpenAI", group: "AI" },
-  { name: "Anthropic", group: "AI" },
+  { name: "Pipedrive", group: "Sales" },
+  { name: "Mailchimp", group: "Email Marketing" },
+  { name: "Shopify", group: "E-commerce" },
+  { name: "WooCommerce", group: "E-commerce" },
+  { name: "WordPress", group: "Website" },
   { name: "Stripe", group: "Payments" },
+  { name: "PayPal", group: "Payments" },
+  { name: "QuickBooks", group: "Finance" },
+  { name: "Xero", group: "Finance" },
+  { name: "Google Analytics", group: "Analytics" },
+  { name: "Cloudflare", group: "Hosting & CDN" },
+  { name: "AWS", group: "Cloud" },
 ];
 
 function IntegrationsPage() {
@@ -41,8 +41,8 @@ function IntegrationsPage() {
     <PageShell>
       <PageHero
         eyebrow="Integrations"
-        title="Connect every platform you use"
-        subtitle="Native connectors across social, streaming, CRM, payments, AI, and more."
+        title="Connect the business platforms you already use"
+        subtitle="Standards-based connectors across CRM, hosting, payments, collaboration, analytics, and more."
       />
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
