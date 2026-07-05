@@ -93,7 +93,7 @@ export const CATEGORIES: Category[] = [
   {
     id: "discord-bots",
     number: "05",
-    title: "Custom Discord Bot Marketplace",
+    title: "Custom\u00a0 DiscordBot\u00a0\u00a0Marketplace",
     description: "One-click hosting and configuration for plug-and-play Discord bots — moderation, leveling, webhooks, music, and AI agents.",
     icon: Bot,
     tools: [
