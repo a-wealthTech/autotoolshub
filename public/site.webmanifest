@@ -1,7 +1,7 @@
 {
-  "name": "Biztrait Market",
-  "short_name": "Biztrait Market",
-  "description": "Automation APIs, AI workflows, and one-click Discord bots — unified on Biztrait Market.",
+  "name": "BizTrait Market",
+  "short_name": "BizTrait Market",
+  "description": "Professional marketplace for business software, SaaS, hosting, security, and productivity tools.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#1F2937",
