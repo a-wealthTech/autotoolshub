@@ -3,6 +3,8 @@ import { useMemo, useState } from "react";
 import { Search, ArrowRight, Flame } from "lucide-react";
 import { PageShell, PageHero } from "@/components/site/PageShell";
 import { TOOL_DETAILS, CATEGORIES, PLATFORMS_LIST } from "@/lib/categories";
+import { getToolTrust } from "@/lib/tool-trust";
+import { TrustBadges, TrustStats } from "@/components/site/TrustMeta";
 
 export const Route = createFileRoute("/tools")({
   head: () => ({
@@ -27,7 +29,9 @@ function ToolsPage() {
   const [trending, setTrending] = useState(false);
 
   const filtered = useMemo(() => {
-    return TOOL_DETAILS.filter((t) => {
+    return [...TOOL_DETAILS]
+      .sort((a, b) => getToolTrust(b).popularityScore - getToolTrust(a).popularityScore)
+      .filter((t) => {
       if (cat !== "all" && t.categoryId !== cat) return false;
       if (platform !== "all" && t.platform !== platform) return false;
       if (priceTier === "under200" && t.price >= 200) return false;
@@ -35,7 +39,7 @@ function ToolsPage() {
       if (priceTier === "275plus" && t.price < 275) return false;
       if (q && !t.name.toLowerCase().includes(q.toLowerCase())) return false;
       return true;
-    }).filter((_, i) => (trending ? i % 2 === 0 : true));
+    }).filter((t) => (trending ? getToolTrust(t).badges.includes("Trending") : true));
   }, [q, cat, platform, priceTier, trending]);
 
   return (
@@ -109,7 +113,9 @@ function ToolsPage() {
         </p>
 
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((t) => (
+          {filtered.map((t) => {
+            const trust = getToolTrust(t);
+            return (
             <Link
               key={t.code}
               to="/tools/$toolSlug"
@@ -131,19 +137,25 @@ function ToolsPage() {
                   </span>
                 </div>
               </div>
-              <h2 className="mt-4 text-base font-bold text-ink">{t.name}</h2>
+              <div className="mt-3">
+                <TrustBadges badges={trust.badges} />
+              </div>
+              <h2 className="mt-2 text-base font-bold text-ink">{t.name}</h2>
               <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand">
                 {t.categoryTitle}
               </p>
               <p className="mt-3 flex-1 text-sm text-muted-foreground line-clamp-3">
                 {t.description}
               </p>
-              <div className="mt-5 flex items-center justify-between">
+              <div className="mt-4">
+                <TrustStats trust={trust} compact />
+              </div>
+              <div className="mt-4 flex items-center justify-between">
                 <span className="text-sm font-extrabold text-ink">
-                  ${t.price}<span className="text-xs font-medium text-muted-foreground"> one-time</span>
+                  <span className="text-xs font-medium text-muted-foreground">from </span>${t.price}
                 </span>
-                <span className="inline-flex items-center gap-1 text-sm font-semibold text-brand">
-                  View details <ArrowRight className="h-3.5 w-3.5" />
+                <span className="text-[11px] font-semibold text-muted-foreground">
+                  {trust.version} · {trust.updatedAt}
                 </span>
               </div>
               <div className="mt-3 grid grid-cols-2 gap-2">
@@ -174,7 +186,8 @@ function ToolsPage() {
                 </button>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
 
         {filtered.length === 0 && (
