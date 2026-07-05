@@ -83,7 +83,7 @@ function Index() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-hero-glow">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:py-24">
-          <div>
+          <div className="text-center lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wider text-ink">
               <Sparkles className="h-3.5 w-3.5 text-brand" /> Biztrait Market
             </span>
@@ -91,10 +91,10 @@ function Index() {
               Powering Next-Gen Automation &amp;{" "}
               <span className="text-gradient-brand">Discord Ecosystems</span> From One Central Hub.
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-muted-foreground">
+            <p className="mt-5 max-w-xl text-lg text-muted-foreground mx-auto lg:mx-0">
               Deploy powerful trigger APIs, intelligent AI web systems, and instant-install Discord bots built to scale your community, social platforms, and operations.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
               <a
                 href="#categories"
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
@@ -109,7 +109,7 @@ function Index() {
                 <Bot className="h-4 w-4" /> Deploy a Bot Free
               </Link>
             </div>
-            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground lg:justify-start">
               {["No credit card required", "5-min configuration", "Cancel anytime"].map((t) => (
                 <span key={t} className="inline-flex items-center gap-1.5">
                   <CheckCircle2 className="h-4 w-4 text-brand" /> {t}
