@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
@@ -25,6 +26,11 @@ import { Route as CategoriesCategoryIdRouteImport } from './routes/categories.$c
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms': typeof TermsRoute
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/privacy'
     | '/sitemap.xml'
+    | '/terms'
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   MarketplaceRoute: typeof MarketplaceRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsRoute: typeof TermsRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   CheckoutToolSlugRoute: typeof CheckoutToolSlugRoute
 }
@@ -191,6 +204,13 @@ declare module '@tanstack/react-router' {
       path: '/tools'
       fullPath: '/tools'
       preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -304,6 +324,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceRoute: MarketplaceRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsRoute: TermsRoute,
   ToolsRoute: ToolsRouteWithChildren,
   CheckoutToolSlugRoute: CheckoutToolSlugRoute,
 }
