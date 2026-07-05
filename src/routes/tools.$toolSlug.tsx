@@ -4,6 +4,9 @@ import {
 } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { getToolBySlug, CATEGORIES } from "@/lib/categories";
+import { getToolTrust, formatCompact } from "@/lib/tool-trust";
+import { TrustBadges } from "@/components/site/TrustMeta";
+import { Star, Users, Rocket, Clock, GitBranch } from "lucide-react";
 
 export const Route = createFileRoute("/tools/$toolSlug")({
   loader: ({ params }) => {
@@ -66,6 +69,7 @@ export const Route = createFileRoute("/tools/$toolSlug")({
 function ToolDetailPage() {
   const { tool, category } = Route.useLoaderData();
   const Icon = tool.icon;
+  const trust = getToolTrust(tool);
 
   return (
     <PageShell>
@@ -98,6 +102,15 @@ function ToolDetailPage() {
                   </div>
                   <h1 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">{tool.name}</h1>
                   <p className="mt-3 max-w-2xl text-muted-foreground">{tool.description}</p>
+                  <div className="mt-4">
+                    <TrustBadges badges={trust.badges} max={4} />
+                  </div>
+                  <dl className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    <TrustStat icon={Star} label="Rating" value={`${trust.rating.toFixed(1)} / 5`} sub={`${formatCompact(trust.reviews)} reviews`} />
+                    <TrustStat icon={Users} label="Active users" value={`${formatCompact(trust.activeUsers)}+`} />
+                    <TrustStat icon={Rocket} label="Deployments" value={`${formatCompact(trust.deployments)}+`} />
+                    <TrustStat icon={Clock} label="Updated" value={trust.updatedAt} sub={trust.version} />
+                  </dl>
                 </div>
               </div>
             </div>
@@ -121,6 +134,7 @@ function ToolDetailPage() {
                 <li className="flex gap-2"><ShieldCheck className="h-4 w-4 text-brand" /> Secure checkout</li>
                 <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-brand" /> One-time payment</li>
                 <li className="flex gap-2"><CheckCircle2 className="h-4 w-4 text-brand" /> Lifetime updates included</li>
+                <li className="flex gap-2"><GitBranch className="h-4 w-4 text-brand" /> {trust.version} · updated {trust.updatedAt}</li>
               </ul>
             </aside>
           </div>
