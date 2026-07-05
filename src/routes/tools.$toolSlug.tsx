@@ -230,3 +230,25 @@ function Block({
     </div>
   );
 }
+
+function TrustStat({
+  icon: Icon,
+  label,
+  value,
+  sub,
+}: {
+  icon: typeof Zap;
+  label: string;
+  value: string;
+  sub?: string;
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-surface px-3 py-2.5 shadow-card">
+      <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+        <Icon className="h-3.5 w-3.5" /> {label}
+      </div>
+      <div className="mt-0.5 text-sm font-extrabold text-ink">{value}</div>
+      {sub && <div className="text-[11px] font-medium text-muted-foreground">{sub}</div>}
+    </div>
+  );
+}
