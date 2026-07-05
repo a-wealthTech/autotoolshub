@@ -27,14 +27,15 @@ const COLS = [
       { to: "/", label: "About" },
       { to: "/contact", label: "Contact" },
       { to: "/contact", label: "Careers" },
+      { to: "/sitemap", label: "Sitemap" },
     ],
   },
   {
     title: "Legal",
     links: [
-      { to: "/", label: "Privacy Policy" },
-      { to: "/", label: "Terms of Service" },
-      { to: "/", label: "Cookie Policy" },
+      { to: "/privacy", label: "Privacy Policy" },
+      { to: "/terms", label: "Terms of Service" },
+      { to: "/privacy", label: "Cookie Policy" },
     ],
   },
 ] as const;

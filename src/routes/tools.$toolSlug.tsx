@@ -6,7 +6,32 @@ import { PageShell } from "@/components/site/PageShell";
 import { getToolBySlug, CATEGORIES } from "@/lib/categories";
 import { getToolTrust, formatCompact } from "@/lib/tool-trust";
 import { TrustBadges } from "@/components/site/TrustMeta";
-import { Star, Users, Rocket, Clock, GitBranch } from "lucide-react";
+import { Star, Users, Rocket, Clock, GitBranch, ChevronRight, HelpCircle } from "lucide-react";
+
+function buildFaqs(toolName: string, categoryTitle: string, price: number) {
+  return [
+    {
+      q: `What is ${toolName}?`,
+      a: `${toolName} is a production-ready ${categoryTitle.toLowerCase()} product available on Biztrait Market. It ships with real-time triggers, webhooks, AI workflow nodes, and typed SDKs so teams can integrate it into their stack in minutes.`,
+    },
+    {
+      q: `How much does ${toolName} cost?`,
+      a: `${toolName} is a one-time purchase of $${price} USD on Biztrait Market. There are no recurring subscription fees, and lifetime updates are included.`,
+    },
+    {
+      q: `Which platforms does ${toolName} support?`,
+      a: `${toolName} supports the major platforms in the ${categoryTitle} category — including popular creator, developer, and business services — through native OAuth and API key integrations.`,
+    },
+    {
+      q: `Is ${toolName} suitable for production use?`,
+      a: `Yes. Every tool on Biztrait Market is verified, versioned, and monitored for uptime. ${toolName} includes retries, dead-letter queues, audit logs, and analytics out of the box.`,
+    },
+    {
+      q: `How do I get support for ${toolName}?`,
+      a: `You can reach the Biztrait support team via the contact page, or open a ticket from your dashboard after purchase. Documentation, SDKs, and integration guides are available in the docs.`,
+    },
+  ];
+}
 
 export const Route = createFileRoute("/tools/$toolSlug")({
   loader: ({ params }) => {
@@ -26,33 +51,74 @@ export const Route = createFileRoute("/tools/$toolSlug")({
       { property: "og:description", content: `Production-ready ${loaderData?.tool.name ?? "automation"} from Biztrait — triggers, webhooks, AI nodes, and SDKs.` },
       { property: "og:type", content: "product" },
       { property: "og:url", content: `https://biztrait.com/tools/${loaderData?.tool.slug ?? ""}` },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: `${loaderData?.tool.name ?? "Tool"} — Biztrait Market` },
+      { name: "twitter:description", content: `Production-ready ${loaderData?.tool.name ?? "automation"} from Biztrait — triggers, webhooks, AI nodes, and SDKs.` },
     ],
     links: loaderData
       ? [{ rel: "canonical", href: `https://biztrait.com/tools/${loaderData.tool.slug}` }]
       : [],
     scripts: loaderData
-      ? [
-          {
-            type: "application/ld+json",
-            children: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Product",
-              name: loaderData.tool.name,
-              description: `Production-ready ${loaderData.tool.name} from Biztrait Market — triggers, webhooks, and AI workflow nodes.`,
-              brand: { "@type": "Brand", name: "Biztrait" },
-              category: loaderData.category.title,
-              sku: loaderData.tool.code,
-              url: `https://biztrait.com/tools/${loaderData.tool.slug}`,
-              offers: {
-                "@type": "Offer",
-                price: String(loaderData.tool.price),
-                priceCurrency: "USD",
-                availability: "https://schema.org/InStock",
-                url: `https://biztrait.com/checkout/${loaderData.tool.slug}`,
-              },
-            }),
-          },
-        ]
+      ? (() => {
+          const tool = loaderData.tool;
+          const category = loaderData.category;
+          const trust = getToolTrust(tool);
+          const url = `https://biztrait.com/tools/${tool.slug}`;
+          const faqs = buildFaqs(tool.name, category.title, tool.price);
+          return [
+            {
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@graph": [
+                  {
+                    "@type": ["Product", "SoftwareApplication"],
+                    name: tool.name,
+                    description: `Production-ready ${tool.name} from Biztrait Market — triggers, webhooks, AI workflow nodes, and typed SDKs.`,
+                    brand: { "@type": "Brand", name: "Biztrait" },
+                    category: category.title,
+                    applicationCategory: "BusinessApplication",
+                    operatingSystem: "Web, Cloud",
+                    softwareVersion: trust.version,
+                    sku: tool.code,
+                    url,
+                    offers: {
+                      "@type": "Offer",
+                      price: String(tool.price),
+                      priceCurrency: "USD",
+                      availability: "https://schema.org/InStock",
+                      url: `https://biztrait.com/checkout/${tool.slug}`,
+                    },
+                    aggregateRating: {
+                      "@type": "AggregateRating",
+                      ratingValue: String(trust.rating),
+                      reviewCount: String(trust.reviews),
+                      bestRating: "5",
+                      worstRating: "1",
+                    },
+                  },
+                  {
+                    "@type": "BreadcrumbList",
+                    itemListElement: [
+                      { "@type": "ListItem", position: 1, name: "Home", item: "https://biztrait.com/" },
+                      { "@type": "ListItem", position: 2, name: "Tools", item: "https://biztrait.com/tools" },
+                      { "@type": "ListItem", position: 3, name: category.title, item: `https://biztrait.com/categories/${category.id}` },
+                      { "@type": "ListItem", position: 4, name: tool.name, item: url },
+                    ],
+                  },
+                  {
+                    "@type": "FAQPage",
+                    mainEntity: faqs.map((f) => ({
+                      "@type": "Question",
+                      name: f.q,
+                      acceptedAnswer: { "@type": "Answer", text: f.a },
+                    })),
+                  },
+                ],
+              }),
+            },
+          ];
+        })()
       : [],
   }),
   component: ToolDetailPage,
@@ -70,12 +136,28 @@ function ToolDetailPage() {
   const { tool, category } = Route.useLoaderData();
   const Icon = tool.icon;
   const trust = getToolTrust(tool);
+  const faqs = buildFaqs(tool.name, category.title, tool.price);
 
   return (
     <PageShell>
       <section className="relative overflow-hidden bg-hero-glow">
         <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <Link to="/tools" className="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline">
+          <nav aria-label="Breadcrumb" className="text-sm">
+            <ol className="flex flex-wrap items-center gap-1 text-muted-foreground">
+              <li><Link to="/" className="hover:text-brand">Home</Link></li>
+              <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
+              <li><Link to="/tools" className="hover:text-brand">Tools</Link></li>
+              <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
+              <li>
+                <Link to="/categories/$categoryId" params={{ categoryId: category.id }} className="hover:text-brand">
+                  {category.title}
+                </Link>
+              </li>
+              <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
+              <li className="font-semibold text-ink" aria-current="page">{tool.name}</li>
+            </ol>
+          </nav>
+          <Link to="/tools" className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline">
             <ArrowLeft className="h-4 w-4" /> All tools
           </Link>
           <div className="mt-6 grid gap-10 lg:grid-cols-3">
@@ -204,6 +286,23 @@ await hub.tools["${tool.code}"].trigger({
             </Link>
           </div>
         </div>
+
+        <section className="mt-12 rounded-2xl border border-border bg-surface p-6 shadow-card sm:p-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand">
+              <HelpCircle className="h-5 w-5" />
+            </div>
+            <h2 className="text-2xl font-bold text-ink">Frequently asked questions</h2>
+          </div>
+          <dl className="mt-6 divide-y divide-border">
+            {faqs.map((f) => (
+              <div key={f.q} className="py-5">
+                <dt className="text-base font-semibold text-ink">{f.q}</dt>
+                <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">{f.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
       </section>
     </PageShell>
   );
