@@ -1,7 +1,9 @@
 import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { CATEGORIES, TOOL_DETAILS } from "@/lib/categories";
+import { getToolTrust } from "@/lib/tool-trust";
+import { TrustBadges, TrustStats } from "@/components/site/TrustMeta";
 
 export const Route = createFileRoute("/categories/$categoryId")({
   loader: ({ params }) => {
@@ -49,7 +51,9 @@ export const Route = createFileRoute("/categories/$categoryId")({
 function CategoryPage() {
   const { category } = Route.useLoaderData();
   const navigate = useNavigate();
-  const tools = TOOL_DETAILS.filter((t) => t.categoryId === category.id);
+  const tools = TOOL_DETAILS
+    .filter((t) => t.categoryId === category.id)
+    .sort((a, b) => getToolTrust(b).popularityScore - getToolTrust(a).popularityScore);
   const Icon = category.icon;
   return (
     <PageShell>
@@ -75,7 +79,9 @@ function CategoryPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {tools.map((t) => (
+          {tools.map((t) => {
+            const trust = getToolTrust(t);
+            return (
             <Link
               key={t.code}
               to="/tools/$toolSlug"
@@ -90,13 +96,23 @@ function CategoryPage() {
                   </span>
                 )}
               </div>
-              <h2 className="mt-4 text-lg font-bold text-ink">{t.name}</h2>
+              <div className="mt-3">
+                <TrustBadges badges={trust.badges} />
+              </div>
+              <h2 className="mt-3 text-lg font-bold text-ink">{t.name}</h2>
               <p className="mt-3 flex-1 text-sm text-muted-foreground line-clamp-4">{t.description}</p>
-              <div className="mt-5 flex items-center justify-between">
+              <div className="mt-4">
+                <TrustStats trust={trust} />
+              </div>
+              <div className="mt-4 flex items-center justify-between">
                 <span className="text-sm font-extrabold text-ink">
-                  ${t.price}<span className="text-xs font-medium text-muted-foreground"> one-time</span>
+                  <span className="text-xs font-medium text-muted-foreground">from </span>${t.price}
                 </span>
-                <button
+                <div className="flex items-center gap-2">
+                  <span className="hidden text-[11px] font-semibold text-muted-foreground sm:inline">
+                    {trust.version}
+                  </span>
+                  <button
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
@@ -109,10 +125,12 @@ function CategoryPage() {
                   className="rounded-lg bg-gradient-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-brand"
                 >
                   Buy Now
-                </button>
+                  </button>
+                </div>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
     </PageShell>

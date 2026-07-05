@@ -1,7 +1,16 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Code2, Boxes, Plug } from "lucide-react";
 import { PageShell, PageHero } from "@/components/site/PageShell";
-import { TOOL_DETAILS } from "@/lib/categories";
+import type { ToolDetail } from "@/lib/categories";
+import {
+  BEST_SELLERS,
+  TOOLS_BY_POPULARITY,
+  TRENDING,
+  RECENTLY_UPDATED,
+  TOP_RATED,
+  getToolTrust,
+} from "@/lib/tool-trust";
+import { TrustBadges, TrustStats } from "@/components/site/TrustMeta";
 
 export const Route = createFileRoute("/marketplace")({
   head: () => ({
@@ -19,6 +28,8 @@ export const Route = createFileRoute("/marketplace")({
 
 function MarketplacePage() {
   const navigate = useNavigate();
+  const featured = TOOLS_BY_POPULARITY.slice(0, 6);
+  const staffPicks = TOOLS_BY_POPULARITY.filter((t) => getToolTrust(t).badges.includes("Staff Pick")).slice(0, 6);
   return (
     <PageShell>
       <PageHero
@@ -45,24 +56,75 @@ function MarketplacePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <h2 className="mb-6 text-2xl font-bold text-ink">Featured marketplace products</h2>
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {TOOL_DETAILS.slice(0, 12).map((t) => (
+      <div className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8 space-y-16">
+        <ProductRow title="Featured products" subtitle="Top-performing tools across the marketplace" tools={featured} navigate={navigate} />
+        {BEST_SELLERS.length > 0 && (
+          <ProductRow title="Best sellers" subtitle="The most purchased tools this quarter" tools={BEST_SELLERS} navigate={navigate} />
+        )}
+        {TRENDING.length > 0 && (
+          <ProductRow title="Trending this week" subtitle="Rapidly growing tools our customers are adopting" tools={TRENDING} navigate={navigate} />
+        )}
+        <ProductRow title="Top rated" subtitle="Highest-rated tools verified by real customer reviews" tools={TOP_RATED} navigate={navigate} />
+        <ProductRow title="Recently updated" subtitle="Fresh releases and version upgrades" tools={RECENTLY_UPDATED} navigate={navigate} />
+        {staffPicks.length > 0 && (
+          <ProductRow title="Staff picks" subtitle="Hand-selected by the Biztrait team" tools={staffPicks} navigate={navigate} />
+        )}
+      </div>
+    </PageShell>
+  );
+}
+
+function ProductRow({
+  title,
+  subtitle,
+  tools,
+  navigate,
+}: {
+  title: string;
+  subtitle: string;
+  tools: ToolDetail[];
+  navigate: ReturnType<typeof useNavigate>;
+}) {
+  return (
+    <section>
+      <div className="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-ink">{title}</h2>
+          <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+        </div>
+      </div>
+      <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {tools.map((t) => {
+          const trust = getToolTrust(t);
+          return (
             <Link
               key={t.code}
               to="/tools/$toolSlug"
               params={{ toolSlug: t.slug }}
-              className="group rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
+              className="group flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
             >
               <div className="flex items-center justify-between">
-                <span className="rounded-full bg-brand-soft px-2 py-1 text-xs font-bold text-brand">{t.code}</span>
-                <span className="text-xs font-semibold text-muted-foreground">REST · Webhooks</span>
+                <div className="flex items-center gap-2">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-soft text-brand">
+                    <t.icon className="h-4 w-4" />
+                  </div>
+                  <span className="rounded-full bg-brand-soft px-2 py-1 text-xs font-bold text-brand">{t.code}</span>
+                </div>
+                {t.platform && (
+                  <span className="rounded-full border border-border bg-background px-2 py-0.5 text-[10px] font-bold uppercase text-muted-foreground">
+                    {t.platform}
+                  </span>
+                )}
               </div>
-              <h2 className="mt-4 text-base font-bold text-ink">{t.name}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">{t.categoryTitle}</p>
+              <div className="mt-3"><TrustBadges badges={trust.badges} /></div>
+              <h3 className="mt-2 text-base font-bold text-ink">{t.name}</h3>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-brand">{t.categoryTitle}</p>
+              <p className="mt-3 flex-1 text-sm text-muted-foreground line-clamp-3">{t.description}</p>
+              <div className="mt-4"><TrustStats trust={trust} compact /></div>
               <div className="mt-4 flex items-center justify-between">
-                <span className="text-sm font-extrabold text-ink">${t.price} one-time</span>
+                <span className="text-sm font-extrabold text-ink">
+                  <span className="text-xs font-medium text-muted-foreground">from </span>${t.price}
+                </span>
                 <button
                   type="button"
                   onClick={(e) => {
@@ -79,9 +141,9 @@ function MarketplacePage() {
                 </button>
               </div>
             </Link>
-          ))}
-        </div>
+          );
+        })}
+      </div>
       </section>
-    </PageShell>
   );
 }
