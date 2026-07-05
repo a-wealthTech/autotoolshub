@@ -5,6 +5,8 @@ import {
 } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { CATEGORIES } from "@/lib/categories";
+import { TOOLS_BY_POPULARITY, TRENDING, getToolTrust } from "@/lib/tool-trust";
+import { TrustBadges, TrustStats } from "@/components/site/TrustMeta";
 import heroImg from "@/assets/hero-automation.jpg";
 
 export const Route = createFileRoute("/")({
@@ -27,10 +29,10 @@ const PLATFORMS = [
 ];
 
 const STATS = [
-  { value: "15K+", label: "Digital Products Delivered" },
-  { value: "80+", label: "Tools, APIs, Hosting & AI Services" },
-  { value: "99.99%", label: "Enterprise Uptime SLA" },
-  { value: "220+", label: "Platform & Service Integrations" },
+  { value: "100K+", label: "Active Customers" },
+  { value: "500+", label: "Premium Tools, APIs & Services" },
+  { value: "1M+", label: "Successful Deployments" },
+  { value: "99.99%", label: "Platform Availability" },
 ];
 
 const FEATURES = [
@@ -236,6 +238,97 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* Most popular tools */}
+      <section className="bg-surface-muted py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-widest text-brand">
+                Customer favorites
+              </span>
+              <h2 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">
+                Most popular tools this month
+              </h2>
+              <p className="mt-3 max-w-2xl text-muted-foreground">
+                Verified products with the highest ratings, deployments, and active users across the marketplace.
+              </p>
+            </div>
+            <Link to="/tools" className="hidden text-sm font-semibold text-brand hover:underline sm:inline-flex">
+              Browse all tools →
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {TOOLS_BY_POPULARITY.slice(0, 6).map((t) => {
+              const trust = getToolTrust(t);
+              return (
+                <Link
+                  key={t.code}
+                  to="/tools/$toolSlug"
+                  params={{ toolSlug: t.slug }}
+                  className="group flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-soft text-brand">
+                      <t.icon className="h-5 w-5" />
+                    </div>
+                    <span className="rounded-full bg-surface-muted px-2 py-1 text-xs font-bold text-muted-foreground">
+                      {t.code}
+                    </span>
+                  </div>
+                  <div className="mt-3"><TrustBadges badges={trust.badges} /></div>
+                  <h3 className="mt-2 text-base font-bold text-ink">{t.name}</h3>
+                  <p className="mt-3 flex-1 text-sm text-muted-foreground line-clamp-3">{t.description}</p>
+                  <div className="mt-4"><TrustStats trust={trust} compact /></div>
+                  <div className="mt-4 flex items-center justify-between">
+                    <span className="text-sm font-extrabold text-ink">
+                      <span className="text-xs font-medium text-muted-foreground">from </span>${t.price}
+                    </span>
+                    <span className="text-xs font-semibold text-brand">View details →</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Trending strip */}
+      {TRENDING.length > 0 && (
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <span className="text-xs font-semibold uppercase tracking-widest text-brand">Trending this week</span>
+              <h2 className="mt-2 text-2xl font-extrabold text-ink sm:text-3xl">Fast-growing tools our customers love</h2>
+            </div>
+            <Link to="/marketplace" className="hidden text-sm font-semibold text-brand hover:underline sm:inline-flex">
+              Explore marketplace →
+            </Link>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {TRENDING.slice(0, 6).map((t) => {
+              const trust = getToolTrust(t);
+              return (
+                <Link
+                  key={t.code}
+                  to="/tools/$toolSlug"
+                  params={{ toolSlug: t.slug }}
+                  className="flex items-center gap-4 rounded-2xl border border-border bg-surface p-4 shadow-card transition-all hover:-translate-y-0.5 hover:border-brand/40"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand">
+                    <t.icon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm font-bold text-ink">{t.name}</div>
+                    <div className="mt-1"><TrustStats trust={trust} compact /></div>
+                  </div>
+                  <span className="text-sm font-extrabold text-ink">${t.price}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Features — Biztrait Advantage */}
       <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
