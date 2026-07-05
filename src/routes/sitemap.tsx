@@ -35,6 +35,8 @@ function HtmlSitemap() {
         <Section title="Legal">
           <SLink to="/privacy">Privacy Policy</SLink>
           <SLink to="/terms">Terms of Service</SLink>
+          <SLink to="/cookies">Cookie Policy</SLink>
+          <SLink to="/refunds">Refund Policy</SLink>
         </Section>
         {CATEGORIES.map((c) => (
           <Section key={c.id} title={c.title}>

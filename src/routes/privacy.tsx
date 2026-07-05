@@ -18,23 +18,23 @@ export const Route = createFileRoute("/privacy")({
 function PrivacyPage() {
   return (
     <PageShell>
-      <PageHero eyebrow="Legal" title="Privacy Policy" subtitle="Last updated: January 2026" />
+      <PageHero eyebrow="Legal" title="BizTrait Market Privacy Notice" subtitle="Effective date: July 5, 2026" />
       <article className="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8 prose prose-slate dark:prose-invert">
-        <p>
-          This Privacy Policy explains how Biztrait Market ("Biztrait", "we", "us") collects,
-          uses, and safeguards information when you visit biztrait.com or purchase a product
-          from our marketplace.
-        </p>
-        <h2>Information we collect</h2>
-        <p>Account details, billing information, usage analytics, and support communications.</p>
-        <h2>How we use information</h2>
-        <p>To fulfil orders, provide customer support, improve our products, prevent fraud, and comply with legal obligations.</p>
-        <h2>Data sharing</h2>
-        <p>We do not sell personal data. We share limited data with payment processors, hosting providers, and analytics tools strictly to operate the service.</p>
-        <h2>Your rights</h2>
-        <p>You may request access, correction, or deletion of your personal data at any time by contacting support.</p>
+        <p>Your privacy is important to us. This notice explains how BizTrait Market collects, uses, and safeguards information when you visit biztrait.com or purchase from our marketplace.</p>
+        <h2>Information We Collect</h2>
+        <p>We may collect your name, email address, account information, billing information, purchase history, device information, browser information, IP address, and usage analytics.</p>
+        <h2>How We Use Information</h2>
+        <p>We use your information to process purchases, deliver products and services, improve platform performance, prevent fraud and abuse, provide customer support, communicate important account information, and comply with legal obligations.</p>
+        <h2>Data Security</h2>
+        <p>We use commercially reasonable technical and organizational measures to help protect customer information.</p>
+        <h2>Cookies</h2>
+        <p>We use cookies and similar technologies to improve user experience, remember preferences, analyze website performance, and support security and fraud prevention. See our <a href="/cookies">Cookie Policy</a> for details.</p>
+        <h2>Third-Party Services</h2>
+        <p>We may use trusted third-party providers for payment processing, analytics, cloud hosting, customer support, and email communications. These providers process data according to their own policies and applicable agreements.</p>
+        <h2>Your Rights</h2>
+        <p>Where applicable under law, you may request to access your personal information, correct inaccurate information, delete eligible information, and export eligible account data.</p>
         <h2>Contact</h2>
-        <p>Questions about this policy? Contact us via the <a href="/contact">contact page</a>.</p>
+        <p>Questions about this notice? Contact us via the <a href="/contact">contact page</a>.</p>
       </article>
     </PageShell>
   );

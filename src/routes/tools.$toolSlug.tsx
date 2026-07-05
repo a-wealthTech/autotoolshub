@@ -250,11 +250,11 @@ function ToolDetailPage() {
             </ul>
           </Block>
           <Block icon={Code2} title="Integration guide">
-            <pre className="overflow-x-auto rounded-xl bg-ink p-4 text-xs leading-relaxed text-brand-foreground">{`import { AutoToolsHub } from "@autotoolshub/sdk";
+            <pre className="overflow-x-auto rounded-xl bg-ink p-4 text-xs leading-relaxed text-brand-foreground">{`import { BizTraitMarket } from "@biztrait/sdk";
 
-const hub = new AutoToolsHub({ apiKey: process.env.ATH_KEY });
+const market = new BizTraitMarket({ apiKey: process.env.BIZTRAIT_KEY });
 
-await hub.tools["${tool.code}"].trigger({
+await market.tools["${tool.code}"].trigger({
   payload: { /* ... */ },
 });`}</pre>
           </Block>
