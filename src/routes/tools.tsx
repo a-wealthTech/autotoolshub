@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Search, ArrowRight, Flame } from "lucide-react";
+import { Search, Flame } from "lucide-react";
 import { PageShell, PageHero } from "@/components/site/PageShell";
 import { TOOL_DETAILS, CATEGORIES, PLATFORMS_LIST } from "@/lib/categories";
 import { getToolTrust } from "@/lib/tool-trust";
