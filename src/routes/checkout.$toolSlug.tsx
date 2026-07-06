@@ -1,11 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   ArrowLeft,
   CheckCircle2,
   CreditCard,
-  Wallet,
-  Bitcoin,
   ShieldCheck,
   Lock,
   RefreshCcw,
@@ -15,9 +13,17 @@ import {
   ServerCog,
   Headphones,
   Star,
+  Copy,
+  Check,
+  AlertTriangle,
+  Bitcoin,
+  QrCode,
+  Upload,
+  ArrowRight,
 } from "lucide-react";
 import { PageShell } from "@/components/site/PageShell";
 import { getToolBySlug } from "@/lib/categories";
+import { CRYPTO_PAYMENT, qrCodeUrl } from "@/lib/crypto-payment";
 
 export const Route = createFileRoute("/checkout/$toolSlug")({
   loader: ({ params }) => {
@@ -35,24 +41,22 @@ export const Route = createFileRoute("/checkout/$toolSlug")({
   component: CheckoutPage,
 });
 
-const PROVIDERS = [
-  { id: "stripe", label: "Credit / Debit Card", desc: "Powered by Stripe", icon: CreditCard },
-  { id: "paypal", label: "PayPal", desc: "Pay with your PayPal balance", icon: Wallet },
-  { id: "flutterwave", label: "Flutterwave", desc: "Best for African customers", icon: Wallet },
-  { id: "crypto", label: "Crypto", desc: "BTC, ETH, USDC", icon: Bitcoin },
-] as const;
-
 function CheckoutPage() {
   const { tool } = Route.useLoaderData();
-  const [provider, setProvider] = useState<string>("stripe");
-  const [submitted, setSubmitted] = useState(false);
+  const [method, setMethod] = useState<"card" | "crypto">("card");
+  const [cardSubmitted, setCardSubmitted] = useState(false);
 
   const price = tool.price;
-  const planLabel = "One-time purchase";
+  const quantity = 1;
+  const total = price * quantity;
+  const cryptoAmount = useMemo(
+    () => (total * CRYPTO_PAYMENT.usdToCoinRate).toFixed(2),
+    [total],
+  );
 
   return (
     <PageShell>
-      <section className="mx-auto max-w-5xl px-4 py-12 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <Link
           to="/tools/$toolSlug"
           params={{ toolSlug: tool.slug }}
@@ -61,100 +65,34 @@ function CheckoutPage() {
           <ArrowLeft className="h-4 w-4" /> Back to tool
         </Link>
 
-        <div className="mt-6 grid gap-8 lg:grid-cols-[1fr,360px]">
-          <div className="rounded-2xl border border-border bg-surface p-6 shadow-card sm:p-8">
-            <h1 className="text-2xl font-extrabold text-ink">Checkout</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Choose your payment method to activate <span className="font-semibold text-ink">{tool.name}</span>.
-            </p>
+        <div className="mt-4">
+          <h1 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">Secure checkout</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Choose how you'd like to pay for <span className="font-semibold text-ink">{tool.name}</span>.
+          </p>
+          <ProgressIndicator step={cardSubmitted ? 3 : 2} />
+        </div>
 
-            {submitted ? (
-              <div className="mt-8 rounded-2xl border border-brand/30 bg-brand-soft p-6 text-center">
-                <CheckCircle2 className="mx-auto h-10 w-10 text-brand" />
-                <h2 className="mt-3 text-lg font-bold text-ink">Almost there!</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Payment gateways will be activated for your account shortly. We saved your selection
-                  ({provider.toUpperCase()}) and will email you to complete your purchase of {tool.name}.
-                </p>
-                <Link to="/tools" className="mt-5 inline-block rounded-xl bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground">
-                  Continue browsing
-                </Link>
-              </div>
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr,380px]">
+          <div className="space-y-6">
+            <MethodSwitcher method={method} setMethod={setMethod} />
+
+            {method === "card" ? (
+              <CardPanel
+                tool={tool}
+                total={total}
+                submitted={cardSubmitted}
+                onSubmit={() => setCardSubmitted(true)}
+              />
             ) : (
-              <>
-                <div className="mt-6 space-y-3">
-                  {PROVIDERS.map((p) => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => setProvider(p.id)}
-                      className={`flex w-full items-center gap-4 rounded-xl border p-4 text-left transition-all ${
-                        provider === p.id
-                          ? "border-brand bg-brand-soft shadow-brand"
-                          : "border-border bg-surface hover:border-brand/40"
-                      }`}
-                    >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-surface-muted text-brand">
-                        <p.icon className="h-5 w-5" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-ink">{p.label}</div>
-                        <div className="text-xs text-muted-foreground">{p.desc}</div>
-                      </div>
-                      <div
-                        className={`h-4 w-4 rounded-full border-2 ${
-                          provider === p.id ? "border-brand bg-brand" : "border-border"
-                        }`}
-                      />
-                    </button>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setSubmitted(true)}
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
-                >
-                  <Lock className="h-4 w-4" /> Pay ${price} securely
-                </button>
-                <p className="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1"><ShieldCheck className="h-3.5 w-3.5" /> 256-bit TLS</span>
-                  <span className="inline-flex items-center gap-1"><BadgeCheck className="h-3.5 w-3.5" /> PCI-DSS Level 1</span>
-                  <span className="inline-flex items-center gap-1"><Fingerprint className="h-3.5 w-3.5" /> 3-D Secure</span>
-                  <span className="inline-flex items-center gap-1"><Eye className="h-3.5 w-3.5" /> No card data stored</span>
-                </p>
-
-                <TrustSection />
-              </>
+              <CryptoPanel amount={cryptoAmount} tool={tool} />
             )}
+
+            <TrustSection />
           </div>
 
-          <aside className="rounded-2xl border border-border bg-surface p-6 shadow-card h-fit">
-            <div className="text-xs font-bold uppercase tracking-widest text-brand">Order summary</div>
-            <div className="mt-4 flex items-start justify-between gap-4">
-              <div>
-                <div className="font-semibold text-ink">{tool.name}</div>
-                <div className="text-xs text-muted-foreground">{tool.categoryTitle}</div>
-              </div>
-              <span className="rounded-full bg-brand-soft px-2 py-0.5 text-xs font-bold text-brand">{tool.code}</span>
-            </div>
-            <div className="mt-5 space-y-2 border-t border-border pt-4 text-sm">
-              <Row label="Plan" value={planLabel} />
-              <Row label="Billing" value="One-time" />
-              <Row label="Subtotal" value={`$${price}`} />
-              <Row label="Tax" value="Calculated at processor" />
-            </div>
-            <div className="mt-4 flex items-baseline justify-between border-t border-border pt-4">
-              <span className="text-sm text-muted-foreground">Total</span>
-              <span className="text-2xl font-extrabold text-ink">${price}</span>
-            </div>
-
-            <ul className="mt-5 space-y-2.5 border-t border-border pt-4 text-xs text-muted-foreground">
-              <li className="flex items-start gap-2"><ShieldCheck className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">Buyer Protection.</span> Full refund if the tool fails to deliver as described.</span></li>
-              <li className="flex items-start gap-2"><RefreshCcw className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">14-day money-back</span> guarantee — no questions asked.</span></li>
-              <li className="flex items-start gap-2"><Lock className="mt-0.5 h-4 w-4 text-brand" /><span>Payments processed by <span className="font-semibold text-ink">Stripe, PayPal & Flutterwave</span> — we never see your card.</span></li>
-              <li className="flex items-start gap-2"><Headphones className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">24/7 human support</span> with 1-hour median response.</span></li>
-            </ul>
+          <aside className="h-fit space-y-6 lg:sticky lg:top-24">
+            <OrderSummary tool={tool} quantity={quantity} total={total} cryptoAmount={cryptoAmount} method={method} />
           </aside>
         </div>
 
@@ -164,11 +102,495 @@ function CheckoutPage() {
   );
 }
 
-function Row({ label, value }: { label: string; value: string }) {
+function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex justify-between text-muted-foreground">
       <span>{label}</span>
-      <span className="font-semibold text-ink">{value}</span>
+      <span className="font-semibold text-ink text-right">{value}</span>
+    </div>
+  );
+}
+
+function ProgressIndicator({ step }: { step: 1 | 2 | 3 }) {
+  const steps = ["Cart", "Payment", "Confirmation"];
+  return (
+    <ol className="mt-5 flex items-center gap-2 text-xs font-semibold">
+      {steps.map((label, i) => {
+        const n = (i + 1) as 1 | 2 | 3;
+        const active = n <= step;
+        return (
+          <li key={label} className="flex items-center gap-2">
+            <span
+              className={`grid h-6 w-6 place-items-center rounded-full border ${
+                active
+                  ? "border-brand bg-brand text-brand-foreground"
+                  : "border-border bg-surface text-muted-foreground"
+              }`}
+            >
+              {n < step ? <Check className="h-3.5 w-3.5" /> : n}
+            </span>
+            <span className={active ? "text-ink" : "text-muted-foreground"}>{label}</span>
+            {i < steps.length - 1 && <ArrowRight className="h-3.5 w-3.5 text-muted-foreground" />}
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
+
+function MethodSwitcher({
+  method,
+  setMethod,
+}: {
+  method: "card" | "crypto";
+  setMethod: (m: "card" | "crypto") => void;
+}) {
+  const opts = [
+    {
+      id: "card" as const,
+      title: "Card / Secure Payment",
+      desc: "Credit or debit card, PayPal, or bank transfer.",
+      icon: CreditCard,
+      badges: ["Stripe", "PayPal", "SSL Secure"],
+    },
+    {
+      id: "crypto" as const,
+      title: "Cryptocurrency (USDT)",
+      desc: "Pay with USDT on the TRC20 network.",
+      icon: Bitcoin,
+      badges: ["USDT", "TRC20"],
+    },
+  ];
+  return (
+    <div className="grid gap-3 sm:grid-cols-2">
+      {opts.map((o) => {
+        const active = method === o.id;
+        return (
+          <button
+            key={o.id}
+            type="button"
+            onClick={() => setMethod(o.id)}
+            className={`flex items-start gap-4 rounded-2xl border p-5 text-left transition-all ${
+              active
+                ? "border-brand bg-brand-soft shadow-brand"
+                : "border-border bg-surface hover:border-brand/40"
+            }`}
+          >
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-surface-muted text-brand">
+              <o.icon className="h-5 w-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-ink">{o.title}</span>
+                {active && <span className="rounded-full bg-brand px-2 py-0.5 text-[10px] font-bold text-brand-foreground">SELECTED</span>}
+              </div>
+              <div className="mt-0.5 text-xs text-muted-foreground">{o.desc}</div>
+              <div className="mt-2 flex flex-wrap gap-1">
+                {o.badges.map((b) => (
+                  <span key={b} className="rounded-md bg-surface-muted px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">
+                    {b}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function CardPanel({
+  tool,
+  total,
+  submitted,
+  onSubmit,
+}: {
+  tool: { name: string };
+  total: number;
+  submitted: boolean;
+  onSubmit: () => void;
+}) {
+  if (submitted) {
+    return (
+      <div className="rounded-2xl border border-brand/30 bg-brand-soft p-8 text-center shadow-card">
+        <CheckCircle2 className="mx-auto h-12 w-12 text-brand" />
+        <h2 className="mt-3 text-xl font-bold text-ink">Almost there!</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          We saved your card checkout selection and will email you to complete your purchase of{" "}
+          <span className="font-semibold text-ink">{tool.name}</span>.
+        </p>
+        <Link to="/tools" className="mt-5 inline-block rounded-xl bg-gradient-brand px-5 py-2.5 text-sm font-semibold text-brand-foreground">
+          Continue browsing
+        </Link>
+      </div>
+    );
+  }
+  return (
+    <div className="rounded-2xl border border-border bg-surface p-6 shadow-card sm:p-8">
+      <div className="flex items-center gap-3">
+        <div className="grid h-10 w-10 place-items-center rounded-xl bg-brand-soft text-brand">
+          <CreditCard className="h-5 w-5" />
+        </div>
+        <div>
+          <h2 className="text-lg font-bold text-ink">Pay with card or secure payment method</h2>
+          <p className="text-xs text-muted-foreground">Processed by Stripe, PayPal, or Flutterwave. We never see your card details.</p>
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        {[
+          { icon: ShieldCheck, label: "Secure Checkout" },
+          { icon: Lock, label: "SSL Encrypted" },
+          { icon: BadgeCheck, label: "PCI-DSS Level 1" },
+        ].map((b) => (
+          <div key={b.label} className="flex items-center gap-2 rounded-xl border border-border bg-surface-muted/50 px-3 py-2 text-xs font-semibold text-ink">
+            <b.icon className="h-4 w-4 text-brand" />
+            {b.label}
+          </div>
+        ))}
+      </div>
+
+      <button
+        type="button"
+        onClick={onSubmit}
+        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
+      >
+        <Lock className="h-4 w-4" /> Pay ${total.toFixed(2)} Now
+      </button>
+      <p className="mt-3 text-center text-xs text-muted-foreground">
+        You'll be redirected to a secure payment page to complete your purchase.
+      </p>
+    </div>
+  );
+}
+
+function CryptoPanel({ amount, tool }: { amount: string; tool: { name: string; code: string } }) {
+  const [copied, setCopied] = useState(false);
+  const { walletAddress, coin, coinSymbol, network, instructions } = CRYPTO_PAYMENT;
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(walletAddress);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    } catch {
+      // ignore
+    }
+  };
+
+  return (
+    <div className="overflow-hidden rounded-2xl border border-border bg-surface shadow-card">
+      {/* Header */}
+      <div className="bg-gradient-to-br from-[#0b1220] via-[#0f172a] to-[#0b1220] px-6 py-8 text-center text-white sm:px-8">
+        <h2 className="text-2xl font-extrabold sm:text-3xl">
+          Make Payment with <span className="text-emerald-400">{coin}</span>
+        </h2>
+        <p className="mt-2 text-sm text-white/70">
+          Send <span className="font-semibold text-emerald-400">{coinSymbol}</span> only via{" "}
+          <span className="font-semibold text-violet-400">{network}</span> network to the address below.
+        </p>
+
+        {/* Warning */}
+        <div className="mx-auto mt-5 flex max-w-2xl items-start gap-3 rounded-xl border border-amber-400/30 bg-amber-500/10 px-4 py-3 text-left">
+          <AlertTriangle className="mt-0.5 h-5 w-5 shrink-0 text-amber-400" />
+          <div className="text-sm">
+            <div className="font-bold text-amber-300">
+              Important: We can only receive {coin} using this wallet address.
+            </div>
+            <div className="text-white/70">
+              Don't attempt to send a different asset to this address — it would result in complete loss.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Info note */}
+      <div className="border-b border-border bg-brand-soft/40 px-6 py-3 text-center text-xs font-medium text-ink sm:px-8">
+        Don't know how to pay with cryptocurrency? Simply choose{" "}
+        <span className="font-bold">"Pay with Card or Other Secure Payment Methods"</span> above.
+      </div>
+
+      {/* QR + details */}
+      <div className="grid gap-6 p-6 sm:p-8 md:grid-cols-2">
+        {/* QR */}
+        <div className="rounded-2xl border border-border bg-surface-muted/40 p-5 text-center">
+          <div className="flex items-center justify-center gap-2 text-sm font-bold text-brand">
+            <QrCode className="h-4 w-4" /> Scan to Pay
+          </div>
+          <div className="mx-auto mt-4 w-fit rounded-2xl bg-white p-3 shadow-card">
+            <img
+              src={qrCodeUrl(walletAddress)}
+              alt={`${coin} wallet QR code`}
+              className="h-56 w-56"
+              loading="lazy"
+            />
+          </div>
+          <div className="mt-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            {coin} Address ({network})
+          </div>
+          <div className="mt-2 flex items-stretch gap-2">
+            <input
+              readOnly
+              value={walletAddress}
+              className="min-w-0 flex-1 truncate rounded-lg border border-border bg-surface px-3 py-2.5 text-xs font-mono text-ink"
+              onFocus={(e) => e.currentTarget.select()}
+            />
+            <button
+              type="button"
+              onClick={copy}
+              aria-label="Copy wallet address"
+              className={`flex items-center gap-1.5 rounded-lg px-3 text-xs font-semibold transition-colors ${
+                copied
+                  ? "bg-emerald-500 text-white"
+                  : "bg-brand text-brand-foreground hover:opacity-90"
+              }`}
+            >
+              {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
+          {copied && (
+            <div className="mt-2 text-xs font-semibold text-emerald-500">
+              Wallet address copied successfully.
+            </div>
+          )}
+          <p className="mt-3 text-xs text-muted-foreground">
+            Scan the QR code or copy the address above to send your payment securely.
+          </p>
+        </div>
+
+        {/* Payment details */}
+        <div className="flex flex-col gap-4">
+          <div className="rounded-2xl border border-border bg-surface-muted/40 p-5">
+            <div className="text-sm font-bold text-brand">Payment Details</div>
+            <dl className="mt-4 space-y-4 text-sm">
+              <DetailRow
+                icon={<span className="grid h-8 w-8 place-items-center rounded-full bg-emerald-500 text-xs font-black text-white">₮</span>}
+                label="Coin"
+                value={<span className="font-bold text-emerald-500">{coin}</span>}
+              />
+              <DetailRow
+                icon={<span className="grid h-8 w-8 place-items-center rounded-full bg-violet-500 text-xs font-bold text-white">◇</span>}
+                label="Network"
+                value={<span className="font-bold text-violet-500">{network}</span>}
+              />
+              <DetailRow
+                icon={<span className="grid h-8 w-8 place-items-center rounded-full bg-brand text-brand-foreground"><Bitcoin className="h-4 w-4" /></span>}
+                label="Required Payment"
+                value={
+                  <span className="font-extrabold text-ink">
+                    {amount} {coinSymbol}
+                  </span>
+                }
+              />
+              <DetailRow
+                icon={<span className="grid h-8 w-8 place-items-center rounded-full bg-amber-500/20 text-amber-500"><RefreshCcw className="h-4 w-4" /></span>}
+                label="Status"
+                value={<span className="font-bold text-amber-500">Awaiting Payment</span>}
+              />
+            </dl>
+          </div>
+
+          <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4">
+            <div className="flex items-center gap-2 text-sm font-bold text-emerald-500">
+              <ShieldCheck className="h-4 w-4" /> Secure &amp; Active Address
+            </div>
+            <p className="mt-1 text-xs text-muted-foreground">
+              This address is active and ready to receive {coinSymbol} payments via {network} network.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Instructions */}
+      <div className="border-t border-border px-6 py-6 sm:px-8">
+        <h3 className="text-sm font-bold text-ink">Payment Instructions</h3>
+        <ol className="mt-3 space-y-2 text-sm text-muted-foreground">
+          {instructions.map((step, i) => (
+            <li key={i} className="flex gap-3">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-brand-soft text-xs font-bold text-brand">
+                {i + 1}
+              </span>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      {/* Verification form */}
+      <VerificationForm tool={tool} amount={amount} coinSymbol={coinSymbol} />
+    </div>
+  );
+}
+
+function DetailRow({ icon, label, value }: { icon: React.ReactNode; label: string; value: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center gap-3">
+        {icon}
+        <span className="text-ink">{label}</span>
+      </div>
+      <div className="text-right">{value}</div>
+    </div>
+  );
+}
+
+function VerificationForm({ tool, amount, coinSymbol }: { tool: { name: string; code: string }; amount: string; coinSymbol: string }) {
+  const [txid, setTxid] = useState("");
+  const [wallet, setWallet] = useState("");
+  const [notes, setNotes] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!txid.trim()) return;
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="border-t border-border bg-brand-soft/40 p-6 text-center sm:p-8">
+        <CheckCircle2 className="mx-auto h-10 w-10 text-brand" />
+        <h3 className="mt-3 text-lg font-bold text-ink">Payment submitted for verification</h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Thank you. Our team will verify your {amount} {coinSymbol} payment for{" "}
+          <span className="font-semibold text-ink">{tool.name}</span> and email you once confirmed
+          (typically within 30 minutes).
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={submit} className="border-t border-border px-6 py-6 sm:px-8">
+      <h3 className="text-sm font-bold text-ink">Submit Payment for Verification</h3>
+      <p className="text-xs text-muted-foreground">
+        Enter the transaction hash so our team can confirm your payment.
+      </p>
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <Field label="Transaction Hash (TXID)" required>
+          <input
+            value={txid}
+            onChange={(e) => setTxid(e.target.value)}
+            required
+            placeholder="e.g. 3a1f...bc9d"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink font-mono focus:border-brand focus:outline-none"
+          />
+        </Field>
+        <Field label="Wallet Address Used" optional>
+          <input
+            value={wallet}
+            onChange={(e) => setWallet(e.target.value)}
+            placeholder="Your sending wallet address"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink font-mono focus:border-brand focus:outline-none"
+          />
+        </Field>
+        <Field label="Upload Payment Screenshot" optional>
+          <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-dashed border-border bg-surface-muted/40 px-3 py-2.5 text-xs text-muted-foreground hover:border-brand hover:text-brand">
+            <Upload className="h-4 w-4" />
+            <span className="truncate">{file ? file.name : "Choose file (PNG, JPG)"}</span>
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+            />
+          </label>
+        </Field>
+        <Field label="Additional Notes" optional>
+          <input
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="Anything we should know"
+            className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink focus:border-brand focus:outline-none"
+          />
+        </Field>
+      </div>
+      <button
+        type="submit"
+        className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5 sm:w-auto"
+      >
+        <ShieldCheck className="h-4 w-4" /> Submit Payment for Verification
+      </button>
+    </form>
+  );
+}
+
+function Field({ label, required, optional, children }: { label: string; required?: boolean; optional?: boolean; children: React.ReactNode }) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-ink">
+        {label}
+        {required && <span className="text-brand">*</span>}
+        {optional && <span className="text-[10px] font-normal text-muted-foreground">(optional)</span>}
+      </span>
+      {children}
+    </label>
+  );
+}
+
+function OrderSummary({
+  tool,
+  quantity,
+  total,
+  cryptoAmount,
+  method,
+}: {
+  tool: { name: string; code: string; categoryTitle: string; icon: any; price: number };
+  quantity: number;
+  total: number;
+  cryptoAmount: string;
+  method: "card" | "crypto";
+}) {
+  const Icon = tool.icon;
+  return (
+    <div className="rounded-2xl border border-border bg-surface p-6 shadow-card">
+      <div className="text-xs font-bold uppercase tracking-widest text-brand">Order summary</div>
+      <div className="mt-4 flex items-start gap-3 rounded-xl border border-border bg-surface-muted/40 p-3">
+        <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand">
+          <Icon className="h-5 w-5" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="truncate font-semibold text-ink">{tool.name}</div>
+          <div className="truncate text-xs text-muted-foreground">{tool.categoryTitle}</div>
+          <div className="mt-1 flex items-center gap-2">
+            <span className="rounded-full bg-brand-soft px-2 py-0.5 text-[10px] font-bold text-brand">{tool.code}</span>
+            <span className="text-[10px] font-semibold text-muted-foreground">One-time purchase</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-5 space-y-2 text-sm">
+        <Row label="Plan" value="One-time purchase" />
+        <Row label="Currency" value="USD" />
+        <Row label="Quantity" value={String(quantity)} />
+        <Row label="Unit price" value={`$${tool.price.toFixed(2)}`} />
+        <Row label="Payment method" value={method === "card" ? "Card / Secure" : "USDT (TRC20)"} />
+      </div>
+
+      <div className="mt-4 space-y-2 border-t border-border pt-4">
+        <div className="flex items-baseline justify-between">
+          <span className="text-sm text-muted-foreground">Total Amount Due</span>
+          <span className="text-2xl font-extrabold text-ink">${total.toFixed(2)}</span>
+        </div>
+        {method === "crypto" && (
+          <div className="flex items-baseline justify-between rounded-lg bg-emerald-500/10 px-3 py-2">
+            <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Required in USDT</span>
+            <span className="text-lg font-extrabold text-emerald-600 dark:text-emerald-400">
+              {cryptoAmount} USDT
+            </span>
+          </div>
+        )}
+      </div>
+
+      <ul className="mt-5 space-y-2.5 border-t border-border pt-4 text-xs text-muted-foreground">
+        <li className="flex items-start gap-2"><ShieldCheck className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">Buyer Protection.</span> Full refund if the tool fails to deliver as described.</span></li>
+        <li className="flex items-start gap-2"><RefreshCcw className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">14-day money-back</span> guarantee — no questions asked.</span></li>
+        <li className="flex items-start gap-2"><Lock className="mt-0.5 h-4 w-4 text-brand" /><span>Encrypted, PCI-DSS Level 1 payment processing.</span></li>
+        <li className="flex items-start gap-2"><Headphones className="mt-0.5 h-4 w-4 text-brand" /><span><span className="font-semibold text-ink">24/7 human support</span> with 1-hour median response.</span></li>
+      </ul>
     </div>
   );
 }
