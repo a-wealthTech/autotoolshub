@@ -53,6 +53,7 @@ export const CATEGORIES: Category[] = [
       { code: "2.6", name: "Contact & Lead Database", price: 179, description: "Central contact database with tags, custom fields, activity history, and CSV/API import-export." },
       { code: "2.7", name: "Quote & Proposal Builder", price: 229, description: "Create branded quotes and proposals with line-item pricing, e-signature, and approval workflows." },
       { code: "2.8", name: "Customer Feedback & Surveys", price: 169, description: "Send NPS, CSAT, and product surveys with response dashboards and integration into your CRM." },
+      { code: "2.9", name: "Re-Engagement API Plugin", price: 199, description: "Drop-in API plugin that re-engages inactive customers with automated win-back emails, personalized offers, and lifecycle triggers wired into your CRM and marketing stack." },
     ],
   },
   {
