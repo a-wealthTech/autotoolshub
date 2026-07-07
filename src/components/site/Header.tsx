@@ -20,7 +20,7 @@ export function Header() {
         <Link to="/" className="shrink-0">
           <Logo />
         </Link>
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
           {NAV.map((item) => (
             <Link
               key={item.to}
