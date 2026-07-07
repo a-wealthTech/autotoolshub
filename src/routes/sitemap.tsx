@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/site/PageShell";
+import { CATEGORIES } from "@/lib/categories";
 export const Route = createFileRoute("/sitemap")({
   head: () => ({
     meta: [
@@ -13,8 +14,6 @@ export const Route = createFileRoute("/sitemap")({
   }),
   component: HtmlSitemap,
 });
-
-import { CATEGORIES } from "@/lib/categories";
 
 function HtmlSitemap() {
   return (
