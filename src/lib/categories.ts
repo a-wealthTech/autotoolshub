@@ -140,6 +140,7 @@ export const CATEGORIES: Category[] = [
       { code: "7.7", name: "API Management Gateway", price: 259, description: "Publish, secure, and monitor your business APIs with rate limiting, keys, and usage analytics." },
       { code: "7.8", name: "Managed Database Hosting", price: 269, description: "Managed relational and document database hosting with backups, scaling, and monitoring included." },
       { code: "7.9", name: "Business Data Warehouse", price: 349, description: "Cloud data warehouse for reporting and BI with SQL access, scheduled jobs, and role-based security." },
+      { code: "7.10", name: "CI Signal Plugin", price: 339, description: "Turn your channel data into a prioritized growth plan. One profile, one ranked action plan, updated as your channel changes." },
     ],
   },
 ];
