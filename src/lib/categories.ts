@@ -8,6 +8,7 @@ export type ToolDef = {
   name: string;
   description: string;
   price: number; // one-time USD
+  longDescription?: string;
 };
 
 export type Category = {
@@ -54,6 +55,27 @@ export const CATEGORIES: Category[] = [
       { code: "2.7", name: "Quote & Proposal Builder", price: 229, description: "Create branded quotes and proposals with line-item pricing, e-signature, and approval workflows." },
       { code: "2.8", name: "Customer Feedback & Surveys", price: 169, description: "Send NPS, CSAT, and product surveys with response dashboards and integration into your CRM." },
       { code: "2.9", name: "Re-Engagement API Plugin", price: 199, description: "Drop-in API plugin that re-engages inactive customers with automated win-back emails, personalized offers, and lifecycle triggers wired into your CRM and marketing stack." },
+      {
+        code: "2.10",
+        name: "C.I Signal Tool",
+        price: 249,
+        description: "Signal replaces guesswork with a prioritized, channel-specific growth plan built from your own numbers, schedule, niche, branding, and community.",
+        longDescription: [
+          "Stop guessing what grows your channel. Start knowing.",
+          "",
+          "WHY SIGNAL",
+          "",
+          "Most streamer growth advice is the same ten tips repeated everywhere — stream more, post clips, be consistent — with no idea whether any of it applies to your channel. You're left guessing which advice actually matters for where you are right now, and burning time and money testing strategies that were never built for your content in the first place.",
+          "",
+          "Signal replaces the guessing with a plan built entirely from your channel: your numbers, your schedule, your niche, your branding, your community. You answer a short, guided profile — not a 40-field form, just the specifics that actually change the advice — and Signal gives back a prioritized action plan telling you exactly what to fix first, second, and third to move toward your actual goal.",
+          "",
+          "No random strategies. Every recommendation is tied directly to something you told us about your stream, so what you get back is a plan for your channel specifically, ranked by what will move the needle most.",
+          "",
+          "Built for creators who want the direct path, not the expensive detour. If you're done spending on tools, courses, and services that promise growth but don't tell you why they'll work for you specifically, Signal replaces the guesswork with a clear, prioritized workflow — so every hour you spend growing goes toward something chosen for your channel, not a generic playlist of tips.",
+          "",
+          "And built to be sustainable, not exhausting. This signal software doesn't hand you fifty things to do at once. It ranks what matters most right now and updates as your channel changes, so you're always working on the highest-impact thing, not everything at once.",
+        ].join("\n"),
+      },
     ],
   },
   {
