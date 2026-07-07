@@ -131,13 +131,13 @@ function ProductRow({
                     e.preventDefault();
                     e.stopPropagation();
                     navigate({
-                      to: "/checkout/$toolSlug",
+                      to: "/tools/$toolSlug",
                       params: { toolSlug: t.slug },
                     });
                   }}
                   className="rounded-lg bg-gradient-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-brand"
                 >
-                  Buy Now
+                  Download Software
                 </button>
               </div>
             </Link>
