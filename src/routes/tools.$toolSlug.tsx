@@ -228,7 +228,7 @@ function ToolDetailPage() {
           <div className="mb-10 rounded-2xl border border-border bg-surface p-6 shadow-card sm:p-8">
             <h2 className="text-2xl font-extrabold text-ink">About {tool.name}</h2>
             <div className="mt-4 space-y-4 text-[15px] leading-relaxed text-muted-foreground">
-              {tool.longDescription.split("\n\n").map((para, i) => {
+              {tool.longDescription.split("\n\n").map((para: string, i: number) => {
                 const isHeading = /^[A-Z0-9 .,'-]{3,}$/.test(para.trim()) && para.trim().length < 60;
                 if (!para.trim()) return null;
                 if (isHeading) {
