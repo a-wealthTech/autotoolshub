@@ -83,6 +83,7 @@ function CheckoutPage() {
                 total={total}
                 submitted={cardSubmitted}
                 onSubmit={() => setCardSubmitted(true)}
+                onSwitchToCrypto={() => setMethod("crypto")}
               />
             ) : (
               <CryptoPanel amount={cryptoAmount} tool={tool} />
