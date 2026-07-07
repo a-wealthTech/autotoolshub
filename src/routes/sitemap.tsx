@@ -1,12 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageShell, PageHero } from "@/components/site/PageShell";
 import { CATEGORIES } from "@/lib/categories";
-
 export const Route = createFileRoute("/sitemap")({
   head: () => ({
     meta: [
       { title: "Sitemap — Biztrait Market" },
-      { name: "description", content: "Browse every page on Biztrait Market — categories, tools, docs, and resources — from a single index." },
+      { name: "description", content: "Browse every page on Biztrait Market — tools, docs, and resources — from a single index." },
       { property: "og:title", content: "Sitemap — Biztrait Market" },
       { property: "og:description", content: "Every page on Biztrait Market in one index." },
       { property: "og:url", content: "https://biztrait.com/sitemap" },
@@ -19,13 +18,12 @@ export const Route = createFileRoute("/sitemap")({
 function HtmlSitemap() {
   return (
     <PageShell>
-      <PageHero eyebrow="Sitemap" title="All pages on Biztrait Market" subtitle="A complete index of the marketplace, categories, tools, and resources." />
+      <PageHero eyebrow="Sitemap" title="All pages on Biztrait Market" subtitle="A complete index of the marketplace, tools, and resources." />
       <div className="mx-auto max-w-6xl px-4 pb-24 sm:px-6 lg:px-8 space-y-12">
         <Section title="Marketplace">
           <SLink to="/">Home</SLink>
           <SLink to="/marketplace">Marketplace</SLink>
           <SLink to="/tools">All tools</SLink>
-          <SLink to="/categories">All categories</SLink>
           <SLink to="/integrations">Integrations</SLink>
         </Section>
         <Section title="Resources">
@@ -40,15 +38,6 @@ function HtmlSitemap() {
         </Section>
         {CATEGORIES.map((c) => (
           <Section key={c.id} title={c.title}>
-            <li>
-              <Link
-                to="/categories/$categoryId"
-                params={{ categoryId: c.id }}
-                className="text-sm text-muted-foreground hover:text-brand"
-              >
-                {c.title} — overview
-              </Link>
-            </li>
             {c.tools.map((t) => (
               <li key={t.code}>
                 <Link
