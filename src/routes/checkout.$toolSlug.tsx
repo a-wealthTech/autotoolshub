@@ -206,11 +206,13 @@ function CardPanel({
   total,
   submitted,
   onSubmit,
+  onSwitchToCrypto,
 }: {
   tool: { name: string };
   total: number;
   submitted: boolean;
   onSubmit: () => void;
+  onSwitchToCrypto: () => void;
 }) {
   if (submitted) {
     return (
@@ -252,16 +254,43 @@ function CardPanel({
         ))}
       </div>
 
+      <div className="mt-6 rounded-2xl border-2 border-red-500/60 bg-red-500/10 p-5 shadow-[0_0_0_1px_rgba(239,68,68,0.25)]">
+        <div className="flex items-start gap-3">
+          <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-red-500/20 text-red-400">
+            <AlertTriangle className="h-5 w-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <h3 className="text-sm font-bold uppercase tracking-wide text-red-400">
+              Credit / Debit card payments are temporarily under maintenance
+            </h3>
+            <p className="mt-1 text-xs text-red-300/90">
+              Our card processor is currently undergoing scheduled maintenance. To complete your purchase of{" "}
+              <span className="font-semibold text-red-200">{tool.name}</span> right now, please use our secure
+              cryptocurrency (USDT) payment option instead.
+            </p>
+            <button
+              type="button"
+              onClick={onSwitchToCrypto}
+              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-red-500 px-5 py-2.5 text-sm font-bold text-white shadow-[0_10px_30px_-10px_rgba(239,68,68,0.6)] transition-transform hover:-translate-y-0.5 hover:bg-red-600"
+            >
+              <Bitcoin className="h-4 w-4" /> Pay ${total.toFixed(2)} with Crypto (USDT) <ArrowRight className="h-4 w-4" />
+            </button>
+            <p className="mt-3 text-[11px] font-medium text-red-300/80">
+              Card checkout will be re-enabled once maintenance is complete. We appreciate your patience.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <button
         type="button"
+        disabled
+        aria-disabled="true"
         onClick={onSubmit}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3.5 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
+        className="mt-4 flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl border border-border bg-surface-muted px-6 py-3.5 text-sm font-semibold text-muted-foreground line-through opacity-60"
       >
-        <Lock className="h-4 w-4" /> Pay ${total.toFixed(2)} Now
+        <Lock className="h-4 w-4" /> Pay ${total.toFixed(2)} Now (unavailable)
       </button>
-      <p className="mt-3 text-center text-xs text-muted-foreground">
-        You'll be redirected to a secure payment page to complete your purchase.
-      </p>
     </div>
   );
 }
