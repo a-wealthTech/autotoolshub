@@ -17,6 +17,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/tools", changefreq: "weekly", priority: "0.9" },
           { path: "/marketplace", changefreq: "weekly", priority: "0.9" },
+          { path: "/categories", changefreq: "weekly", priority: "0.9" },
           { path: "/integrations", changefreq: "monthly", priority: "0.8" },
           { path: "/docs", changefreq: "monthly", priority: "0.6" },
           { path: "/contact", changefreq: "monthly", priority: "0.6" },
@@ -27,6 +28,12 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/refunds", changefreq: "yearly", priority: "0.3" },
         ];
 
+        const categoryPaths: SitemapEntry[] = CATEGORIES.map((c) => ({
+          path: `/categories/${c.id}`,
+          changefreq: "weekly",
+          priority: "0.8",
+        }));
+
         const toolPaths: SitemapEntry[] = CATEGORIES.flatMap((c) =>
           c.tools.map((t) => ({
             path: `/tools/${t.code.replace(/\./g, "-")}`,
@@ -35,7 +42,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           })),
         );
 
-        const entries = [...staticPaths, ...toolPaths];
+        const entries = [...staticPaths, ...categoryPaths, ...toolPaths];
 
         const urls = entries.map((e) =>
           [

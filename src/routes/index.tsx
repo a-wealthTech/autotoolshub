@@ -180,17 +180,18 @@ function Index() {
               </p>
             </div>
             <Link
-              to="/tools"
+              to="/categories"
               className="hidden text-sm font-semibold text-brand hover:underline sm:inline-flex"
             >
-              View all tools →
+              View all categories →
             </Link>
           </div>
           <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {CATEGORIES.map((c) => (
               <Link
                 key={c.id}
-                to="/tools"
+                to="/categories/$categoryId"
+                params={{ categoryId: c.id }}
                 className="group relative overflow-hidden rounded-2xl border border-border bg-surface p-6 shadow-card transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-brand"
               >
                 <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gradient-brand opacity-0 blur-3xl transition-opacity group-hover:opacity-30" />
@@ -383,10 +384,10 @@ function Index() {
                 Browse Marketplace
               </Link>
               <Link
-                to="/tools"
+                to="/categories"
                 className="rounded-xl border border-white/30 px-6 py-3.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-white/10"
               >
-                Explore All Tools
+                Browse Categories
               </Link>
             </div>
           </div>

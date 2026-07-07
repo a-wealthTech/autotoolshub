@@ -7,6 +7,7 @@ const COLS = [
     title: "Product",
     links: [
       { to: "/tools", label: "Software" },
+      { to: "/categories", label: "Categories" },
       { to: "/integrations", label: "Integrations" },
       { to: "/marketplace", label: "Marketplace" },
     ],

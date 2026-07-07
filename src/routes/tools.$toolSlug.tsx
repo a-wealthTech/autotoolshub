@@ -102,7 +102,8 @@ export const Route = createFileRoute("/tools/$toolSlug")({
                     itemListElement: [
                       { "@type": "ListItem", position: 1, name: "Home", item: "https://biztrait.com/" },
                       { "@type": "ListItem", position: 2, name: "Tools", item: "https://biztrait.com/tools" },
-                      { "@type": "ListItem", position: 3, name: tool.name, item: url },
+                      { "@type": "ListItem", position: 3, name: category.title, item: `https://biztrait.com/categories/${category.id}` },
+                      { "@type": "ListItem", position: 4, name: tool.name, item: url },
                     ],
                   },
                   {
@@ -147,6 +148,12 @@ function ToolDetailPage() {
               <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
               <li><Link to="/tools" className="hover:text-brand">Tools</Link></li>
               <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
+              <li>
+                <Link to="/categories/$categoryId" params={{ categoryId: category.id }} className="hover:text-brand">
+                  {category.title}
+                </Link>
+              </li>
+              <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
               <li className="font-semibold text-ink" aria-current="page">{tool.name}</li>
             </ol>
           </nav>
@@ -167,9 +174,13 @@ function ToolDetailPage() {
                         {tool.platform}
                       </span>
                     )}
-                    <span className="text-xs font-semibold text-muted-foreground">
-                      {category.title}
-                    </span>
+                    <Link
+                      to="/categories/$categoryId"
+                      params={{ categoryId: category.id }}
+                      className="text-xs font-semibold text-muted-foreground hover:text-brand"
+                    >
+                      {category.title} →
+                    </Link>
                   </div>
                   <h1 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">{tool.name}</h1>
                   <p className="mt-3 max-w-2xl text-muted-foreground">{tool.description}</p>
@@ -199,7 +210,7 @@ function ToolDetailPage() {
                 params={{ toolSlug: tool.slug }}
                 className="mt-5 block rounded-xl bg-gradient-brand px-5 py-3 text-center text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
               >
-                Download Software
+                Buy Now
               </Link>
               <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
                 <li className="flex gap-2"><ShieldCheck className="h-4 w-4 text-brand" /> Secure checkout</li>
@@ -213,31 +224,6 @@ function ToolDetailPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        {tool.longDescription && (
-          <article className="mb-12 rounded-2xl border border-border bg-surface p-6 shadow-card sm:p-10">
-            <h2 className="text-2xl font-bold text-ink sm:text-3xl">About {tool.name}</h2>
-            <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-muted-foreground">
-              {tool.longDescription.split(/\n\n+/).map((para: string, i: number) => {
-                const isHeading = /^[A-Z0-9 ,'&/()-]+$/.test(para.trim()) && para.trim().length < 60;
-                if (isHeading) {
-                  return (
-                    <h3 key={i} className="pt-2 text-sm font-bold uppercase tracking-widest text-brand">
-                      {para.trim()}
-                    </h3>
-                  );
-                }
-                return <p key={i}>{para}</p>;
-              })}
-            </div>
-            <Link
-              to="/checkout/$toolSlug"
-              params={{ toolSlug: tool.slug }}
-              className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
-            >
-              Download Software — ${tool.price}
-            </Link>
-          </article>
-        )}
         <div className="grid gap-8 lg:grid-cols-2">
           <Block icon={Sparkles} title="Overview">
             {tool.description} Part of the {category.title} category on BizTrait Market.
@@ -295,7 +281,7 @@ function ToolDetailPage() {
               params={{ toolSlug: tool.slug }}
               className="rounded-xl bg-surface px-6 py-3 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
             >
-              Download Software — ${tool.price}
+              Buy Now — ${tool.price}
             </Link>
           </div>
         </div>

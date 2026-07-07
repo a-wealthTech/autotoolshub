@@ -176,13 +176,13 @@ function ToolsPage() {
                     e.preventDefault();
                     e.stopPropagation();
                     navigate({
-                      to: "/tools/$toolSlug",
+                      to: "/checkout/$toolSlug",
                       params: { toolSlug: t.slug },
                     });
                   }}
                   className="rounded-lg bg-gradient-brand px-3 py-2 text-center text-xs font-bold text-brand-foreground shadow-brand"
                 >
-                  Download Software
+                  Buy Now
                 </button>
               </div>
             </Link>
