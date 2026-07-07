@@ -102,8 +102,7 @@ export const Route = createFileRoute("/tools/$toolSlug")({
                     itemListElement: [
                       { "@type": "ListItem", position: 1, name: "Home", item: "https://biztrait.com/" },
                       { "@type": "ListItem", position: 2, name: "Tools", item: "https://biztrait.com/tools" },
-                      { "@type": "ListItem", position: 3, name: category.title, item: `https://biztrait.com/categories/${category.id}` },
-                      { "@type": "ListItem", position: 4, name: tool.name, item: url },
+                      { "@type": "ListItem", position: 3, name: tool.name, item: url },
                     ],
                   },
                   {
@@ -148,12 +147,6 @@ function ToolDetailPage() {
               <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
               <li><Link to="/tools" className="hover:text-brand">Tools</Link></li>
               <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
-              <li>
-                <Link to="/categories/$categoryId" params={{ categoryId: category.id }} className="hover:text-brand">
-                  {category.title}
-                </Link>
-              </li>
-              <li aria-hidden><ChevronRight className="h-3.5 w-3.5" /></li>
               <li className="font-semibold text-ink" aria-current="page">{tool.name}</li>
             </ol>
           </nav>
@@ -174,13 +167,9 @@ function ToolDetailPage() {
                         {tool.platform}
                       </span>
                     )}
-                    <Link
-                      to="/categories/$categoryId"
-                      params={{ categoryId: category.id }}
-                      className="text-xs font-semibold text-muted-foreground hover:text-brand"
-                    >
-                      {category.title} →
-                    </Link>
+                    <span className="text-xs font-semibold text-muted-foreground">
+                      {category.title}
+                    </span>
                   </div>
                   <h1 className="mt-2 text-3xl font-extrabold text-ink sm:text-4xl">{tool.name}</h1>
                   <p className="mt-3 max-w-2xl text-muted-foreground">{tool.description}</p>
