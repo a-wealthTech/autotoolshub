@@ -20,6 +20,7 @@ import { Route as IntegrationsRouteImport } from './routes/integrations'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CiSignalRouteImport } from './routes/ci-signal'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsToolSlugRouteImport } from './routes/tools.$toolSlug'
@@ -81,6 +82,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CiSignalRoute = CiSignalRouteImport.update({
+  id: '/ci-signal',
+  path: '/ci-signal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CategoriesRoute = CategoriesRouteImport.update({
   id: '/categories',
   path: '/categories',
@@ -110,6 +116,7 @@ const CategoriesCategoryIdRoute = CategoriesCategoryIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/ci-signal': typeof CiSignalRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/docs': typeof DocsRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/ci-signal': typeof CiSignalRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/docs': typeof DocsRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRouteWithChildren
+  '/ci-signal': typeof CiSignalRoute
   '/contact': typeof ContactRoute
   '/cookies': typeof CookiesRoute
   '/docs': typeof DocsRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/categories'
+    | '/ci-signal'
     | '/contact'
     | '/cookies'
     | '/docs'
@@ -185,6 +195,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/categories'
+    | '/ci-signal'
     | '/contact'
     | '/cookies'
     | '/docs'
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/categories'
+    | '/ci-signal'
     | '/contact'
     | '/cookies'
     | '/docs'
@@ -222,6 +234,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriesRoute: typeof CategoriesRouteWithChildren
+  CiSignalRoute: typeof CiSignalRoute
   ContactRoute: typeof ContactRoute
   CookiesRoute: typeof CookiesRoute
   DocsRoute: typeof DocsRoute
@@ -315,6 +328,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ci-signal': {
+      id: '/ci-signal'
+      path: '/ci-signal'
+      fullPath: '/ci-signal'
+      preLoaderRoute: typeof CiSignalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/categories': {
       id: '/categories'
       path: '/categories'
@@ -378,6 +398,7 @@ const ToolsRouteWithChildren = ToolsRoute._addFileChildren(ToolsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriesRoute: CategoriesRouteWithChildren,
+  CiSignalRoute: CiSignalRoute,
   ContactRoute: ContactRoute,
   CookiesRoute: CookiesRoute,
   DocsRoute: DocsRoute,
