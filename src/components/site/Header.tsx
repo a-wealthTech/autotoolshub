@@ -34,17 +34,6 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-2 lg:flex">
-          <Link to="/contact" className="rounded-lg px-3 py-2 text-sm font-semibold text-ink hover:text-brand">
-            Sign in
-          </Link>
-          <Link
-            to="/tools"
-            className="rounded-lg bg-gradient-brand px-4 py-2 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
-          >
-            Get Started
-          </Link>
-        </div>
         <button
           onClick={() => setOpen((v) => !v)}
           className="rounded-lg p-2 text-ink lg:hidden"
