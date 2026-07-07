@@ -229,9 +229,6 @@ function Index() {
                 Verified products with the highest ratings, deployments, and active users across the marketplace.
               </p>
             </div>
-            <Link to="/tools" className="hidden text-sm font-semibold text-brand hover:underline sm:inline-flex">
-              Browse all tools →
-            </Link>
           </div>
           <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {TOOLS_BY_POPULARITY.slice(0, 6).map((t) => {
@@ -264,6 +261,14 @@ function Index() {
                 </Link>
               );
             })}
+          </div>
+          <div className="mt-12 flex justify-center">
+            <Link
+              to="/tools"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-8 py-4 text-base font-bold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5"
+            >
+              Browse all tools →
+            </Link>
           </div>
         </div>
       </section>
