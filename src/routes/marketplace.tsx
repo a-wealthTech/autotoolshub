@@ -125,17 +125,27 @@ function ProductRow({
                 <span className="text-sm font-extrabold text-ink">
                   <span className="text-xs font-medium text-muted-foreground">from </span>${t.price}
                 </span>
+              </div>
+              <div className="mt-3 grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    navigate({
-                      to: "/checkout/$toolSlug",
-                      params: { toolSlug: t.slug },
-                    });
+                    navigate({ to: "/tools/$toolSlug", params: { toolSlug: t.slug } });
                   }}
-                  className="rounded-lg bg-gradient-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-brand"
+                  className="rounded-lg border border-border bg-background px-3 py-2 text-center text-xs font-semibold text-ink transition-colors hover:border-brand hover:text-brand"
+                >
+                  View Details
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    navigate({ to: "/checkout/$toolSlug", params: { toolSlug: t.slug } });
+                  }}
+                  className="rounded-lg bg-gradient-brand px-3 py-2 text-center text-xs font-bold text-brand-foreground shadow-brand"
                 >
                   Download Software
                 </button>
