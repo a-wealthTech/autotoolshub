@@ -299,7 +299,7 @@ function CardPanel({
   );
 }
 
-function CryptoPanel({ amount, tool }: { amount: string; tool: { name: string; code: string } }) {
+function CryptoPanel({ amount, tool }: { amount: string; tool: { name: string; code: string; slug: string; price: number } }) {
   const [copied, setCopied] = useState(false);
   const { walletAddress, coin, coinSymbol, network, instructions } = CRYPTO_PAYMENT;
 
