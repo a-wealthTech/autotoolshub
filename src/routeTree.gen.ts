@@ -13,6 +13,7 @@ import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapRouteImport } from './routes/sitemap'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as RefundsRouteImport } from './routes/refunds'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as MarketplaceRouteImport } from './routes/marketplace'
@@ -56,6 +57,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const SitemapRoute = SitemapRouteImport.update({
   id: '/sitemap',
   path: '/sitemap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RefundsRoute = RefundsRouteImport.update({
@@ -194,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
   '/refunds': typeof RefundsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -223,6 +230,7 @@ export interface FileRoutesByTo {
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
   '/refunds': typeof RefundsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -252,6 +260,7 @@ export interface FileRoutesById {
   '/marketplace': typeof MarketplaceRoute
   '/privacy': typeof PrivacyRoute
   '/refunds': typeof RefundsRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
@@ -283,6 +292,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/privacy'
     | '/refunds'
+    | '/reset-password'
     | '/sitemap'
     | '/sitemap.xml'
     | '/terms'
@@ -312,6 +322,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/privacy'
     | '/refunds'
+    | '/reset-password'
     | '/sitemap'
     | '/sitemap.xml'
     | '/terms'
@@ -340,6 +351,7 @@ export interface FileRouteTypes {
     | '/marketplace'
     | '/privacy'
     | '/refunds'
+    | '/reset-password'
     | '/sitemap'
     | '/sitemap.xml'
     | '/terms'
@@ -371,6 +383,7 @@ export interface RootRouteChildren {
   MarketplaceRoute: typeof MarketplaceRoute
   PrivacyRoute: typeof PrivacyRoute
   RefundsRoute: typeof RefundsRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SitemapRoute: typeof SitemapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsRoute: typeof TermsRoute
@@ -407,6 +420,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap'
       fullPath: '/sitemap'
       preLoaderRoute: typeof SitemapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/refunds': {
@@ -662,6 +682,7 @@ const rootRouteChildren: RootRouteChildren = {
   MarketplaceRoute: MarketplaceRoute,
   PrivacyRoute: PrivacyRoute,
   RefundsRoute: RefundsRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SitemapRoute: SitemapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsRoute: TermsRoute,
