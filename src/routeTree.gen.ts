@@ -25,12 +25,18 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ToolsToolSlugRouteImport } from './routes/tools.$toolSlug'
+import { Route as CheckoutSuccessRouteImport } from './routes/checkout.success'
 import { Route as CheckoutToolSlugRouteImport } from './routes/checkout.$toolSlug'
 import { Route as CategoriesCategoryIdRouteImport } from './routes/categories.$categoryId'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedDashboardIndexRouteImport } from './routes/_authenticated/dashboard.index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedDashboardOrdersRouteImport } from './routes/_authenticated/dashboard.orders'
 import { Route as AuthenticatedDashboardAccountRouteImport } from './routes/_authenticated/dashboard.account'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
+import { Route as AuthenticatedAdminPackagesRouteImport } from './routes/_authenticated/admin.packages'
+import { Route as AuthenticatedAdminOrdersRouteImport } from './routes/_authenticated/admin.orders'
 
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
@@ -111,6 +117,11 @@ const ToolsToolSlugRoute = ToolsToolSlugRouteImport.update({
   path: '/$toolSlug',
   getParentRoute: () => ToolsRoute,
 } as any)
+const CheckoutSuccessRoute = CheckoutSuccessRouteImport.update({
+  id: '/checkout/success',
+  path: '/checkout/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CheckoutToolSlugRoute = CheckoutToolSlugRouteImport.update({
   id: '/checkout/$toolSlug',
   path: '/checkout/$toolSlug',
@@ -126,12 +137,22 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedDashboardIndexRoute =
   AuthenticatedDashboardIndexRouteImport.update({
     id: '/',
     path: '/',
     getParentRoute: () => AuthenticatedDashboardRoute,
   } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
 const AuthenticatedDashboardOrdersRoute =
   AuthenticatedDashboardOrdersRouteImport.update({
     id: '/orders',
@@ -143,6 +164,23 @@ const AuthenticatedDashboardAccountRoute =
     id: '/account',
     path: '/account',
     getParentRoute: () => AuthenticatedDashboardRoute,
+  } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminPackagesRoute =
+  AuthenticatedAdminPackagesRouteImport.update({
+    id: '/packages',
+    path: '/packages',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminOrdersRoute =
+  AuthenticatedAdminOrdersRouteImport.update({
+    id: '/orders',
+    path: '/orders',
+    getParentRoute: () => AuthenticatedAdminRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -160,12 +198,18 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tools': typeof ToolsRouteWithChildren
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/checkout/success': typeof CheckoutSuccessRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
+  '/admin/orders': typeof AuthenticatedAdminOrdersRoute
+  '/admin/packages': typeof AuthenticatedAdminPackagesRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/dashboard/account': typeof AuthenticatedDashboardAccountRoute
   '/dashboard/orders': typeof AuthenticatedDashboardOrdersRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
@@ -185,9 +229,14 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/checkout/success': typeof CheckoutSuccessRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
+  '/admin/orders': typeof AuthenticatedAdminOrdersRoute
+  '/admin/packages': typeof AuthenticatedAdminPackagesRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/dashboard/account': typeof AuthenticatedDashboardAccountRoute
   '/dashboard/orders': typeof AuthenticatedDashboardOrdersRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/dashboard': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRoutesById {
@@ -207,12 +256,18 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms': typeof TermsRoute
   '/tools': typeof ToolsRouteWithChildren
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRouteWithChildren
   '/categories/$categoryId': typeof CategoriesCategoryIdRoute
   '/checkout/$toolSlug': typeof CheckoutToolSlugRoute
+  '/checkout/success': typeof CheckoutSuccessRoute
   '/tools/$toolSlug': typeof ToolsToolSlugRoute
+  '/_authenticated/admin/orders': typeof AuthenticatedAdminOrdersRoute
+  '/_authenticated/admin/packages': typeof AuthenticatedAdminPackagesRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/dashboard/account': typeof AuthenticatedDashboardAccountRoute
   '/_authenticated/dashboard/orders': typeof AuthenticatedDashboardOrdersRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/dashboard/': typeof AuthenticatedDashboardIndexRoute
 }
 export interface FileRouteTypes {
@@ -232,12 +287,18 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/tools'
+    | '/admin'
     | '/dashboard'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/checkout/success'
     | '/tools/$toolSlug'
+    | '/admin/orders'
+    | '/admin/packages'
+    | '/admin/users'
     | '/dashboard/account'
     | '/dashboard/orders'
+    | '/admin/'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -257,9 +318,14 @@ export interface FileRouteTypes {
     | '/tools'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/checkout/success'
     | '/tools/$toolSlug'
+    | '/admin/orders'
+    | '/admin/packages'
+    | '/admin/users'
     | '/dashboard/account'
     | '/dashboard/orders'
+    | '/admin'
     | '/dashboard'
   id:
     | '__root__'
@@ -278,12 +344,18 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/terms'
     | '/tools'
+    | '/_authenticated/admin'
     | '/_authenticated/dashboard'
     | '/categories/$categoryId'
     | '/checkout/$toolSlug'
+    | '/checkout/success'
     | '/tools/$toolSlug'
+    | '/_authenticated/admin/orders'
+    | '/_authenticated/admin/packages'
+    | '/_authenticated/admin/users'
     | '/_authenticated/dashboard/account'
     | '/_authenticated/dashboard/orders'
+    | '/_authenticated/admin/'
     | '/_authenticated/dashboard/'
   fileRoutesById: FileRoutesById
 }
@@ -304,6 +376,7 @@ export interface RootRouteChildren {
   TermsRoute: typeof TermsRoute
   ToolsRoute: typeof ToolsRouteWithChildren
   CheckoutToolSlugRoute: typeof CheckoutToolSlugRoute
+  CheckoutSuccessRoute: typeof CheckoutSuccessRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -420,6 +493,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsToolSlugRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/checkout/success': {
+      id: '/checkout/success'
+      path: '/checkout/success'
+      fullPath: '/checkout/success'
+      preLoaderRoute: typeof CheckoutSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/checkout/$toolSlug': {
       id: '/checkout/$toolSlug'
       path: '/checkout/$toolSlug'
@@ -441,12 +521,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard/': {
       id: '/_authenticated/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
       preLoaderRoute: typeof AuthenticatedDashboardIndexRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/dashboard/orders': {
       id: '/_authenticated/dashboard/orders'
@@ -462,8 +556,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardAccountRouteImport
       parentRoute: typeof AuthenticatedDashboardRoute
     }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/packages': {
+      id: '/_authenticated/admin/packages'
+      path: '/packages'
+      fullPath: '/admin/packages'
+      preLoaderRoute: typeof AuthenticatedAdminPackagesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/orders': {
+      id: '/_authenticated/admin/orders'
+      path: '/orders'
+      fullPath: '/admin/orders'
+      preLoaderRoute: typeof AuthenticatedAdminOrdersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
   }
 }
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminOrdersRoute: typeof AuthenticatedAdminOrdersRoute
+  AuthenticatedAdminPackagesRoute: typeof AuthenticatedAdminPackagesRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminOrdersRoute: AuthenticatedAdminOrdersRoute,
+  AuthenticatedAdminPackagesRoute: AuthenticatedAdminPackagesRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
 
 interface AuthenticatedDashboardRouteChildren {
   AuthenticatedDashboardAccountRoute: typeof AuthenticatedDashboardAccountRoute
@@ -484,10 +616,12 @@ const AuthenticatedDashboardRouteWithChildren =
   )
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRouteWithChildren
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRouteWithChildren,
 }
 
@@ -533,6 +667,7 @@ const rootRouteChildren: RootRouteChildren = {
   TermsRoute: TermsRoute,
   ToolsRoute: ToolsRouteWithChildren,
   CheckoutToolSlugRoute: CheckoutToolSlugRoute,
+  CheckoutSuccessRoute: CheckoutSuccessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
