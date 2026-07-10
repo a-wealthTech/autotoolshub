@@ -1,5 +1,9 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { submitCryptoPayment } from "@/lib/api/checkout.functions";
+import { useSession } from "@/hooks/use-session";
+import { Loader2, LogIn } from "lucide-react";
 import {
   ArrowLeft,
   CheckCircle2,
@@ -448,8 +452,8 @@ function CryptoPanel({ amount, tool }: { amount: string; tool: { name: string; c
         </ol>
       </div>
 
-      {/* Verification form */}
-      <VerificationForm tool={tool} amount={amount} coinSymbol={coinSymbol} />
+    {/* Verification form */}
+      <VerificationForm tool={tool} amount={amount} coinSymbol={coinSymbol} amountUsd={tool.price} />
     </div>
   );
 }
@@ -466,29 +470,58 @@ function DetailRow({ icon, label, value }: { icon: React.ReactNode; label: strin
   );
 }
 
-function VerificationForm({ tool, amount, coinSymbol }: { tool: { name: string; code: string }; amount: string; coinSymbol: string }) {
+function VerificationForm({ tool, amount, coinSymbol, amountUsd }: { tool: { name: string; code: string; slug: string }; amount: string; coinSymbol: string; amountUsd: number }) {
+  const { user, loading } = useSession();
+  const submitFn = useServerFn(submitCryptoPayment);
+  const navigate = useNavigate();
   const [txid, setTxid] = useState("");
   const [wallet, setWallet] = useState("");
   const [notes, setNotes] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!txid.trim()) return;
-    setSubmitted(true);
+    setBusy(true); setError(null);
+    try {
+      await submitFn({ data: {
+        toolSlug: tool.slug,
+        toolName: tool.name,
+        amountUsd,
+        txid: txid.trim(),
+        wallet: wallet.trim() || undefined,
+        coin: CRYPTO_PAYMENT.coinSymbol,
+        network: CRYPTO_PAYMENT.network,
+        notes: notes.trim() || undefined,
+      }});
+      navigate({ to: "/checkout/success" });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Submission failed. Please try again.");
+    } finally { setBusy(false); }
   };
 
-  if (submitted) {
+  if (loading) {
+    return <div className="border-t border-border p-6 text-center text-sm text-muted-foreground"><Loader2 className="inline h-4 w-4 animate-spin"/> Loading…</div>;
+  }
+
+  if (!user) {
+    const redirectPath = `/checkout/${tool.slug}`;
     return (
       <div className="border-t border-border bg-brand-soft/40 p-6 text-center sm:p-8">
-        <CheckCircle2 className="mx-auto h-10 w-10 text-brand" />
-        <h3 className="mt-3 text-lg font-bold text-ink">Payment submitted for verification</h3>
+        <LogIn className="mx-auto h-10 w-10 text-brand" />
+        <h3 className="mt-3 text-lg font-bold text-ink">Sign in to submit your payment</h3>
         <p className="mt-1 text-sm text-muted-foreground">
-          Thank you. Our team will verify your {amount} {coinSymbol} payment for{" "}
-          <span className="font-semibold text-ink">{tool.name}</span> and email you once confirmed
-          (typically within 30 minutes).
+          A free account lets us securely link this payment to your library and deliver your download after verification.
         </p>
+        <Link
+          to="/auth"
+          search={{ mode: "signin", redirect: redirectPath }}
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-gradient-brand px-5 py-2.5 text-sm font-bold text-brand-foreground shadow-brand"
+        >
+          <LogIn className="h-4 w-4" /> Sign in or create free account
+        </Link>
       </div>
     );
   }
@@ -538,11 +571,13 @@ function VerificationForm({ tool, amount, coinSymbol }: { tool: { name: string; 
           />
         </Field>
       </div>
+      {error && <div className="mt-4 rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-500">{error}</div>}
       <button
         type="submit"
-        className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5 sm:w-auto"
+        disabled={busy}
+        className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-6 py-3 text-sm font-semibold text-brand-foreground shadow-brand transition-transform hover:-translate-y-0.5 disabled:opacity-60 sm:w-auto"
       >
-        <ShieldCheck className="h-4 w-4" /> Submit Payment for Verification
+        {busy ? <Loader2 className="h-4 w-4 animate-spin"/> : <ShieldCheck className="h-4 w-4" />} Submit Payment for Verification
       </button>
     </form>
   );
