@@ -9,26 +9,31 @@ export const Route = createFileRoute("/categories/$categoryId")({
   loader: ({ params }) => {
     const category = CATEGORIES.find((c) => c.id === params.categoryId);
     if (!category) throw notFound();
-    return { category };
+    return { categoryId: category.id };
   },
-  head: ({ loaderData }) => ({
+  head: ({ loaderData }) => {
+    const category = loaderData
+      ? CATEGORIES.find((c) => c.id === loaderData.categoryId)
+      : undefined;
+    return {
     meta: [
-      { title: `${loaderData?.category.title ?? "Category"} — Biztrait Market` },
-      { name: "description", content: loaderData?.category.description ?? "" },
-      { property: "og:title", content: `${loaderData?.category.title ?? "Category"} — Biztrait Market` },
-      { property: "og:description", content: loaderData?.category.description ?? "" },
+      { title: `${category?.title ?? "Category"} — Biztrait Market` },
+      { name: "description", content: category?.description ?? "" },
+      { property: "og:title", content: `${category?.title ?? "Category"} — Biztrait Market` },
+      { property: "og:description", content: category?.description ?? "" },
       {
         property: "og:url",
-        content: `https://biztrait.com/categories/${loaderData?.category.id ?? ""}`,
+        content: `https://biztrait.com/categories/${category?.id ?? ""}`,
       },
     ],
     links: [
       {
         rel: "canonical",
-        href: `https://biztrait.com/categories/${loaderData?.category.id ?? ""}`,
+        href: `https://biztrait.com/categories/${category?.id ?? ""}`,
       },
     ],
-  }),
+    };
+  },
   component: CategoryPage,
   notFoundComponent: () => (
     <PageShell>
@@ -49,8 +54,10 @@ export const Route = createFileRoute("/categories/$categoryId")({
 });
 
 function CategoryPage() {
-  const { category } = Route.useLoaderData();
+  const { categoryId } = Route.useLoaderData();
+  const category = CATEGORIES.find((c) => c.id === categoryId);
   const navigate = useNavigate();
+  if (!category) throw notFound();
   const tools = TOOL_DETAILS
     .filter((t) => t.categoryId === category.id)
     .sort((a, b) => getToolTrust(b).popularityScore - getToolTrust(a).popularityScore);
