@@ -4,10 +4,10 @@ import { z } from "zod";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { PageShell } from "@/components/site/PageShell";
-import { Loader2, ShieldCheck } from "lucide-react";
+import { Eye, EyeOff, Loader2, ShieldCheck } from "lucide-react";
 
 const searchSchema = z.object({
-  mode: z.enum(["signin", "signup"]).default("signin").optional(),
+  mode: z.enum(["signin", "signup", "forgot"]).default("signin").optional(),
   redirect: z.string().optional(),
 }).partial();
 
@@ -26,15 +26,21 @@ export const Route = createFileRoute("/auth")({
 function AuthPage() {
   const search = useSearch({ from: "/auth" });
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">(search.mode ?? "signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">(search.mode ?? "signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [remember, setRemember] = useState(true);
+  const [acceptTerms, setAcceptTerms] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
 
   const redirectTo = typeof search.redirect === "string" && search.redirect.startsWith("/") ? search.redirect : "/dashboard";
+
+  const pwScore = scorePassword(password);
 
   async function handleGoogle() {
     setBusy(true);
@@ -59,7 +65,17 @@ function AuthPage() {
     setError(null);
     setNotice(null);
     try {
-      if (mode === "signup") {
+      if (mode === "forgot") {
+        const origin = typeof window !== "undefined" ? window.location.origin : "";
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${origin}/reset-password`,
+        });
+        if (error) throw error;
+        setNotice("Password reset email sent successfully. Check your inbox for a secure link.");
+      } else if (mode === "signup") {
+        if (password !== confirmPassword) throw new Error("Passwords do not match.");
+        if (pwScore < 3) throw new Error("Please choose a stronger password (8+ chars, mix of letters, numbers, symbols).");
+        if (!acceptTerms) throw new Error("Please accept the Terms and Privacy Notice to continue.");
         const { data, error } = await supabase.auth.signUp({
           email,
           password,
@@ -70,7 +86,7 @@ function AuthPage() {
         });
         if (error) throw error;
         if (!data.session) {
-          setNotice("Check your inbox to confirm your email, then sign in.");
+          setNotice("Please verify your email to activate your BizTrait Market account, then sign in.");
           setMode("signin");
         } else {
           navigate({ to: redirectTo });
@@ -96,27 +112,32 @@ function AuthPage() {
               <ShieldCheck className="h-6 w-6" />
             </div>
             <h1 className="mt-3 text-2xl font-extrabold text-ink">
-              {mode === "signin" ? "Sign in to your account" : "Create your account"}
+              {mode === "signin" ? "Sign in to BizTrait Market" : mode === "signup" ? "Create your BizTrait Market account" : "Reset your password"}
             </h1>
             <p className="mt-1 text-sm text-muted-foreground">
               {mode === "signin"
                 ? "Access your software downloads and orders."
-                : "Save your purchases and download your software securely."}
+                : mode === "signup"
+                  ? "Save your purchases and download your software securely."
+                  : "Enter your email and we'll send you a secure reset link."}
             </p>
           </div>
 
-          <button
-            type="button"
-            disabled={busy}
-            onClick={handleGoogle}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand disabled:opacity-60"
-          >
-            <GoogleIcon /> Continue with Google
-          </button>
-
-          <div className="my-5 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground">
-            <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
-          </div>
+          {mode !== "forgot" && (
+            <>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={handleGoogle}
+                className="flex w-full items-center justify-center gap-2 rounded-xl border border-border bg-background px-4 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-brand hover:text-brand disabled:opacity-60"
+              >
+                <GoogleIcon /> Continue with Google
+              </button>
+              <div className="my-5 flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground">
+                <span className="h-px flex-1 bg-border" /> or <span className="h-px flex-1 bg-border" />
+              </div>
+            </>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-3">
             {mode === "signup" && (
@@ -129,10 +150,65 @@ function AuthPage() {
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required
                 className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink focus:border-brand focus:outline-none" />
             </FieldRow>
-            <FieldRow label="Password">
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={8}
-                className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink focus:border-brand focus:outline-none" />
-            </FieldRow>
+            {mode !== "forgot" && (
+              <FieldRow label="Password">
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    minLength={8}
+                    className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 pr-10 text-sm text-ink focus:border-brand focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
+                    className="absolute inset-y-0 right-2 flex items-center text-muted-foreground hover:text-ink"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                {mode === "signup" && password.length > 0 && <PasswordStrength score={pwScore} />}
+              </FieldRow>
+            )}
+            {mode === "signup" && (
+              <FieldRow label="Confirm password">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  required
+                  minLength={8}
+                  className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink focus:border-brand focus:outline-none"
+                />
+                {confirmPassword.length > 0 && confirmPassword !== password && (
+                  <p className="mt-1 text-[11px] font-semibold text-red-500">Passwords do not match.</p>
+                )}
+              </FieldRow>
+            )}
+
+            {mode === "signin" && (
+              <div className="flex items-center justify-between text-xs">
+                <label className="flex items-center gap-2 text-ink">
+                  <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="h-3.5 w-3.5 rounded border-border" />
+                  Remember me
+                </label>
+                <button type="button" onClick={() => { setMode("forgot"); setError(null); setNotice(null); }} className="font-semibold text-brand hover:underline">
+                  Forgot password?
+                </button>
+              </div>
+            )}
+
+            {mode === "signup" && (
+              <label className="flex items-start gap-2 text-xs text-ink">
+                <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} className="mt-0.5 h-3.5 w-3.5 rounded border-border" />
+                <span>
+                  I agree to the <Link to="/terms" className="font-semibold text-brand underline">Terms</Link> and <Link to="/privacy" className="font-semibold text-brand underline">Privacy Notice</Link>.
+                </span>
+              </label>
+            )}
 
             {error && <div className="rounded-lg border border-red-500/40 bg-red-500/10 px-3 py-2 text-xs font-semibold text-red-500">{error}</div>}
             {notice && <div className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-600">{notice}</div>}
@@ -140,12 +216,16 @@ function AuthPage() {
             <button type="submit" disabled={busy}
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-brand px-4 py-2.5 text-sm font-bold text-brand-foreground shadow-brand disabled:opacity-60">
               {busy && <Loader2 className="h-4 w-4 animate-spin" />}
-              {mode === "signin" ? "Sign in" : "Create account"}
+              {mode === "signin" ? "Sign in" : mode === "signup" ? "Create account" : "Send reset link"}
             </button>
           </form>
 
           <div className="mt-5 text-center text-sm text-muted-foreground">
-            {mode === "signin" ? (
+            {mode === "forgot" ? (
+              <button type="button" onClick={() => { setMode("signin"); setError(null); setNotice(null); }} className="font-semibold text-brand hover:underline">
+                ← Back to sign in
+              </button>
+            ) : mode === "signin" ? (
               <>Don't have an account?{" "}
                 <button type="button" onClick={() => { setMode("signup"); setError(null); setNotice(null); }} className="font-semibold text-brand hover:underline">Sign up</button>
               </>
@@ -170,6 +250,31 @@ function FieldRow({ label, children }: { label: string; children: React.ReactNod
       <span className="mb-1 block text-xs font-semibold text-ink">{label}</span>
       {children}
     </label>
+  );
+}
+
+function scorePassword(pw: string): number {
+  let s = 0;
+  if (pw.length >= 8) s++;
+  if (pw.length >= 12) s++;
+  if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) s++;
+  if (/\d/.test(pw)) s++;
+  if (/[^A-Za-z0-9]/.test(pw)) s++;
+  return Math.min(s, 4);
+}
+
+function PasswordStrength({ score }: { score: number }) {
+  const labels = ["Very weak", "Weak", "Fair", "Strong", "Very strong"];
+  const colors = ["bg-red-500", "bg-orange-500", "bg-yellow-500", "bg-emerald-500", "bg-emerald-600"];
+  return (
+    <div className="mt-2">
+      <div className="flex gap-1">
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className={`h-1 flex-1 rounded ${i < score ? colors[score] : "bg-border"}`} />
+        ))}
+      </div>
+      <p className="mt-1 text-[11px] font-semibold text-muted-foreground">Password strength: <span className="text-ink">{labels[score]}</span></p>
+    </div>
   );
 }
 
