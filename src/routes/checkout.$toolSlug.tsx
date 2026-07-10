@@ -28,6 +28,7 @@ import {
 import { PageShell } from "@/components/site/PageShell";
 import { getToolBySlug } from "@/lib/categories";
 import { CRYPTO_PAYMENT, qrCodeUrl } from "@/lib/crypto-payment";
+import { AuthRequired } from "@/components/site/AuthRequired";
 
 export const Route = createFileRoute("/checkout/$toolSlug")({
   loader: ({ params }) => {
@@ -52,6 +53,7 @@ function CheckoutPage() {
   const { toolSlug } = Route.useLoaderData();
   const tool = getToolBySlug(toolSlug);
   if (!tool) throw notFound();
+  const { user, loading: sessionLoading } = useSession();
   const [method, setMethod] = useState<"card" | "crypto">("card");
   const [cardSubmitted, setCardSubmitted] = useState(false);
 
@@ -62,6 +64,37 @@ function CheckoutPage() {
     () => (total * CRYPTO_PAYMENT.usdToCoinRate).toFixed(2),
     [total],
   );
+
+  if (sessionLoading) {
+    return (
+      <PageShell>
+        <div className="mx-auto flex min-h-[60vh] max-w-md items-center justify-center px-4">
+          <Loader2 className="h-5 w-5 animate-spin text-brand" />
+        </div>
+      </PageShell>
+    );
+  }
+
+  if (!user) {
+    return (
+      <PageShell>
+        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6 lg:px-8">
+          <Link
+            to="/tools/$toolSlug"
+            params={{ toolSlug: tool.slug }}
+            className="mb-6 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to {tool.name}
+          </Link>
+          <AuthRequired
+            redirectPath={`/checkout/${tool.slug}`}
+            title={`Sign in to purchase ${tool.name}`}
+            description="Please sign in or create an account to continue. This helps us securely deliver your purchased software, verify your payment, and manage your downloads."
+          />
+        </section>
+      </PageShell>
+    );
+  }
 
   return (
     <PageShell>
