@@ -14,6 +14,109 @@ export type Database = {
   }
   public: {
     Tables: {
+      crypto_payment_submissions: {
+        Row: {
+          admin_note: string | null
+          amount_expected: number | null
+          coin: string | null
+          created_at: string
+          email: string
+          id: string
+          network: string | null
+          order_id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          screenshot_path: string | null
+          status: string
+          txid: string
+          updated_at: string
+          user_id: string | null
+          wallet_used: string | null
+        }
+        Insert: {
+          admin_note?: string | null
+          amount_expected?: number | null
+          coin?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          network?: string | null
+          order_id: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          screenshot_path?: string | null
+          status?: string
+          txid: string
+          updated_at?: string
+          user_id?: string | null
+          wallet_used?: string | null
+        }
+        Update: {
+          admin_note?: string | null
+          amount_expected?: number | null
+          coin?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          network?: string | null
+          order_id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          screenshot_path?: string | null
+          status?: string
+          txid?: string
+          updated_at?: string
+          user_id?: string | null
+          wallet_used?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "crypto_payment_submissions_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      download_events: {
+        Row: {
+          created_at: string
+          id: string
+          ip: string | null
+          package_id: string | null
+          tool_slug: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip?: string | null
+          package_id?: string | null
+          tool_slug: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip?: string | null
+          package_id?: string | null
+          tool_slug?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "download_events_package_id_fkey"
+            columns: ["package_id"]
+            isOneToOne: false
+            referencedRelation: "software_packages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       entitlements: {
         Row: {
           active: boolean
@@ -62,6 +165,8 @@ export type Database = {
           paddle_customer_id: string | null
           paddle_subscription_id: string | null
           paddle_transaction_id: string | null
+          payment_method: string | null
+          quantity: number
           raw: Json | null
           status: string
           tool_name: string | null
@@ -78,6 +183,8 @@ export type Database = {
           paddle_customer_id?: string | null
           paddle_subscription_id?: string | null
           paddle_transaction_id?: string | null
+          payment_method?: string | null
+          quantity?: number
           raw?: Json | null
           status?: string
           tool_name?: string | null
@@ -94,6 +201,8 @@ export type Database = {
           paddle_customer_id?: string | null
           paddle_subscription_id?: string | null
           paddle_transaction_id?: string | null
+          payment_method?: string | null
+          quantity?: number
           raw?: Json | null
           status?: string
           tool_name?: string | null
@@ -103,15 +212,108 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      software_packages: {
+        Row: {
+          created_at: string
+          file_path: string
+          file_size_bytes: number | null
+          id: string
+          is_active: boolean
+          os_support: string[] | null
+          release_notes: string | null
+          tool_slug: string
+          updated_at: string
+          uploaded_by: string | null
+          version: string
+        }
+        Insert: {
+          created_at?: string
+          file_path: string
+          file_size_bytes?: number | null
+          id?: string
+          is_active?: boolean
+          os_support?: string[] | null
+          release_notes?: string | null
+          tool_slug: string
+          updated_at?: string
+          uploaded_by?: string | null
+          version: string
+        }
+        Update: {
+          created_at?: string
+          file_path?: string
+          file_size_bytes?: number | null
+          id?: string
+          is_active?: boolean
+          os_support?: string[] | null
+          release_notes?: string | null
+          tool_slug?: string
+          updated_at?: string
+          uploaded_by?: string | null
+          version?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "user" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -238,6 +440,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["user", "admin"],
+    },
   },
 } as const
