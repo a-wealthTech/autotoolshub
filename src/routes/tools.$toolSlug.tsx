@@ -38,30 +38,33 @@ export const Route = createFileRoute("/tools/$toolSlug")({
     const tool = getToolBySlug(params.toolSlug);
     if (!tool) throw notFound();
     const category = CATEGORIES.find((c) => c.id === tool.categoryId)!;
-    return { tool, category };
+    return { toolSlug: tool.slug, categoryId: category.id };
   },
-  head: ({ loaderData }) => ({
+  head: ({ loaderData }) => {
+    const tool = loaderData ? getToolBySlug(loaderData.toolSlug) : undefined;
+    const category = loaderData
+      ? CATEGORIES.find((c) => c.id === loaderData.categoryId)
+      : undefined;
+    return {
     meta: [
-      { title: `${loaderData?.tool.name ?? "Product"} — BizTrait Market` },
+      { title: `${tool?.name ?? "Product"} — BizTrait Market` },
       {
         name: "description",
-        content: `Purchase ${loaderData?.tool.name ?? "this business software"} on BizTrait Market. Verified, professionally supported, and ready for business use.`,
+        content: `Purchase ${tool?.name ?? "this business software"} on BizTrait Market. Verified, professionally supported, and ready for business use.`,
       },
-      { property: "og:title", content: `${loaderData?.tool.name ?? "Product"} — BizTrait Market` },
-      { property: "og:description", content: `Professional ${loaderData?.tool.name ?? "business software"} from BizTrait Market — verified, secure, and ready for business use.` },
+      { property: "og:title", content: `${tool?.name ?? "Product"} — BizTrait Market` },
+      { property: "og:description", content: `Professional ${tool?.name ?? "business software"} from BizTrait Market — verified, secure, and ready for business use.` },
       { property: "og:type", content: "product" },
-      { property: "og:url", content: `https://biztrait.com/tools/${loaderData?.tool.slug ?? ""}` },
+      { property: "og:url", content: `https://biztrait.com/tools/${tool?.slug ?? ""}` },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: `${loaderData?.tool.name ?? "Product"} — BizTrait Market` },
-      { name: "twitter:description", content: `Professional ${loaderData?.tool.name ?? "business software"} from BizTrait Market — verified, secure, and ready for business use.` },
+      { name: "twitter:title", content: `${tool?.name ?? "Product"} — BizTrait Market` },
+      { name: "twitter:description", content: `Professional ${tool?.name ?? "business software"} from BizTrait Market — verified, secure, and ready for business use.` },
     ],
-    links: loaderData
-      ? [{ rel: "canonical", href: `https://biztrait.com/tools/${loaderData.tool.slug}` }]
+    links: tool
+      ? [{ rel: "canonical", href: `https://biztrait.com/tools/${tool.slug}` }]
       : [],
-    scripts: loaderData
+    scripts: tool && category
       ? (() => {
-          const tool = loaderData.tool;
-          const category = loaderData.category;
           const trust = getToolTrust(tool);
           const url = `https://biztrait.com/tools/${tool.slug}`;
           const faqs = buildFaqs(tool.name, category.title, tool.price);
@@ -120,7 +123,8 @@ export const Route = createFileRoute("/tools/$toolSlug")({
           ];
         })()
       : [],
-  }),
+    };
+  },
   component: ToolDetailPage,
   notFoundComponent: () => (
     <PageShell>
@@ -133,7 +137,10 @@ export const Route = createFileRoute("/tools/$toolSlug")({
 });
 
 function ToolDetailPage() {
-  const { tool, category } = Route.useLoaderData();
+  const { toolSlug, categoryId } = Route.useLoaderData();
+  const tool = getToolBySlug(toolSlug);
+  const category = CATEGORIES.find((c) => c.id === categoryId);
+  if (!tool || !category) throw notFound();
   const Icon = tool.icon;
   const trust = getToolTrust(tool);
   const faqs = buildFaqs(tool.name, category.title, tool.price);

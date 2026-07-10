@@ -33,20 +33,25 @@ export const Route = createFileRoute("/checkout/$toolSlug")({
   loader: ({ params }) => {
     const tool = getToolBySlug(params.toolSlug);
     if (!tool) throw notFound();
-    return { tool };
+    return { toolSlug: tool.slug };
   },
-  head: ({ loaderData }) => ({
+  head: ({ loaderData }) => {
+    const tool = loaderData ? getToolBySlug(loaderData.toolSlug) : undefined;
+    return {
     meta: [
-      { title: `Checkout — ${loaderData?.tool.name ?? "Product"} — BizTrait Market` },
+      { title: `Checkout — ${tool?.name ?? "Product"} — BizTrait Market` },
       { name: "description", content: "Secure checkout for BizTrait Market business software and services." },
       { name: "robots", content: "noindex,follow" },
     ],
-  }),
+    };
+  },
   component: CheckoutPage,
 });
 
 function CheckoutPage() {
-  const { tool } = Route.useLoaderData();
+  const { toolSlug } = Route.useLoaderData();
+  const tool = getToolBySlug(toolSlug);
+  if (!tool) throw notFound();
   const [method, setMethod] = useState<"card" | "crypto">("card");
   const [cardSubmitted, setCardSubmitted] = useState(false);
 
