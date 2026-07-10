@@ -167,7 +167,7 @@ export const adminUploadUrl = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { data: signed, error } = await supabaseAdmin.storage
       .from("software-packages")
-      .createSignedUploadURL(data.path);
+      .createSignedUploadUrl(data.path);
     if (error || !signed) throw new Error(error?.message ?? "Failed to create upload URL");
     return { url: signed.signedUrl, path: signed.path, token: signed.token };
   });
