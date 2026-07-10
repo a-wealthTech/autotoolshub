@@ -4,7 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { adminListPackages, adminUpsertPackage, adminUploadUrl } from "@/lib/api/admin.functions";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, Upload, Plus } from "lucide-react";
-import { CATEGORIES } from "@/lib/categories";
+import { TOOL_DETAILS } from "@/lib/categories";
 
 export const Route = createFileRoute("/_authenticated/admin/packages")({ component: AdminPackages });
 
@@ -23,7 +23,7 @@ function AdminPackages() {
   const [file, setFile] = useState<File | null>(null);
   const [os, setOs] = useState("Windows,macOS,Linux");
 
-  const allTools = CATEGORIES.flatMap((c) => c.tools.map((t) => ({ slug: t.slug, name: t.name })));
+  const allTools = TOOL_DETAILS.map((t) => ({ slug: t.slug, name: t.name }));
 
   async function load() { const r = await list(); setPackages(r.packages); }
   useEffect(() => { load(); }, []);
